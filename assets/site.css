@@ -1,8 +1,8 @@
-@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=c026b6a0) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=c026b6a0) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=c026b6a0) format('woff2')}
-@font-face{font-family:'Kalam';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/kalam-400.woff2?v=c026b6a0) format('woff2')}
-@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=c026b6a0) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=b256a8ae) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=b256a8ae) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=b256a8ae) format('woff2')}
+@font-face{font-family:'Kalam';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/kalam-400.woff2?v=b256a8ae) format('woff2')}
+@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=b256a8ae) format('woff2')}
 /* Georgia Bold scaled to Yrsa's width and height (build/fonts metrics), so headings don't jump when Yrsa arrives */
 @font-face{font-family:'Yrsa fallback';font-style:normal;font-weight:600 700;font-display:swap;src:local('Georgia Bold'),local('Georgia-Bold');size-adjust:76.9%;ascent-override:94.7%;descent-override:35.4%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -837,7 +837,12 @@ blockquote.pull.result p{font:400 18px/1.6 'Hind',system-ui,sans-serif;color:var
 .note.care{margin-top:18px}
 .note.care ul.pts{margin:4px 0 8px}
 .note ul.pts li{padding-top:2px;padding-bottom:2px}
-ol.pts.steps li{padding-left:32px;margin-bottom:8px}
+/* a plain numbered list that also carries .steps: a list down the page, not the /plans/ card grid */
+ol.pts.steps{display:block;margin-top:14px}
+ol.pts.steps li{background:none;border:0;border-radius:0;border-top:1px solid var(--rule);padding:14px 0 14px 46px;margin:0;line-height:1.55}
+ol.pts.steps li:last-child{border-bottom:1px solid var(--rule)}
+ol.pts.steps li::before{top:14px;width:30px;height:30px;font:700 16px/30px 'Yrsa',Georgia,serif;background:var(--haldi);color:var(--ink)}
+ol.pts.steps li b{display:block;margin-bottom:2px}
 
 /* ===== walls-a: breaking walls of text on /foods/, eat-and-avoid and /calories/ pages =====
    .pts: a short list with bold lead-in labels, used where a paragraph listed rules, servings or steps. */
