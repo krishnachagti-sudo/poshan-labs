@@ -1,8 +1,8 @@
-@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=b6d53de4) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=b6d53de4) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=b6d53de4) format('woff2')}
-@font-face{font-family:'Kalam';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/kalam-400.woff2?v=b6d53de4) format('woff2')}
-@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=b6d53de4) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=2fe3287c) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=2fe3287c) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=2fe3287c) format('woff2')}
+@font-face{font-family:'Kalam';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/kalam-400.woff2?v=2fe3287c) format('woff2')}
+@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=2fe3287c) format('woff2')}
 /* Georgia Bold scaled to Yrsa's width and height (build/fonts metrics), so headings don't jump when Yrsa arrives */
 @font-face{font-family:'Yrsa fallback';font-style:normal;font-weight:600 700;font-display:swap;src:local('Georgia Bold'),local('Georgia-Bold');size-adjust:76.9%;ascent-override:94.7%;descent-override:35.4%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}

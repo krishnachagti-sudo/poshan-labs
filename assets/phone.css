@@ -409,3 +409,8 @@ html:not(.js-sheets) .menu-sheet{display:none}
 /* the row under the certificates and the foods hub's ways in (phone.js) */
 .row-nav{margin-top:6px}
 .quals+.row-nav,.foodguides+.row-nav{margin-bottom:6px}
+/* a plain numbered list that also carries .steps: the text runs the full width beside its number, not in the 34 px grid
+   column the /plans/ step cards use */
+ol.pts.steps li{display:block;padding:12px 0 12px 44px}
+ol.pts.steps li::before{top:12px}
+.credits .credit-list{columns:1}
