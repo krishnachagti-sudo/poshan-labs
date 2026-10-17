@@ -80,12 +80,15 @@
      Reduced motion and Save-Data get the still frame only. On a phone only the film most in view plays and downloads:
      one that leaves the screen half-fetched is dropped back to its still frame, so its download stops too. ---------- */
   var conn = navigator.connection || {};
-  var stillOnly = reduce || conn.saveData || /2g|3g/.test(conn.effectiveType || "");  // a slow line gets the still frame too
+  var stillOnly = reduce || conn.saveData;  // reduced motion and Save-Data start on the still frame; a play button is still there
   var small = window.matchMedia && matchMedia("(max-width:760px)");
   var PAUSE = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>';
   var PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2l10 6-10 6z"/></svg>';
   function poster(v) { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; }
-  function play(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  function play(v) {  // a device that blocks autoplay (iPhone Low Power Mode, browser settings) gets the play button instead
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { v.dataset.held = "1"; if (v._showToggle) v._showToggle(); });
+  }
   function fetchFilm(v) {
     if (v.dataset.loaded) return;
     poster(v);
@@ -111,6 +114,7 @@
       if (v.dataset.held) { delete v.dataset.held; resume(v); } else { v.dataset.held = "1"; v.pause(); }
       show();
     });
+    v._showToggle = show;
     show();
     v.parentNode.appendChild(b);
   }
@@ -122,7 +126,10 @@
       entries.forEach(function (e) { if (e.isIntersecting) { poster(e.target); near.unobserve(e.target); } });
     }, { rootMargin: phone ? "1000px 0px" : "600px 0px" });
     vids.forEach(function (v) { near.observe(v); });
-    if (stillOnly) return;  // reduced motion and Save-Data: the poster is all they download
+    if (stillOnly) {  // reduced motion and Save-Data: the poster is all they download unless they press play
+      vids.forEach(function (v) { v.dataset.held = "1"; toggle(v, function (x) { fetchFilm(x); play(x); }); });
+      return;
+    }
     if (phone) { phoneVideos(vids); return; }
     var vio = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
