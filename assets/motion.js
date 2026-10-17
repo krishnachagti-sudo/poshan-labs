@@ -87,7 +87,27 @@
   function poster(v) { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; }
   function play(v) {  // a device that blocks autoplay (iPhone Low Power Mode, browser settings) gets the play button instead
     var p = v.play();
-    if (p && p.catch) p.catch(function () { v.dataset.held = "1"; if (v._showToggle) v._showToggle(); });
+    if (p && p.catch) p.catch(function () {
+      v.dataset.held = "1"; v.dataset.autoheld = "1"; if (v._showToggle) v._showToggle();
+      armUnlock();
+    });
+  }
+  /* Autoplay refused (Low Power Mode, browser settings): the first click, tap or key anywhere counts as permission,
+     so the films that were refused start then, unless the reader paused one themselves. */
+  var unlockArmed = false;
+  function armUnlock() {
+    if (unlockArmed) return;
+    unlockArmed = true;
+    function go() {
+      ["pointerdown", "keydown"].forEach(function (n) { document.removeEventListener(n, go, true); });
+      Array.prototype.forEach.call(document.querySelectorAll("video[data-autoheld]"), function (v) {
+        delete v.dataset.autoheld; delete v.dataset.held;
+        var r = v.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < window.innerHeight) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
+        if (v._showToggle) v._showToggle();
+      });
+    }
+    ["pointerdown", "keydown"].forEach(function (n) { document.addEventListener(n, go, true); });
   }
   function fetchFilm(v) {
     if (v.dataset.loaded) return;

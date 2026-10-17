@@ -244,7 +244,7 @@
     s.bands.forEach(function (b, i) {
       var x = X + W * b.from, w = W * (b.to - b.from);
       var anchor = i === 0 ? "start" : i === last ? "end" : "middle", tx = i === 0 ? x + 2 : i === last ? x + w - 2 : x + w / 2;
-      out += '<path d="' + wobBox(x + 2, Y + 3, w - 2, H - 4, i + 3) + '" fill="' + b.color + '" opacity=".72"/>';
+      out += '<path class="sb" d="' + wobBox(x + 2, Y + 3, w - 2, H - 4, i + 3) + '" fill="' + b.color + '" opacity=".72"/>';
       out += '<text x="' + tx.toFixed(0) + '" y="' + (Y + H + 50) + '" text-anchor="' + anchor + '" font-size="' + (w < 60 ? 17 : 20) + '"' + font + ">" + b.label + "</text>";
     });
     s.cuts.forEach(function (c, i) {
@@ -252,12 +252,12 @@
       out += '<path d="' + wobLine(x, Y - 4, x, Y + H + 4, i + 9) + '" stroke="' + INK + '" stroke-width="1.6" fill="none"/>';
       out += '<text x="' + x.toFixed(0) + '" y="' + (Y + H + 20) + '" text-anchor="middle" font-size="16" fill="' + INK + '" font-family="Hind, sans-serif">' + c.v + "</text>";
     });
-    out += '<path d="' + wobBox(X, Y, W, H, 1) + '" stroke="' + INK + '" stroke-width="2.2" fill="none" stroke-linejoin="round"/>';
+    out += '<path class="so" pathLength="1" d="' + wobBox(X, Y, W, H, 1) + '" stroke="' + INK + '" stroke-width="2.2" fill="none" stroke-linejoin="round"/>';
     var label = "you, " + text, half = label.length * 22 * 0.25 + 2;  /* Kalam runs about half an em a letter */
     var mx = X + W * s.at, lx = Math.min(VW - half, Math.max(half, mx));
-    out += '<path d="M' + lx.toFixed(0) + " 33 Q" + ((lx + mx) / 2 + 8).toFixed(0) + " 42 " + mx.toFixed(0) + " " + (Y - 3) + '" stroke="' + LAB + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
-      '<path d="M' + (mx - 6).toFixed(0) + " " + (Y - 11) + " L" + mx.toFixed(0) + " " + (Y - 2) + " L" + (mx + 6).toFixed(0) + " " + (Y - 11) + '" stroke="' + LAB + '" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<text x="' + lx.toFixed(0) + '" y="26" text-anchor="middle" font-size="22"' + font + ' stroke="' + LAB + '" stroke-width=".6">' + label + "</text>";
+    out += '<g class="sm" style="--mx:' + ((mx - X) / W).toFixed(3) + '"><path pathLength="1" d="M' + lx.toFixed(0) + " 33 Q" + ((lx + mx) / 2 + 8).toFixed(0) + " 42 " + mx.toFixed(0) + " " + (Y - 3) + '" stroke="' + LAB + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+      '<path pathLength="1" d="M' + (mx - 6).toFixed(0) + " " + (Y - 11) + " L" + mx.toFixed(0) + " " + (Y - 2) + " L" + (mx + 6).toFixed(0) + " " + (Y - 11) + '" stroke="' + LAB + '" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<text x="' + lx.toFixed(0) + '" y="26" text-anchor="middle" font-size="22"' + font + ' stroke="' + LAB + '" stroke-width=".6">' + label + "</text></g>";
     return '<svg class="scale" viewBox="0 0 ' + VW + " " + VH + '" role="img" aria-label="Scale from ' + s.bands.map(function (b) { return b.label; }).join(" to ") +
       ", with your result, " + text + ', marked">' + out + "</svg>";
   }
@@ -442,6 +442,34 @@
     var big = out.querySelector(".big"), p = big && big.nextElementSibling;
     return big ? big.textContent + (p && p.tagName === "P" ? ". " + p.textContent : "") : "";
   }
+
+  /* The answer lands when someone presses "Show my answer" (never on each keystroke, never with reduced motion).
+     Three takes, picked with ?anim=a|b|c while the owner chooses: a = pour (count up, bands fill, arrow drops),
+     b = ink (written in, scale drawn, arrow drawn), c = lid (a haldi lid lifts off, arrow slides to its place). */
+  var ANIM = (location.search.match(/[?&]anim=([abc])/) || [0, "a"])[1];
+  function countUp(el, ms) {
+    var m = el.textContent.match(/^(\D*?)([\d,]+(?:\.\d+)?)(.*)$/);
+    if (!m) return;
+    var pre = m[1], end = Number(m[2].replace(/,/g, "")), post = m[3], dec = (m[2].split(".")[1] || "").length, t0 = null, hasComma = m[2].indexOf(",") > -1;
+    function fmt(x) { var s = x.toFixed(dec); return hasComma ? Number(s).toLocaleString("en-IN", { minimumFractionDigits: dec, maximumFractionDigits: dec }) : s; }
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = pre + fmt(end * e) + post;
+      if (k < 1) requestAnimationFrame(step); else el.textContent = pre + m[2] + post;
+    }
+    requestAnimationFrame(step);
+  }
+  function reveal(out) {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    out.classList.remove("anim-a", "anim-b", "anim-c");
+    void out.offsetWidth;  // restart the animation if it is already running
+    out.classList.add("anim-" + ANIM);
+    var big = out.querySelector(".big");
+    if (big && ANIM !== "b") countUp(big, ANIM === "c" ? 900 : 800);
+    clearTimeout(out._animT);
+    out._animT = setTimeout(function () { out.classList.remove("anim-" + ANIM); }, 2200);
+  }
   function bind(form) {
     var out = form.querySelector(".result"), err = form.querySelector(".err"), kind = form.getAttribute("data-tool");
     var fields = (form.getAttribute("data-fields") || "").split(" "), next = nextOf(form), shown = false, say = announcer(form);
@@ -579,6 +607,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (bad()) show({ html: WAITING, error: BAD_NUMBER }, true); else show(answer(kind, values(form), next), true);
+      if (real) reveal(out);
       bringIntoView();
     });
     example(true);
