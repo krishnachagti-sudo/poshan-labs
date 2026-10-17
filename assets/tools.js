@@ -207,14 +207,14 @@
 
   /* Band scales: where a number falls between the cut-offs the tool already uses. */
   var SCALES = {
-    bmi: function () { return { min: 15, max: 35, digits: 1, bands: [["under", "Under", 18.5, "#9cb7c9"], ["healthy", "Healthy", 23, "#a6c98a"], ["over", "Over", 25, "#E2B93B"], ["obese", "Obese", 35, "#e0533e"]] }; },
+    bmi: function () { return { min: 15, max: 35, digits: 1, bands: [["under", "Under", 18.5, "#9cb7c9"], ["healthy", "Healthy", 23, "#a6c98a"], ["over", "Over", 25, "#E59A57"], ["obese", "Obese", 35, "#e0533e"]] }; },
     whtr: function () { return { min: 0.35, max: 0.75, digits: 2, bands: [["ok", "Under half", 0.5, "#a6c98a"], ["flag", "Over half", 0.75, "#e0533e"]] }; },
     homa: function () { return { min: 0, max: 4, digits: 2, bands: [["low", "Under 1.4", 1.4, "#a6c98a"], ["mid", "1.4 to 2.5", 2.5, "#d8d3a0"], ["high", "2.5 and over", 4, "#e0533e"]] }; },
     whr: function (sex) { var cut = sexOf(sex) === "male" ? 0.9 : 0.85;
       return { min: 0.65, max: 1.1, digits: 2, bands: [["ok", "Below the cut-off", cut, "#a6c98a"], ["flag", "Above it", 1.1, "#e0533e"]] }; },
     /* ACE body fat chart: each scale is 30 points wide, so the narrow "Fit" band always has room for its name */
     bodyfat: function (sex) { var c = ACE[sexOf(sex)], lo = sex === "male" ? 5 : 12;
-      return { min: lo, max: lo + 30, digits: 1, bands: [["athletic", "Athletic", c[0], "#9cb7c9"], ["fit", "Fit", c[1], "#a6c98a"], ["average", "Average", c[2], "#E2B93B"], ["high", "Obese", lo + 30, "#e0533e"]] }; },
+      return { min: lo, max: lo + 30, digits: 1, bands: [["athletic", "Athletic", c[0], "#9cb7c9"], ["fit", "Fit", c[1], "#a6c98a"], ["average", "Average", c[2], "#E59A57"], ["high", "Obese", lo + 30, "#e0533e"]] }; },
   };
   function scale(kind, value, sex) {
     var s = SCALES[kind](sex), span = s.max - s.min, from = s.min;
@@ -239,8 +239,8 @@
     /* drawn at 440 x 156: 20 px of air each side, the "you" label on top, the band in the middle, the cut-off numbers
        under it and the band names on a row of their own below those. The first band name starts at the left edge and the
        last ends at the right edge, so no name is clipped; the ones between are centred on their band. */
-    var VW = 440, VH = 156, X = 20, W = 400, Y = 58, H = 30, INK = "#2A2620", LAB = "#6E1F14", out = "";
-    var font = ' font-family="Kalam, cursive" fill="' + LAB + '"', last = s.bands.length - 1;
+    var VW = 440, VH = 156, X = 20, W = 400, Y = 58, H = 30, INK = "#1F2A1B", LAB = "#2C431C", out = "";
+    var font = ' font-family="Hind, sans-serif" font-weight="500" fill="' + LAB + '"', last = s.bands.length - 1;
     s.bands.forEach(function (b, i) {
       var x = X + W * b.from, w = W * (b.to - b.from);
       var anchor = i === 0 ? "start" : i === last ? "end" : "middle", tx = i === 0 ? x + 2 : i === last ? x + w - 2 : x + w / 2;
@@ -253,11 +253,11 @@
       out += '<text x="' + x.toFixed(0) + '" y="' + (Y + H + 20) + '" text-anchor="middle" font-size="16" fill="' + INK + '" font-family="Hind, sans-serif">' + c.v + "</text>";
     });
     out += '<path class="so" pathLength="1" d="' + wobBox(X, Y, W, H, 1) + '" stroke="' + INK + '" stroke-width="2.2" fill="none" stroke-linejoin="round"/>';
-    var label = "you, " + text, half = label.length * 22 * 0.25 + 2;  /* Kalam runs about half an em a letter */
+    var label = "you, " + text, half = label.length * 22 * 0.26 + 2;  /* Hind runs about half an em a letter */
     var mx = X + W * s.at, lx = Math.min(VW - half, Math.max(half, mx));
     out += '<g class="sm" style="--mx:' + ((mx - X) / W).toFixed(3) + '"><path pathLength="1" d="M' + lx.toFixed(0) + " 33 Q" + ((lx + mx) / 2 + 8).toFixed(0) + " 42 " + mx.toFixed(0) + " " + (Y - 3) + '" stroke="' + LAB + '" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
       '<path pathLength="1" d="M' + (mx - 6).toFixed(0) + " " + (Y - 11) + " L" + mx.toFixed(0) + " " + (Y - 2) + " L" + (mx + 6).toFixed(0) + " " + (Y - 11) + '" stroke="' + LAB + '" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<text x="' + lx.toFixed(0) + '" y="26" text-anchor="middle" font-size="22"' + font + ' stroke="' + LAB + '" stroke-width=".6">' + label + "</text></g>";
+      '<text x="' + lx.toFixed(0) + '" y="26" text-anchor="middle" font-size="22"' + font.replace('"500"', '"600"') + '>' + label + "</text></g>";
     return '<svg class="scale" viewBox="0 0 ' + VW + " " + VH + '" role="img" aria-label="Scale from ' + s.bands.map(function (b) { return b.label; }).join(" to ") +
       ", with your result, " + text + ', marked">' + out + "</svg>";
   }
@@ -424,6 +424,7 @@
   }
   /* U12: a real answer rides along in every WhatsApp message on the page; the example, a prompt or a wrong box takes it off. */
   function carry(line) {
+    root.poshanAnswer = line || "";  /* book.js puts it in the booking form's note */
     Array.prototype.forEach.call(document.querySelectorAll('a[href^="https://wa.me/"]'), function (a) {
       if (!a.hasAttribute("data-wa-base")) a.setAttribute("data-wa-base", a.getAttribute("href"));
       a.setAttribute("href", waHref(a.getAttribute("data-wa-base"), line));
@@ -513,10 +514,13 @@
        pointer, whichever box they are in or moving to: a shorter answer keeps the old height as a minimum, a taller one
        scrolls the page by the difference. */
     function keepStill(update) {
-      var before = block.getBoundingClientRect().top, h = out.offsetHeight;
+      var before = block.getBoundingClientRect().top, h = out.getBoundingClientRect().height;  // fractional: offsetHeight rounds
       out.style.minHeight = "";
       update();
-      if (out.offsetHeight < h) out.style.minHeight = h + "px";
+      var nh = out.getBoundingClientRect().height;
+      // shorter: keep the old height exactly; taller: grow by whole pixels, so the scroll below moves the boxes back exactly
+      if (nh < h) out.style.minHeight = h + "px";
+      else if (nh > h) out.style.minHeight = (h + Math.ceil(nh - h - 0.001)) + "px";
       var moved = block.getBoundingClientRect().top - before;
       if (moved) window.scrollBy({ top: moved, behavior: "instant" });
     }

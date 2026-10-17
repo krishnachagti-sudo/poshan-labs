@@ -9,50 +9,13 @@
   function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
 
   /* ---------- only things that mean something animate ---------- */
-  var REVEAL = ["main .verdicts .row", "main .notebook", "main .katoris", "main svg.thali", "main svg.dabba"];
+  var REVEAL = ["main .verdicts .row", "main .katoris", "main svg.thali"];
   function tag() {
     each(REVEAL.join(","), function (el) {
       var sibs = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
       el.style.setProperty("--i", Math.min(sibs, 8));
       el.classList.add("rv");
     });
-    each(".notebook", function (nb) { each("p", function (p, i) { p.style.setProperty("--n", i); }, nb); });
-  }
-
-  var lidEl = document.querySelector(".lid-cover");
-  if (lidEl && doc.classList.contains("arriving")) {
-    lidEl.addEventListener("animationend", function (e) { if (e.target === lidEl) doc.classList.remove("arriving"); });
-    setTimeout(function () { doc.classList.remove("arriving"); }, 500);
-    // the drawing is not in the page: the head script fetched /assets/lid.svg (cached for a year) when it saw the flag
-    if (window.poshanLid) window.poshanLid.then(function (svg) {
-      var stage = lidEl.querySelector(".lid-stage");
-      if (svg && stage && doc.classList.contains("arriving")) stage.insertAdjacentHTML("afterbegin", svg);
-    }, function () {});
-  }
-
-  /* ---------- the dabba lid: tapping an internal link closes the lid; the next page lifts it (under 300 ms, and not on phones) ---------- */
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest("a[href^='/']");
-    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank" || a.hasAttribute("download")) return;
-    // only a real move to another page: not a #section on this page, not a file under /assets/ or a .pdf
-    if (a.pathname === location.pathname || /^\/assets\/|\.[a-z0-9]{2,5}$/i.test(a.pathname)) return;
-    if (window.innerWidth > 760) { try { sessionStorage.setItem("lid", "1"); } catch (x) {} }  // phones skip the lid
-  });
-
-  /* ---------- spice trail ---------- */
-  var TRAIL = { "weight-loss": "#E0A11B", pcos: "#B8321F", diabetes: "#7A4A22", menopause: "#5C9A35" };
-  var trail = null;
-  function setupTrail() {
-    trail = document.createElement("div");
-    trail.className = "spice-trail";
-    var m = location.pathname.match(/(weight-loss|pcos|diabetes|menopause)/);
-    trail.style.setProperty("--trail", m ? TRAIL[m[1]] : "#E0A11B");
-    document.body.appendChild(trail);
-  }
-  function trailUpdate() {
-    if (!trail) return;
-    var max = document.documentElement.scrollHeight - innerHeight;
-    trail.style.height = (max > 0 ? (scrollY / max) * 100 : 0) + "vh";
   }
 
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
@@ -263,7 +226,6 @@
     tag();
     if (io) each(".rv, [data-count]", function (el) { io.observe(el); });
     else each(".rv", function (el) { el.classList.add("in"); });
-    setupTrail();
     videos();
     bands = Array.prototype.slice.call(document.querySelectorAll(".vid-band"));
     setupH();
@@ -271,7 +233,7 @@
     var ticking = false;
     window.addEventListener("scroll", function () {
       if (ticking) return; ticking = true;
-      requestAnimationFrame(function () { parallax(); scrollH(); trailUpdate(); ticking = false; });
+      requestAnimationFrame(function () { parallax(); scrollH(); ticking = false; });
     }, { passive: true });
     window.addEventListener("resize", sizeH);
     parallax();

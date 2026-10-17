@@ -1,6 +1,6 @@
 /* Phone edition. Loaded after site.css with media="(max-width:760px)", so every rule here is phone-only and wins ties.
-   The look is the approved mock (design/build_mobile_v3.py): the desktop's own haldi band, tiles, Hind and Yrsa, ruled paper,
-   arranged the way phones read. Class contract for page families: .ph phone-only, .dk desktop-only, .sheet[id] opened by
+   The look follows the desktop's clean green and white (2026-10-17): a white bar, a pale green band, Yrsa headings over
+   Hind, arranged the way phones read. Class contract for page families: .ph phone-only, .dk desktop-only, .sheet[id] opened by
    [data-sheet="id"], .rows row list, .swipe sideways row, .goals switcher with [data-goal] panes. */
 :root{--m:20px;--tab:56px}
 *{-webkit-tap-highlight-color:transparent}
@@ -10,35 +10,32 @@ h1,h2{font-weight:700;line-height:1.1}
 .ph{display:revert}
 .dk{display:none!important}
 .lid-cover{display:none!important}
-.tiles{height:18px;background-size:18px 18px}
-.steel{height:6px;background:linear-gradient(#cfd3d5,#9aa0a4 50%,#e2e5e6);border:0}
 
-/* the band: the desktop's haldi header; the bar with the name (or the way back) and the booking button stays pinned.
+/* the band: the desktop's header; the white bar with the name (or the way back) and the booking button stays pinned.
    The band and its .wide step aside so the bar can stick to the whole page, not just the header. */
 .band,.band>.wide{display:contents}
 .pbar{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:64px;
-  background:var(--haldi);padding:10px var(--m);border-bottom:1px solid rgba(42,38,32,.2)}
+  background:#fff;padding:10px var(--m);border-bottom:1px solid var(--rule)}
 .pbar .mark{display:flex;flex-direction:column;justify-content:center;min-height:44px;font-size:25px}.pbar .mark small{display:block;font-size:13px;margin-top:3px}
 .pbar .back{color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;display:flex;align-items:center;gap:4px;min-height:44px;min-width:0;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pbar .cta{flex:none;display:flex;align-items:center;min-height:44px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:15px;
-  padding:9px 14px;border-radius:4px;white-space:nowrap}
-.hero,.hero.has-img{display:block;background:var(--haldi);padding:18px var(--m) 24px}
-.hero.has-img{padding-bottom:0}.hero.has-img .txt{padding:0 0 24px}
-.crumbs{font-size:15px;color:#4B3A12;margin-bottom:6px}.crumbs a{color:#4B3A12}
+.pbar .cta{flex:none;display:flex;align-items:center;min-height:44px;background:var(--leaf);color:#fff;text-decoration:none;font-weight:600;font-size:15px;
+  padding:9px 16px;border-radius:6px;white-space:nowrap}
+.hero,.hero.has-img{display:block;background:var(--band);padding:22px var(--m) 26px}
+.hero.has-img{padding-bottom:22px}.hero.has-img .txt{padding:0 0 20px}
+.crumbs{font-size:15px;color:var(--muted);margin-bottom:6px}.crumbs a{color:var(--muted)}
 .hero h1,.hero.has-img h1{font-size:30px;line-height:1.12}
-.hero .txt>p,.hero .txt .intro p{font-size:17px;color:#3A2F14;margin-top:10px}
+.hero .txt>p,.hero .txt .intro p{font-size:17px;color:var(--ink);margin-top:10px}
 .hero .more{display:none}  /* layout.phone_intro: phones read one or two sentences of the intro */
-.hero .btn{background:var(--ink);border-color:var(--ink);margin-top:18px}
-.hero .btn.ghost{background:transparent;color:var(--ink)}
-.hero-img{height:300px;object-position:50% 12%;border-radius:4px 4px 0 0}
+.hero .btn{margin-top:18px}
+.hero-img{height:340px;aspect-ratio:auto;object-position:64% 20%;border-radius:6px}
 
-/* sections, like desktop: white and cream, a rule between (.read and .wide give the side margins) */
-.sec{padding:28px 0;border-top:1px solid var(--rule)}.sec.tint{background:var(--cream)}
-.sec h2{font-size:25px;margin-bottom:10px}
+/* sections, like desktop: white and pale green, a rule between (.read and .wide give the side margins) */
+.sec{padding:40px 0;border-top:1px solid var(--rule)}.sec.tint{background:var(--tint)}
+.sec h2{font-size:28px;margin-bottom:12px}
 .read h2:not(:first-child),.wide h2:not(:first-child){margin-top:30px}
 .sec p+p{margin-top:12px}.small{font-size:15px;color:var(--muted)}
-.btn{display:block;text-align:center;font-size:17px;padding:14px;border-radius:4px;margin-top:16px}
+.btn{display:block;text-align:center;font-size:17px;padding:14px;border-radius:6px;margin-top:16px}
 .ctas{flex-direction:column;gap:10px;margin-top:18px}.ctas .btn{margin-top:0}
 
 /* rows: the desktop's .lib list, with a chevron so it's clear they open */
@@ -49,8 +46,8 @@ h1,h2{font-weight:700;line-height:1.1}
 .rows .tx{flex:1;min-width:0}.rows .tx b{display:block;font-weight:600;font-size:18px;line-height:1.3}
 .rows .tx span{display:block;font-size:15px;color:var(--muted);line-height:1.4;margin-top:2px}
 .rows .k{font-size:15px;color:var(--muted);white-space:nowrap}
-.rows .chev{color:#8F836E;font-size:24px;line-height:1}
-.rows .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--haldi);font:700 17px/30px 'Yrsa','Yrsa fallback',Georgia,serif;text-align:center;padding:0}
+.rows .chev{color:var(--control);font-size:24px;line-height:1}
+.rows .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;font:700 17px/30px 'Yrsa','Yrsa fallback',Georgia,serif;text-align:center;padding:0}
 .rows i.spice{width:14px;height:14px;flex:0 0 14px;margin:0}
 
 /* a sideways row: photos and captions side by side, the next one peeking */
@@ -59,13 +56,12 @@ h1,h2{font-weight:700;line-height:1.1}
 .swipe::-webkit-scrollbar{display:none}.swipe>*{flex:0 0 82%;scroll-snap-align:start}
 .swipe img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}.swipe figcaption{font-size:16px;margin-top:8px;line-height:1.45}
 
-/* notebook paper, the desktop's, a little narrower */
-.notebook{padding:18px 16px 14px 46px}.notebook:before{left:32px}
-.notebook .tape{top:-10px;width:70px;height:20px;margin-left:-35px}
-.notebook p,.notebook li{font-size:18px}
-.meal{background:#fffdf7 repeating-linear-gradient(#fffdf7 0 31px,#ece4d2 31px 32px);border:1px solid var(--rule);border-radius:4px;padding:10px 12px}
+/* the note, a little tighter */
+.notebook{padding:14px 16px}
+.notebook p,.notebook li{font-size:17px}
+.meal{background:#fff;border:1px solid var(--rule);border-radius:4px;padding:10px 12px}
 .meal svg.thali{width:100%;max-width:320px;height:auto;display:block;margin:0 auto}
-.meal ul{list-style:none}.meal li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px dashed #d7cbb0;font-size:16px}
+.meal ul{list-style:none}.meal li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px solid var(--rule);font-size:16px}
 .meal li span:last-child{white-space:nowrap;color:var(--muted)}
 
 /* goal switcher: one verdict at a time once the script runs; every pane shows without it */
@@ -73,7 +69,7 @@ h1,h2{font-weight:700;line-height:1.1}
 .goals::-webkit-scrollbar{display:none}
 .goals button{flex:0 0 auto;display:flex;align-items:center;gap:7px;min-height:44px;font:500 16px 'Hind',system-ui,sans-serif;color:var(--ink);
   border:1.5px solid var(--control);background:#fff;border-radius:4px;padding:8px 12px;cursor:pointer}
-.goals button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.goals button.on{border-color:var(--leaf);background:var(--leaf);color:#fff}
 .goals i.spice{margin:0}
 [data-goal][hidden]{display:none!important}
 .verdict{padding:14px 0 4px}.verdict .w{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:26px;font-weight:700}.verdict p{margin-top:4px}
@@ -93,7 +89,7 @@ table.facts{font-size:17px}
 .switch b{color:var(--muted);font-weight:500;margin-right:2px;flex:0 0 auto}
 .switch a,.switch span{flex:0 0 auto;display:flex;align-items:center;min-height:44px;margin:0;border:1.5px solid var(--rule);background:#fff;border-radius:4px;
   padding:6px 11px;text-decoration:none;color:var(--ink);font-weight:500}
-.switch span,.switch span.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.switch span,.switch span.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
 
 /* footer: the pages the tab bar has no room for, three to a row, then who I am and how to reach me on two lines;
    the long link lists are desktop-only */
@@ -111,14 +107,14 @@ footer{font-size:15px;padding:18px 0 22px}
 
 /* tab bar: the same paper and ink, no app chrome */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
-  display:grid;grid-template-columns:repeat(5,1fr);background:var(--cream);border-top:1px solid var(--rule)}
+  display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--rule)}
 .tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:44px;font-size:12px;line-height:1.2;
   color:var(--muted);text-decoration:none;position:relative;white-space:nowrap}
 .tabs svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.tabs a.on{color:var(--ink);font-weight:600}.tabs a.on:before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;background:var(--haldi)}
+.tabs a.on{color:var(--leaf-dark);font-weight:600}.tabs a.on:before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;background:var(--leaf)}
 
-/* sheets: a sheet of the same paper with a haldi edge. Without the script a sheet is an ordinary block where it sits. */
-.sheet{border-top:4px solid var(--haldi);padding:10px 0 4px;margin-top:18px}
+/* sheets: a white sheet with a green edge. Without the script a sheet is an ordinary block where it sits. */
+.sheet{border-top:4px solid var(--leaf);padding:10px 0 4px;margin-top:18px}
 .sheet .sh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
 .sheet h3,.sheet .sh h2{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:24px;line-height:1.15;margin:0}
 .sheet .x{display:none;font:600 15px 'Hind',system-ui,sans-serif;color:var(--leaf);background:none;border:0;padding:4px 0 4px 8px;min-height:44px;min-width:44px;text-align:right;cursor:pointer}
@@ -135,8 +131,7 @@ footer{font-size:15px;padding:18px 0 22px}
 
 /* home: goal rows beside the desktop's goal key; the before/after photos stack, two first, then "Show all 4" (phone.js) */
 .goal-rows{margin-top:16px;margin-bottom:14px}
-.goal-rows .k{font-family:'Kalam',cursive;font-size:16px}
-.dabba-wrap{display:block}.dabba-wrap svg.dabba{margin-top:18px}
+.goal-rows .k{font-size:15px}
 .ba-grid{gap:26px;margin-top:6px}
 .ba-grid figure{margin:0}
 .ba-grid figcaption{font-size:16px;line-height:1.5}
@@ -219,10 +214,10 @@ table.labtable:not(.stack) th.src-cell{display:none}
 .accs details:last-child{border-bottom:1px solid var(--rule)}
 .accs summary{display:flex;gap:12px;align-items:center;min-height:44px;padding:14px var(--m);cursor:pointer;list-style:none}
 .accs summary::-webkit-details-marker{display:none}
-.accs summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid #8F836E;border-bottom:2px solid #8F836E;transform:rotate(45deg);margin:0 4px 4px 0}
+.accs summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid var(--control);border-bottom:2px solid var(--control);transform:rotate(45deg);margin:0 4px 4px 0}
 .accs details[open] summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
 .accs .tx{flex:1;min-width:0}.accs .tx b{display:block;font-weight:600;font-size:18px;line-height:1.3}
-.accs .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--haldi);font:700 17px/30px 'Yrsa',Georgia,serif;text-align:center}
+.accs .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;font:700 17px/30px 'Yrsa',Georgia,serif;text-align:center}
 .accs details>p{padding:0 var(--m) 16px}
 
 /* design lane: a slimmer pinned bar that steps away while you read down (phone.js) and back on the way up (D3) */
@@ -287,7 +282,7 @@ details.fold{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule
 details.fold+details.fold,.read details.fold+details.fold{margin-top:0;border-top:0}
 details.fold>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:8px 0;cursor:pointer}
 details.fold>summary>h2,details.fold>summary>h3,.sec details.fold>summary>h2{font-size:20px;line-height:1.25;margin:0!important;font-family:'Yrsa','Yrsa fallback',Georgia,serif}
-details.fold>summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid #8F836E;border-bottom:2px solid #8F836E;transform:rotate(45deg);margin:0 4px 4px 0}
+details.fold>summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid var(--control);border-bottom:2px solid var(--control);transform:rotate(45deg);margin:0 4px 4px 0}
 details.fold[open]>summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
 details.fold>.fold-b{padding:0 0 16px}
 details.fold>.fold-b>:first-child{margin-top:0}
@@ -346,7 +341,7 @@ div.more-links{margin-top:26px}
 /* foods hub: the four ways in are a sideways row, so the finder is near the top */
 .foodguides{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m)) 16px;padding:0 var(--m) 4px;scrollbar-width:none}
 .foodguides::-webkit-scrollbar{display:none}
-.foodguides p,.foodguides p+p{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--cream);line-height:1.5}
+.foodguides p,.foodguides p+p{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--tint);line-height:1.5}
 
 /* plan weeks: the seven day buttons sit in one row, so the pinned strip is one row tall, not four */
 .goals.daypick{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
@@ -393,7 +388,7 @@ blockquote.pull p{font-size:22px}
 blockquote.pull.result p{font-size:17px}
 
 /* ===== walls-a: breaking walls of text on /foods/, eat-and-avoid and /calories/ pages ===== */
-.foodguides li,.foodguides li+li{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--cream);line-height:1.5}
+.foodguides li,.foodguides li+li{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--tint);line-height:1.5}
 
 
 /* ===== mobile flow: the More tab's menu sheet (layout.menu_sheet). Only once the sheet script runs: without it the tab
@@ -404,7 +399,7 @@ html:not(.js-sheets) .menu-sheet{display:none}
 .menu-sheet .mgrid a{display:flex;align-items:center;min-height:48px;padding:6px 0;border-bottom:1px solid var(--rule);color:var(--ink);
   text-decoration:none;font-size:17px;line-height:1.25}
 .menu-sheet .mgrid a[aria-current]{font-weight:600}
-.menu-sheet .mgrid a[aria-current]:before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--haldi);margin-right:8px}
+.menu-sheet .mgrid a[aria-current]:before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--leaf);margin-right:8px}
 .menu-sheet .btn{margin-top:18px}
 /* the row under the certificates and the foods hub's ways in (phone.js) */
 .row-nav{margin-top:6px}
@@ -414,3 +409,43 @@ html:not(.js-sheets) .menu-sheet{display:none}
 ol.pts.steps li{display:block;padding:12px 0 12px 44px}
 ol.pts.steps li::before{top:12px}
 .credits .credit-list{columns:1}
+
+/* ===== clean look (2026-10-17): the home hero puts her photo in the first screen; Book is the accent tab ===== */
+.hero.home{padding:20px var(--m) 22px}
+.hero.home h1{font-size:31px;line-height:1.1}
+.hero.home .txt{padding:0 0 18px}
+.hero.home .txt>p{font-size:17px;margin-top:10px}
+.hero.home .ctas{gap:8px;margin-top:16px}
+.hero.home .ctas .btn{margin:0;padding:12px 14px;font-size:17px}
+.hero.home .btn.ghost{background:#fff}
+.hero.home .hero-img{height:auto;aspect-ratio:1/1;max-height:none;object-position:72% 26%}
+.sec.proof{padding:22px 0}
+ul.stats{gap:6px}
+ul.stats li{padding:4px 2px}
+ul.stats b{font-size:34px}
+ul.stats span{font-size:14px;line-height:1.3}
+.helpcards{grid-template-columns:1fr;gap:12px}
+.helpcard{padding:18px 18px 16px}
+.helpcard h3{font-size:22px}
+.pricebox{padding:24px 20px}
+.pricebox .price{font-size:28px}
+.pricebox a.quiet{display:block;margin:14px 0 0;text-align:center}
+.closing.big{padding:56px 0}
+.closing.big h2{font-size:32px}
+.ctas.center{margin-top:24px}
+.tabs a[data-tab="book"]{color:#fff;font-weight:600}
+.tabs a[data-tab="book"]:after{content:"";position:absolute;z-index:-1;inset:5px 8px;border-radius:6px;background:var(--leaf)}
+.tabs a[data-tab="book"]{z-index:0}
+.tabs a[data-tab="book"].on:before{display:none}
+.quotes3{gap:12px}
+
+/* ===== booking form on phones (build/booking.py, book.js): the form is the site's bottom sheet, opened through phone.js,
+   so Back, Escape and Tab behave as in every other sheet. Fields are 17 px: iOS zooms into anything under 16 px. ===== */
+.js-sheets .book-sheet{display:block}
+.bookform{gap:16px}
+.bookform .bf-two{grid-template-columns:1fr;gap:16px}
+.bookform input,.bookform select,.bookform textarea{font-size:17px;min-height:48px}
+.bookform .btn{justify-self:stretch;text-align:center;padding:14px 18px}
+.book-sheet .sh h2{font-size:26px}
+.book-sheet .bookform{padding-bottom:8px}
+.book-done .btn{display:block;text-align:center}

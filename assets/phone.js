@@ -46,6 +46,8 @@
     return true;
   }
   window.addEventListener("popstate", function () { shut(true); });
+  /* book.js opens the booking form through these, on phones and computers alike: one history step, Back, Escape and Tab */
+  window.poshanSheet = { open: open, shut: function () { shut(); } };
   function focusables(s) {
     return [].slice.call(s.querySelectorAll('a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'))
       .filter(function (el) { return el.offsetParent !== null || el === document.activeElement; });
