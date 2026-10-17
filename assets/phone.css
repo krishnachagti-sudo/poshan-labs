@@ -1,0 +1,411 @@
+/* Phone edition. Loaded after site.css with media="(max-width:760px)", so every rule here is phone-only and wins ties.
+   The look is the approved mock (design/build_mobile_v3.py): the desktop's own haldi band, tiles, Hind and Yrsa, ruled paper,
+   arranged the way phones read. Class contract for page families: .ph phone-only, .dk desktop-only, .sheet[id] opened by
+   [data-sheet="id"], .rows row list, .swipe sideways row, .goals switcher with [data-goal] panes. */
+:root{--m:20px;--tab:56px}
+*{-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:76px}
+body{font-size:17px;line-height:1.55;padding-bottom:calc(var(--tab) + env(safe-area-inset-bottom))}
+h1,h2{font-weight:700;line-height:1.1}
+.ph{display:revert}
+.dk{display:none!important}
+.lid-cover{display:none!important}
+.tiles{height:18px;background-size:18px 18px}
+.steel{height:6px;background:linear-gradient(#cfd3d5,#9aa0a4 50%,#e2e5e6);border:0}
+
+/* the band: the desktop's haldi header; the bar with the name (or the way back) and the booking button stays pinned.
+   The band and its .wide step aside so the bar can stick to the whole page, not just the header. */
+.band,.band>.wide{display:contents}
+.pbar{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:64px;
+  background:var(--haldi);padding:10px var(--m);border-bottom:1px solid rgba(42,38,32,.2)}
+.pbar .mark{display:flex;flex-direction:column;justify-content:center;min-height:44px;font-size:25px}.pbar .mark small{display:block;font-size:13px;margin-top:3px}
+.pbar .back{color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;display:flex;align-items:center;gap:4px;min-height:44px;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbar .cta{flex:none;display:flex;align-items:center;min-height:44px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:15px;
+  padding:9px 14px;border-radius:4px;white-space:nowrap}
+.hero,.hero.has-img{display:block;background:var(--haldi);padding:18px var(--m) 24px}
+.hero.has-img{padding-bottom:0}.hero.has-img .txt{padding:0 0 24px}
+.crumbs{font-size:15px;color:#4B3A12;margin-bottom:6px}.crumbs a{color:#4B3A12}
+.hero h1,.hero.has-img h1{font-size:30px;line-height:1.12}
+.hero .txt>p,.hero .txt .intro p{font-size:17px;color:#3A2F14;margin-top:10px}
+.hero .more{display:none}  /* layout.phone_intro: phones read one or two sentences of the intro */
+.hero .btn{background:var(--ink);border-color:var(--ink);margin-top:18px}
+.hero .btn.ghost{background:transparent;color:var(--ink)}
+.hero-img{height:300px;object-position:50% 12%;border-radius:4px 4px 0 0}
+
+/* sections, like desktop: white and cream, a rule between (.read and .wide give the side margins) */
+.sec{padding:28px 0;border-top:1px solid var(--rule)}.sec.tint{background:var(--cream)}
+.sec h2{font-size:25px;margin-bottom:10px}
+.read h2:not(:first-child),.wide h2:not(:first-child){margin-top:30px}
+.sec p+p{margin-top:12px}.small{font-size:15px;color:var(--muted)}
+.btn{display:block;text-align:center;font-size:17px;padding:14px;border-radius:4px;margin-top:16px}
+.ctas{flex-direction:column;gap:10px;margin-top:18px}.ctas .btn{margin-top:0}
+
+/* rows: the desktop's .lib list, with a chevron so it's clear they open */
+.rows{list-style:none;margin:0 calc(-1 * var(--m))}
+.rows>*{display:flex;gap:12px;align-items:center;width:100%;min-height:44px;padding:14px var(--m);border:0;border-top:1px solid var(--rule);
+  background:none;font:inherit;color:var(--ink);text-align:left;text-decoration:none;cursor:pointer}
+.rows>*:last-child{border-bottom:1px solid var(--rule)}
+.rows .tx{flex:1;min-width:0}.rows .tx b{display:block;font-weight:600;font-size:18px;line-height:1.3}
+.rows .tx span{display:block;font-size:15px;color:var(--muted);line-height:1.4;margin-top:2px}
+.rows .k{font-size:15px;color:var(--muted);white-space:nowrap}
+.rows .chev{color:#8F836E;font-size:24px;line-height:1}
+.rows .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--haldi);font:700 17px/30px 'Yrsa','Yrsa fallback',Georgia,serif;text-align:center;padding:0}
+.rows i.spice{width:14px;height:14px;flex:0 0 14px;margin:0}
+
+/* a sideways row: photos and captions side by side, the next one peeking */
+.swipe{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m));padding:0 var(--m) 4px;
+  scroll-padding-inline:var(--m);scrollbar-width:none}
+.swipe::-webkit-scrollbar{display:none}.swipe>*{flex:0 0 82%;scroll-snap-align:start}
+.swipe img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}.swipe figcaption{font-size:16px;margin-top:8px;line-height:1.45}
+
+/* notebook paper, the desktop's, a little narrower */
+.notebook{padding:18px 16px 14px 46px}.notebook:before{left:32px}
+.notebook .tape{top:-10px;width:70px;height:20px;margin-left:-35px}
+.notebook p,.notebook li{font-size:18px}
+.meal{background:#fffdf7 repeating-linear-gradient(#fffdf7 0 31px,#ece4d2 31px 32px);border:1px solid var(--rule);border-radius:4px;padding:10px 12px}
+.meal svg.thali{width:100%;max-width:320px;height:auto;display:block;margin:0 auto}
+.meal ul{list-style:none}.meal li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px dashed #d7cbb0;font-size:16px}
+.meal li span:last-child{white-space:nowrap;color:var(--muted)}
+
+/* goal switcher: one verdict at a time once the script runs; every pane shows without it */
+.goals{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--m));padding:0 var(--m)}
+.goals::-webkit-scrollbar{display:none}
+.goals button{flex:0 0 auto;display:flex;align-items:center;gap:7px;min-height:44px;font:500 16px 'Hind',system-ui,sans-serif;color:var(--ink);
+  border:1.5px solid var(--control);background:#fff;border-radius:4px;padding:8px 12px;cursor:pointer}
+.goals button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.goals i.spice{margin:0}
+[data-goal][hidden]{display:none!important}
+.verdict{padding:14px 0 4px}.verdict .w{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:26px;font-weight:700}.verdict p{margin-top:4px}
+.v-good{color:var(--good)}.v-ok{color:var(--ok)}.v-limit{color:var(--limit)}
+
+/* the desktop's tables, katoris and switches at phone size */
+table.facts{font-size:17px}
+.facts th:first-child,.facts td:first-child{padding-left:0}.facts th:last-child,.facts td:last-child{padding-right:0}
+.katoris{grid-template-columns:repeat(3,1fr);gap:14px 6px}.katoris figure{text-align:center;font-size:14px;line-height:1.3;color:var(--muted)}
+.katoris svg{width:84px;margin:0 auto 4px}.katoris b{font-size:18px;color:var(--ink)}.katoris .stream{display:none}
+.shelf{display:flex;gap:12px;overflow-x:auto;margin:0 calc(-1 * var(--m));padding:0 var(--m);scrollbar-width:none}
+.shelf::-webkit-scrollbar{display:none}
+.shelf a{flex:0 0 130px;text-decoration:none;color:var(--ink)}.shelf img{width:130px;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.shelf b{display:block;font-size:15px;font-weight:600;margin-top:6px;line-height:1.3}.shelf span{font-size:14px;color:var(--muted)}
+.switch{display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;font-size:15px;margin:0 calc(-1 * var(--m)) 8px;padding:0 var(--m)}
+.switch::-webkit-scrollbar{display:none}
+.switch b{color:var(--muted);font-weight:500;margin-right:2px;flex:0 0 auto}
+.switch a,.switch span{flex:0 0 auto;display:flex;align-items:center;min-height:44px;margin:0;border:1.5px solid var(--rule);background:#fff;border-radius:4px;
+  padding:6px 11px;text-decoration:none;color:var(--ink);font-weight:500}
+.switch span,.switch span.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* footer: the pages the tab bar has no room for, three to a row, then who I am and how to reach me on two lines;
+   the long link lists are desktop-only */
+footer{font-size:15px;padding:18px 0 22px}
+.foot{display:block;line-height:1.5}
+.foot a{display:inline-block;min-height:44px;padding:10px 0}
+.fnav{display:grid;grid-template-columns:repeat(3,1fr);column-gap:12px;margin:0 0 14px;border-top:1px solid rgba(228,235,217,.22)}
+.fnav a{display:flex;align-items:center;min-height:44px;padding:6px 0;border-bottom:1px solid rgba(228,235,217,.22);font-size:15px;line-height:1.25;color:#E4EBD9;text-decoration:none}
+.foot .who b::after{content:" · ";font-weight:400;color:#C9D3BC}
+.foot .who>br:first-of-type{display:none}
+.foot .reach br{display:none}
+.foot .reach a{margin-right:16px}
+.fine{margin-top:8px;padding-top:6px;font-size:13px;line-height:1.5}
+.fine a{min-height:0;padding:0}
+
+/* tab bar: the same paper and ink, no app chrome */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+  display:grid;grid-template-columns:repeat(5,1fr);background:var(--cream);border-top:1px solid var(--rule)}
+.tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:44px;font-size:12px;line-height:1.2;
+  color:var(--muted);text-decoration:none;position:relative;white-space:nowrap}
+.tabs svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tabs a.on{color:var(--ink);font-weight:600}.tabs a.on:before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;background:var(--haldi)}
+
+/* sheets: a sheet of the same paper with a haldi edge. Without the script a sheet is an ordinary block where it sits. */
+.sheet{border-top:4px solid var(--haldi);padding:10px 0 4px;margin-top:18px}
+.sheet .sh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.sheet h3,.sheet .sh h2{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:24px;line-height:1.15;margin:0}
+.sheet .x{display:none;font:600 15px 'Hind',system-ui,sans-serif;color:var(--leaf);background:none;border:0;padding:4px 0 4px 8px;min-height:44px;min-width:44px;text-align:right;cursor:pointer}
+.scrim{display:none}
+.js-sheets .scrim{display:block;position:fixed;inset:0;z-index:60;background:rgba(42,38,32,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+.js-sheets .sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;margin:0;background:#fff;max-height:86svh;overflow-y:auto;overscroll-behavior:contain;
+  transform:translateY(100%);visibility:hidden;transition:transform .3s cubic-bezier(.3,.8,.2,1),visibility 0s .3s;
+  padding:10px var(--m) calc(24px + env(safe-area-inset-bottom))}
+.js-sheets .sheet .x{display:block}
+.js-sheets body.open{overflow:hidden}
+.js-sheets body.open .scrim{opacity:1;pointer-events:auto}
+.js-sheets .sheet.open{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.3,.8,.2,1)}
+@media (prefers-reduced-motion: reduce){.js-sheets .sheet,.js-sheets .sheet.open,.js-sheets .scrim{transition:none}}
+
+/* home: goal rows beside the desktop's goal key; the before/after photos stack, two first, then "Show all 4" (phone.js) */
+.goal-rows{margin-top:16px;margin-bottom:14px}
+.goal-rows .k{font-family:'Kalam',cursive;font-size:16px}
+.dabba-wrap{display:block}.dabba-wrap svg.dabba{margin-top:18px}
+.ba-grid{gap:26px;margin-top:6px}
+.ba-grid figure{margin:0}
+.ba-grid figcaption{font-size:16px;line-height:1.5}
+.js-sheets [data-phone-show="2"]:not(.all)>:nth-child(n+3){display:none}
+.sec .rows+.sheet,.sec .sheet+.sheet{margin-top:22px}
+.sheet>p+p{margin-top:12px}
+
+/* food: the goal buttons pick one verdict once the script runs; before that each pane says whose verdict it is */
+.goals{margin-top:4px;margin-bottom:2px}
+.verdict .for{font-weight:600;margin:0}
+.js-sheets .verdict .for{display:none}
+html:not(.js-sheets) .goals{display:none}
+.verdict .w{display:block}
+
+/* plan: the day total, then a row per meal that opens its card */
+.total{font-size:17px;margin:4px 0 14px}.total b{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:26px}
+.rows .when{flex:0 0 64px;white-space:normal}
+.sheet .sh h3 span{display:block;font-family:'Hind',system-ui,sans-serif;font-size:16px;font-weight:400;color:var(--muted);margin-top:2px}
+.sheet .meal-card{padding:10px 12px;border:1px solid var(--rule);border-radius:4px}
+.sheet .meal-card svg.thali{width:100%;max-width:320px;height:auto;display:block;margin:0 auto}
+.sheet .meal-card li span.kc{white-space:nowrap}
+
+/* hubs and tools: the finder's fields fill the width, two to a row; the letter strip sticks below the bar, not under it;
+   the calculator panel keeps its paper but gives the fields more of the width */
+.ffilters{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ffilters.gfilter{display:flex;flex-direction:column;align-items:stretch}
+.ffilters select,.ffilters .search{max-width:none;width:100%;min-height:44px}
+.az{top:64px}
+form.tool{padding:18px 16px}
+.tool .hunit label{min-height:44px;font-size:16px}.tool .hunit input{width:24px;height:24px;margin:0}
+
+/* wide facts tables (4 or more columns, marked .stack by the build) read as one card per row, each cell naming its column */
+table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:auto}
+table.stack thead,table.stack tr.hd{display:none}
+table.stack tr{display:grid;grid-template-columns:repeat(auto-fit,minmax(58px,1fr));column-gap:10px;border:1px solid var(--rule);border-radius:4px;padding:8px 12px 10px;margin:0 0 10px}
+table.stack td{display:block;padding:4px 0!important;border:0;text-align:left!important;white-space:normal!important;overflow-wrap:anywhere;font-size:16px;line-height:1.4}
+table.stack td:not(.num){grid-column:1/-1}  /* words take the whole width; numbers sit side by side, each under its label */
+table.stack td::before{content:attr(data-label);display:block;font-size:13px;font-weight:600;color:var(--muted);line-height:1.3}
+table.stack td:first-child{font-weight:600;font-size:17px;padding:0 0 4px!important;border-bottom:1px solid var(--rule);margin-bottom:2px}
+table.stack td:first-child::before{display:none}
+table.stack.sortable thead{display:block}
+table.stack.sortable thead tr{display:flex;flex-wrap:wrap;gap:0 16px;border:0;padding:0;margin:0 0 8px}
+table.stack.sortable thead th{display:block;border:0;padding:0}
+table.stack.sortable thead th button{display:inline-flex;align-items:center;min-height:44px}
+
+/* group hubs: a real three-column table on phones, never cards (ruling R12); the per 100 g columns are .dk */
+table.compact{font-size:15px;width:100%}
+table.compact th,table.compact td{padding:8px 6px}
+table.compact th button{min-height:44px}
+
+/* tool pages (lane B3): a short band on phones */
+.hero.compact{padding:10px var(--m) 14px}
+.hero.compact h1{font-size:26px}
+.hero.compact .txt>p{font-size:16px;margin-top:6px}
+.result{scroll-margin-top:76px}  /* clear of the pinned bar when the first answer scrolls into view */
+.hero .txt>p.wa-note{font-size:15px;margin-top:10px}
+
+/* U4: every chip in view. The goal buttons sit in a 2 x 2 grid and the diet and calorie switches wrap, so the chip for the
+   page you are on (Jain, Menopause) is never hidden off the right edge */
+.goals{display:grid;grid-template-columns:1fr 1fr;overflow:visible;margin-left:0;margin-right:0;padding:0}
+.goals button{justify-content:flex-start}
+.switch{flex-wrap:wrap;overflow:visible;margin-left:0;margin-right:0;padding:0;row-gap:6px}
+/* U18: 16px in every box people type in, so iOS does not zoom the page */
+.ffilters select,.ffilters .search,.search,.tool input,.tool select{font-size:16px}
+/* U41: 44px tap targets in the A to Z strip, the calorie chips and lists of links */
+.az a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+a.chip{min-height:44px}
+.inline-links a{display:inline-flex;align-items:center;min-height:44px;padding:0}
+.linklist a{display:inline-flex;align-items:center;min-height:44px}
+.lib li>a:first-child{min-height:44px;display:flex;align-items:center}
+/* U33: lab tables put the source under the number on phones */
+table.labtable:not(.stack),table.labtable:not(.stack) tbody{display:block}
+table.labtable:not(.stack) tr{display:grid;grid-template-columns:minmax(84px,32%) 1fr;column-gap:12px;border-bottom:1px solid var(--rule);padding:4px 0}
+table.labtable:not(.stack) td,table.labtable:not(.stack) th{border:0;padding:4px 0}
+table.labtable:not(.stack) .src-cell{grid-column:1/-1;font-size:15px;color:var(--muted)}
+table.labtable:not(.stack) th.src-cell{display:none}
+/* U32: home steps and questions open in place */
+.accs{margin:0 calc(-1 * var(--m))}
+.accs details{border-top:1px solid var(--rule)}
+.accs details:last-child{border-bottom:1px solid var(--rule)}
+.accs summary{display:flex;gap:12px;align-items:center;min-height:44px;padding:14px var(--m);cursor:pointer;list-style:none}
+.accs summary::-webkit-details-marker{display:none}
+.accs summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid #8F836E;border-bottom:2px solid #8F836E;transform:rotate(45deg);margin:0 4px 4px 0}
+.accs details[open] summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
+.accs .tx{flex:1;min-width:0}.accs .tx b{display:block;font-weight:600;font-size:18px;line-height:1.3}
+.accs .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--haldi);font:700 17px/30px 'Yrsa',Georgia,serif;text-align:center}
+.accs details>p{padding:0 var(--m) 16px}
+
+/* design lane: a slimmer pinned bar that steps away while you read down (phone.js) and back on the way up (D3) */
+html{scroll-padding-top:60px}
+.pbar{min-height:52px;padding-top:4px;padding-bottom:4px;transition:transform .25s ease}
+.pbar .mark{font-size:23px}.pbar .mark small{font-size:12px;margin-top:2px}
+.bar-off .pbar{transform:translateY(-100%)}
+.result{scroll-margin-top:60px}
+/* the back link in the bar already names the first breadcrumb step, so the band leaves it out (D4) */
+.crumbs .c0,.crumbs.c1{display:none}
+/* glossary letters: one row that slides sideways, fading at the right edge so it reads as more (D24) */
+.az{top:52px;display:flex;flex-wrap:nowrap;gap:0;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--m)) 6px;padding:0 var(--m);
+  font-size:17px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);transition:top .25s ease}
+.az::-webkit-scrollbar{display:none}
+.az a{flex:none;display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;text-decoration:none}  /* U41: 44px targets */
+.az a[hidden]{display:none}
+.bar-off .az{top:0}
+/* contact: the label column keeps to one line (D34) */
+table.contact,table.contact tbody,table.contact tr,table.contact td{display:block;width:auto}
+table.contact tr{padding:10px 0;border-bottom:1px solid var(--rule)}
+table.contact td{border:0;padding:0!important}
+table.contact td:first-child{font-size:14px;font-weight:600;color:var(--muted)}  /* the label over its value, so an email never breaks mid-word */
+/* D7: the "at a glance" card sits in the band, under the intro */
+.hero.has-img .glance{margin:0 0 22px;max-width:none}
+.glance-nums b{font-size:30px}
+h1 .h1sub{font-size:19px;margin-top:6px}
+/* D12 on phones: the grid keeps three columns; the goal column wraps under its dot */
+.cmpgrid th,.cmpgrid td{padding:9px 6px;font-size:15px}
+.cmpgrid tbody th{white-space:normal}
+.cmpgrid thead th{white-space:normal}
+.pair .pb{grid-template-columns:6.2em 1fr 4.8em;gap:8px}
+table.buildtable td.mb,table.buildtable th.mb{width:22%;min-width:56px}
+table.buildtable th{font-size:13px}
+.portions{grid-template-columns:repeat(2,1fr);gap:10px}
+/* D27: plan weeks show one day at a time once the script runs (Day 1 to 7 buttons); without it every day shows */
+.daypick{margin-top:6px;margin-bottom:6px;position:sticky;top:52px;z-index:6;background:#fff;padding-top:8px;padding-bottom:8px;transition:top .25s ease}
+.bar-off .daypick{top:0}
+.daypick button{min-width:64px;justify-content:center}
+.js-sheets .weekhead{display:none}
+.js-sheets .week{margin-top:0}
+.js-sheets .day-card{border:0;background:none;padding:0}
+.js-sheets .day-card h3{font-size:26px;margin:14px 0 6px}
+/* D28: the pregnancy week chart as a compact table on phones */
+table.buildtable td .small{display:block;font-size:13px;line-height:1.35;margin-top:2px}
+/* D29/D31 on phones: the four steps as numbered rows, not four tall cards */
+ol.steps{gap:0;margin-top:4px}
+ol.steps li{display:grid;grid-template-columns:34px 1fr;column-gap:14px;padding:14px 0;background:none;border:0;border-radius:0;border-top:1px solid var(--rule)}
+ol.steps li:last-child{border-bottom:1px solid var(--rule)}
+ol.steps .sn{grid-row:span 2;margin:0}
+ol.steps b{margin-bottom:2px}
+.storychips{flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:0}  /* mobile flow: every goal chip in view, as U4 asks of chip rows */
+.storychips::-webkit-scrollbar{display:none}
+.storychips button{flex:none}
+
+/* r2 phone lane: calmer pages. The "Both open WhatsApp" line shows once, under the last pair of buttons (site.one_wa_note) */
+.wa-note.rep{display:none}
+
+/* folds: closed on phones once phone.js runs (built open, so the body is hidden until then to avoid a flash) */
+.js-sheets details.fold:not(.r)>.fold-b{display:none}
+details.fold{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.read details.fold:not(:first-child),.wide details.fold:not(:first-child){margin-top:22px}
+details.fold+details.fold,.read details.fold+details.fold{margin-top:0;border-top:0}
+details.fold>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:8px 0;cursor:pointer}
+details.fold>summary>h2,details.fold>summary>h3,.sec details.fold>summary>h2{font-size:20px;line-height:1.25;margin:0!important;font-family:'Yrsa','Yrsa fallback',Georgia,serif}
+details.fold>summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid #8F836E;border-bottom:2px solid #8F836E;transform:rotate(45deg);margin:0 4px 4px 0}
+details.fold[open]>summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
+details.fold>.fold-b{padding:0 0 16px}
+details.fold>.fold-b>:first-child{margin-top:0}
+details.fold .small,details.fold p.src{font-size:15px}
+
+/* long link lists: chips, and on a phone the first six (four for a list of pages) with a "Show all" button (phone.js) */
+.inline-links{gap:8px}
+.inline-links a{border:1px solid var(--rule);border-radius:4px;background:#fff;padding:4px 11px;text-decoration:none;line-height:1.3;font-size:16px}
+.js-sheets .inline-links:has(>a:nth-of-type(9)):not(.all)>a:nth-of-type(n+7){display:none}
+.js-sheets ul.clip:has(>li:nth-child(7)):not(.all)>li:nth-child(n+5){display:none}
+.more-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;background:none;border:0;font:600 16px 'Hind',system-ui,sans-serif;color:var(--leaf);
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+html:not(.js-sheets) .more-btn{display:none}
+.more-btn[hidden]{display:none}
+
+/* a section that holds only a fold reads as one row */
+.sec:has(>.read>details.fold:only-child){padding:6px 0}
+.read>details.fold:only-child{border:0;margin:0}
+
+/* "where next" link panels (glossary, tools): small headings over their chips, not a stack of big h2s */
+.more-links h2,.sec .more-links h2,.sec.more-links h2{font-family:'Hind',system-ui,sans-serif;font-size:17px;font-weight:600;line-height:1.3;margin:18px 0 8px!important}
+.more-links h2:first-child,.sec.more-links .read>h2:first-child{margin-top:0!important}
+div.more-links{margin-top:26px}
+.more-links p+p{margin-top:10px}
+
+/* home: the quotes are a snap carousel, one card and the edge of the next, with "3 of 10" and Previous / Next under it
+   (motion.js), so a cut-off card reads as "there are more", not as a broken layout */
+.sec:has(>.strip){display:flex;flex-direction:column;padding-bottom:22px}
+.sec:has(>.strip)>.wide{align-self:stretch;margin:0}
+.strip{order:1;padding:2px var(--m) 6px;gap:12px;scroll-padding-inline:var(--m);cursor:auto;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip>*{flex-basis:86%}
+.strip .testimonial{padding:16px}
+.strip-nav{order:2;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 0;padding:0 var(--m);max-width:none}
+.strip-nav button{min-height:44px;min-width:96px;font-size:16px}
+.strip-nav button.at-end{opacity:.35}
+.strip-count{display:block;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* about: the seven certificates are a sideways row of small cards, the next one peeking */
+.quals{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:8px calc(-1 * var(--m)) 0;padding:0 var(--m) 6px;
+  scroll-padding-inline:var(--m);scrollbar-width:none}
+.quals::-webkit-scrollbar{display:none}
+.quals li{flex:0 0 74%;scroll-snap-align:start;padding:12px 14px}
+.quals img.cert{height:150px;object-fit:contain;object-position:50% 50%;margin-bottom:8px}
+.quals b{font-size:18px}
+.quals .by{font-size:15px}.quals .small{font-size:14px}
+
+/* results: long quotes show five lines with "Read it all" (phone.js); the words themselves are never cut */
+.js-sheets #storyquotes .testimonial:not(.open)>p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.testimonial p{font-size:17px}
+.testimonial .readall{grid-column:2;justify-self:start;min-height:44px;padding:0;background:none;border:0;font:600 15px 'Hind',system-ui,sans-serif;color:var(--leaf);
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.testimonial .readall[hidden]{display:none}
+.quotes .testimonial{margin-bottom:22px}
+
+/* foods hub: the four ways in are a sideways row, so the finder is near the top */
+.foodguides{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m)) 16px;padding:0 var(--m) 4px;scrollbar-width:none}
+.foodguides::-webkit-scrollbar{display:none}
+.foodguides p,.foodguides p+p{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--cream);line-height:1.5}
+
+/* plan weeks: the seven day buttons sit in one row, so the pinned strip is one row tall, not four */
+.goals.daypick{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.daypick button{min-width:0;padding:6px 0;font-size:14px;justify-content:center;text-align:center;line-height:1.15}
+
+/* dishes: the plate drawing at a phone's size */
+.sec .read>svg.thali:not(.small){max-width:220px}
+
+/* lab pages: the number column is narrow, the words get the width */
+table.labtable:not(.stack) tr{grid-template-columns:minmax(56px,20%) 1fr}
+
+/* calculators: the answer button fills the width like every other button */
+form.tool button[type=submit],form.tool .btn{display:block;width:100%}
+
+/* home: the video band plays on phones too (motion.js, one film at a time); it needn't fill the screen. Behind a
+   section's words the pause button sits top right, clear of the buttons and the phone number at the bottom */
+.vid-bg>.vid-toggle{top:10px;bottom:auto;right:10px}
+.vid-band{height:62vh;min-height:360px;max-height:560px}
+.vid-band .over{padding-bottom:30px}
+/* programs: the four cards' photos are banners, not squares */
+.goalcard img{aspect-ratio:21/9}
+.goalcard .gc-body{padding:16px 16px 18px}
+.goalcard h2{font-size:25px}
+.goalcard .gc-links .btn{flex:1 1 auto;margin-top:0}
+
+/* foods hub: the finder's results are a list of rows with a small photo, so 185 foods scan like an index, not a wall of cards */
+#fgrid{grid-template-columns:1fr;gap:0;margin-top:6px;border-bottom:1px solid var(--rule)}
+#fgrid .fcard{display:grid;grid-template-columns:72px 1fr;column-gap:14px;align-items:center;min-height:76px;padding:10px 0;border-top:1px solid var(--rule)}
+#fgrid .fcard[hidden]{display:none}
+#fgrid .fcard>img,#fgrid .fcard>.fblank{grid-row:span 2;width:72px;height:54px;aspect-ratio:auto;object-fit:cover}
+#fgrid .fblank .fgroup{display:none}
+#fgrid .fblank svg.fmark{width:62%}
+#fgrid .fname{margin-top:0;align-self:end;font-size:17px}
+#fgrid .fmeta{align-self:start}
+#fgrid .fcard .fdots{display:inline;margin-left:4px}
+
+/* ===== walls pass, lane B (2026-10-16): structured copy on phones ===== */
+ul.pts li,ol.pts li{padding:4px 0 4px 24px}
+dl.factrow{gap:8px}
+dl.factrow>div{flex:1 1 40%;padding:8px 12px}
+dl.factrow dt{font-size:23px}
+.linkset{margin-top:16px}
+blockquote.pull p{font-size:22px}
+blockquote.pull.result p{font-size:17px}
+
+/* ===== walls-a: breaking walls of text on /foods/, eat-and-avoid and /calories/ pages ===== */
+.foodguides li,.foodguides li+li{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--cream);line-height:1.5}
+
+
+/* ===== mobile flow: the More tab's menu sheet (layout.menu_sheet). Only once the sheet script runs: without it the tab
+   jumps to the footer's list of pages, so the menu never shows as a second copy of the footer ===== */
+html:not(.js-sheets) .menu-sheet{display:none}
+.menu-sheet .mgrid{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;border-top:1px solid var(--rule)}
+.menu-sheet .mgrid+.mgrid{margin-top:18px}
+.menu-sheet .mgrid a{display:flex;align-items:center;min-height:48px;padding:6px 0;border-bottom:1px solid var(--rule);color:var(--ink);
+  text-decoration:none;font-size:17px;line-height:1.25}
+.menu-sheet .mgrid a[aria-current]{font-weight:600}
+.menu-sheet .mgrid a[aria-current]:before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--haldi);margin-right:8px}
+.menu-sheet .btn{margin-top:18px}
+/* the row under the certificates and the foods hub's ways in (phone.js) */
+.row-nav{margin-top:6px}
+.quals+.row-nav,.foodguides+.row-nav{margin-bottom:6px}
