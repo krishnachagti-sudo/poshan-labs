@@ -443,10 +443,9 @@
     return big ? big.textContent + (p && p.tagName === "P" ? ". " + p.textContent : "") : "";
   }
 
-  /* The answer lands when someone presses "Show my answer" (never on each keystroke, never with reduced motion).
-     Three takes, picked with ?anim=a|b|c while the owner chooses: a = pour (count up, bands fill, arrow drops),
-     b = ink (written in, scale drawn, arrow drawn), c = lid (a haldi lid lifts off, arrow slides to its place). */
-  var ANIM = (location.search.match(/[?&]anim=([abc])/) || [0, "a"])[1];
+  /* The answer lands when someone presses "Show my answer" (never on each keystroke, never with reduced motion), in the
+     site's ink: the number counts up, the scale's outline draws itself, its bands wash in, and the "you" arrow and note
+     are drawn on by hand. */
   function countUp(el, ms) {
     var m = el.textContent.match(/^(\D*?)([\d,]+(?:\.\d+)?)(.*)$/);
     if (!m) return;
@@ -462,14 +461,15 @@
   }
   function reveal(out) {
     if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    out.classList.remove("anim-a", "anim-b", "anim-c");
-    void out.offsetWidth;  // restart the animation if it is already running
-    out.classList.add("anim-" + ANIM);
+    out.classList.remove("rv");
+    void out.offsetWidth;  // restart if it is already running
+    out.classList.add("rv");
     var big = out.querySelector(".big");
-    if (big && ANIM !== "b") countUp(big, ANIM === "c" ? 900 : 800);
+    if (big) countUp(big, 800);
     clearTimeout(out._animT);
-    out._animT = setTimeout(function () { out.classList.remove("anim-" + ANIM); }, 2200);
+    out._animT = setTimeout(function () { out.classList.remove("rv"); }, 2400);
   }
+
   function bind(form) {
     var out = form.querySelector(".result"), err = form.querySelector(".err"), kind = form.getAttribute("data-tool");
     var fields = (form.getAttribute("data-fields") || "").split(" "), next = nextOf(form), shown = false, say = announcer(form);
