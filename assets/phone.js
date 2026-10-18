@@ -134,11 +134,6 @@
     if (wanted) buttons.forEach(function (x) { x.classList.toggle("on", x === wanted); });
     buttons.forEach(function (b) { b.addEventListener("click", function () {
       show(b);
-      /* the pinned day row: a new day starts just under the row, not part-way down where the last one was being read */
-      if (g.classList.contains("daypick") && phone.matches) {
-        var p = pane(b, buttons.indexOf(b)), top = p ? p.getBoundingClientRect().top : 0, under = g.getBoundingClientRect().bottom;
-        if (p && top < under) window.scrollBy(0, top - under - 8);
-      }
       try { if (b.getAttribute("data-pick")) localStorage.setItem("poshan-goal", b.getAttribute("data-pick")); } catch (e) {}
     }); });
     var group = function () { show(buttons.filter(function (b) { return b.classList.contains("on"); })[0] || buttons[0]); };

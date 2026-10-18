@@ -1,7 +1,7 @@
-@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=f96ffa69) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=f96ffa69) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=f96ffa69) format('woff2')}
-@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=f96ffa69) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=5c07792d) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=5c07792d) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=5c07792d) format('woff2')}
+@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=5c07792d) format('woff2')}
 /* Georgia Bold scaled to Yrsa's width and height (build/fonts metrics), so headings don't jump when Yrsa arrives */
 @font-face{font-family:'Yrsa fallback';font-style:normal;font-weight:600 700;font-display:swap;src:local('Georgia Bold'),local('Georgia-Bold');size-adjust:76.9%;ascent-override:94.7%;descent-override:35.4%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -444,7 +444,7 @@ ol.pts.steps.how3 li b{color:var(--ink);font-size:19px;margin-bottom:6px}
 .closing.big .ctas{justify-content:center}
 .closing.big .read{margin:0 auto}
 .quotes3 .testimonial{border-radius:6px;padding:22px}
-.goalcard,.quals li,.pricecard,.day-card,.goal-card,.diet-group,.tool,.glance,.toc,.quotes3 .testimonial,.strip .testimonial{border-radius:6px}
+.goalcard,.quals li,.pricecard,.goal-card,.diet-group,.tool,.glance,.toc,.quotes3 .testimonial,.strip .testimonial{border-radius:6px}
 .ba-grid img{border-radius:6px}
 @media(max-width:1100px){.helpcards{grid-template-columns:1fr 1fr}}
 @media(max-width:860px){.hero.home{grid-template-columns:1fr}.hero.home h1{font-size:40px}}
@@ -516,11 +516,7 @@ table.compact td .small{color:var(--muted)}
 .ffilters label.check input{width:20px;height:20px;margin:0;accent-color:var(--leaf)}
 .foodguides{margin-bottom:18px}.foodguides p+p{margin-top:6px}
 
-/* plan weeks (lane B1): days 2 to 7 as cards, and a day as rows (plan pages, goal hubs, program pages) */
-.week{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:20px;margin:8px 0 26px}
-.day-card{background:#fff;border:1px solid var(--rule);border-radius:4px;padding:14px 16px}
-.day-card h3{margin:0 0 6px;font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:22px}
-.day-card h3 span{font-family:'Hind',sans-serif;font-size:15px;color:var(--muted);font-weight:400}
+/* a day as rows (goal hubs, program pages) */
 .day-list{list-style:none;margin:6px 0 0;padding:0}
 .day-list li{display:grid;grid-template-columns:4.6em 1fr auto;gap:2px 10px;padding:7px 0;border-bottom:1px solid var(--rule);font-size:16px}
 .day-list .t{color:var(--muted);font-size:14px;grid-row:span 2}
@@ -530,12 +526,7 @@ table.compact td .small{color:var(--muted)}
 .sample-day .daytotal{font-size:18px;margin-top:10px}
 .note{background:var(--tint);border-left:3px solid var(--leaf);padding:8px 12px;margin:12px 0;font-size:16px}
 @media print{
-  .week{display:block;font-size:0}
-  .day-card{display:inline-block;vertical-align:top;width:calc(50% - 8pt);margin:0 16pt 8pt 0;font-size:10pt;box-sizing:border-box;break-inside:avoid;background:none;border:1px solid #bbb;padding:6pt}
-  .day-card:nth-child(2n){margin-right:0}
-  .day-card h3{font-size:12pt}
   .day-list li{font-size:9.5pt;padding:1pt 0}
-  table.weektable{font-size:9.5pt}
   .switch-hint{display:none}
 }
 
@@ -1031,7 +1022,7 @@ a.chip{padding:5px 14px}
 .storychips button.on{border-color:var(--leaf)}
 .switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .switch b{margin-right:2px}
-.kcal-help{margin-bottom:36px}  /* air between the chart's switches and the week */
+.kcal-help{margin-bottom:36px}  /* air between the chart's switches and the day */
 .switch a,.switch span{display:inline-flex;align-items:center;min-height:38px;margin:0;padding:4px 15px;border:1px solid var(--line);border-radius:var(--r-pill);
   background:#fff;color:var(--ink);text-decoration:none;font-weight:500;transition:background-color .2s var(--ease),border-color .2s var(--ease)}
 .switch a:hover{background:var(--tint);border-color:var(--leaf-soft)}
@@ -1051,9 +1042,8 @@ a.chip{padding:5px 14px}
 .quals img.cert{border-radius:var(--r-sm)}
 .quotes3 .testimonial,.strip .testimonial{padding:22px}
 @media(min-width:761px){
-  ol.steps:not(.pts) li,.day-card{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-1)}
+  ol.steps:not(.pts) li{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-1)}
   ol.steps:not(.pts) li{padding:22px 20px 20px}
-  .day-card{padding:16px 18px}
   .meals .meal-card{border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:18px 20px 12px}
   /* food cards on the hubs: the photo is the card's top, the name and numbers sit inside it */
   .fgrid .fcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-1);padding-bottom:14px}
@@ -1398,3 +1388,30 @@ ul.pts.checks li::before{left:15px;top:14px;width:22px;height:22px;border-radius
 .dk .qa{background:#fff;border:1px solid var(--line);border-radius:var(--r-md,16px);box-shadow:var(--shadow-1);padding:18px 22px;margin:0 0 12px}
 .dk .qa h3{margin:0 0 6px}
 .dk .qa p{margin:0}
+
+/* ===== PROOF lane (2026-10-18): the strip under the hero says words, not numbers (no client count, no years) ===== */
+ul.stats.words b{font-size:30px;line-height:1.15}
+ul.stats.words span{max-width:24ch;margin:6px auto 0}
+
+/* ===== SCREENS lane (2026-10-18): clients' own messages as raw screenshots on /stories/, in rounded frames that
+   lift; a tap opens the full screenshot over the page (pages.js), or the image itself without the script. ===== */
+.shots{columns:4 220px;column-gap:18px}
+.shot{break-inside:avoid;margin:0 0 18px}
+.shot a{display:block;border-radius:var(--r-md,16px);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-1);background:#fff}
+.shot img{display:block;width:100%;height:auto;max-height:640px;object-fit:cover;object-position:top}
+.shot figcaption{margin:8px 4px 0;font-size:15px;color:var(--muted)}
+@media (hover:hover){
+  .shot a{transition:box-shadow .25s var(--ease),transform .25s var(--ease)}
+  .shot a:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}
+}
+@media (prefers-reduced-motion:reduce){.shot a{transition:none}.shot a:hover{transform:none}}
+.shotview{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:rgba(20,28,14,.62);
+  -webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter)}
+.shotview[hidden]{display:none}
+.shotview img{max-width:min(92vw,520px);max-height:84vh;width:auto;height:auto;border-radius:var(--r-lg,24px);box-shadow:var(--shadow-2);background:#fff}
+.shotview button{position:absolute;min-width:44px;min-height:44px;border:0;border-radius:var(--r-pill,999px);background:var(--glass);
+  -webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);color:var(--leaf-dark);font:600 16px 'Hind',system-ui,sans-serif;padding:0 16px;cursor:pointer;box-shadow:var(--shadow-1)}
+.shotview .sv-x{top:18px;right:18px}
+.shotview .sv-prev{left:18px;top:50%;transform:translateY(-50%)}
+.shotview .sv-next{right:18px;top:50%;transform:translateY(-50%)}
+.shotview button:focus-visible{outline:3px solid #fff;outline-offset:2px}

@@ -1,6 +1,5 @@
-/* Page interactions (2026-10-18, the nav's design sense on the content pages): the goal and day switchers as a segmented
-   control with a sliding green pill, swipeable days on a diet chart (phones), bars and bowls that grow once as they come
-   into view, the "On this page" pill and the reading line on long guides, and glossary previews on every page.
+/* Page interactions (2026-10-18, the nav's design sense on the content pages): the goal switcher as a segmented
+   control with a sliding green pill, bars and bowls that grow once as they come into view, the "On this page" pill and the reading line on long guides, and glossary previews on every page.
    Everything here is added on top of a page that already works without it: without this script the switchers are the
    plain buttons (or every pane, without phone.js), the bars stand at their final length, guides keep their own list of
    sections, and a glossary link is an ordinary link. Reduced motion gets every final state, with nothing sliding. */
@@ -9,19 +8,6 @@
 
   /* ---------- pure helpers (tests/pages.test.mjs) ---------- */
 
-  /* A finished touch on a day card: +1 for the next day (a swipe to the left), -1 for the one before, 0 for none. It has
-     to be mostly sideways, long enough, quick enough, and there has to be a day that way. */
-  var SWIPE_MIN = 48, SWIPE_MS = 900;
-  function swipeIntent(dx, dy, ms, index, count) {
-    if (!(Math.abs(dx) >= SWIPE_MIN) || Math.abs(dx) < Math.abs(dy) * 1.5 || ms > SWIPE_MS) return 0;
-    var step = dx < 0 ? 1 : -1, to = index + step;
-    return to >= 0 && to < count ? step : 0;
-  }
-  /* how far a card follows the finger: freely towards a day that exists, a little at either end of the week */
-  function dragOffset(dx, index, count) {
-    var edge = (dx > 0 && index === 0) || (dx < 0 && index === count - 1);
-    return edge ? dx * 0.2 : dx * 0.6;
-  }
   /* how far through a guide's text the reader is, 0 to 1: from the top of the text reaching the top of the screen to its
      end reaching the bottom of the screen */
   function readProgress(top, height, viewport) {
@@ -44,8 +30,7 @@
   /* the pill under the chosen button: its left edge and width inside the row */
   function pillBox(btn, track) { return { x: btn.left - track.left, w: btn.width }; }
 
-  var api = { swipeIntent: swipeIntent, dragOffset: dragOffset, readProgress: readProgress, glossarySlug: glossarySlug,
-    peekPlace: peekPlace, pillBox: pillBox, SWIPE_MIN: SWIPE_MIN };
+  var api = { readProgress: readProgress, glossarySlug: glossarySlug, peekPlace: peekPlace, pillBox: pillBox };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
   root.PoshanPages = api;
 
@@ -59,7 +44,7 @@
   var uid = 0;
   function idFor(el, base) { if (!el.id) el.id = base + "-" + (++uid); return el.id; }
 
-  /* ---------- 7, 9: the goal and day switchers as a segmented control ----------
+  /* ---------- 7: the goal switcher as a segmented control ----------
      phone.js owns which pane shows (and remembers the goal, and reads ?goal=). Here the row becomes tabs with a green
      pill that slides to the chosen one; arrow keys, Home and End move along it; phone.js calls poshanGoalShown after each
      change. The row only shows on phones, so the tab roles are there only on phones too. */
@@ -130,67 +115,13 @@
   }
   each(".goals", setupGroup);
   groups.forEach(syncGroup);
-  root.poshanGoalShown = function (g, b) {  /* phone.js, after a button is picked */
+  root.poshanGoalShown = function (g) {  /* phone.js, after a button is picked */
     var o = groupOf(g);
-    if (!o) return;
-    var prev = o.current, i = o.buttons.indexOf(b);
-    o.current = i;
-    syncGroup(o);
-    if (prev != null && prev !== i && o.onShow) o.onShow(prev, i);
+    if (o) syncGroup(o);
   };
-  groups.forEach(function (o) { o.current = Math.max(0, o.buttons.indexOf(o.buttons.filter(function (x) { return x.classList.contains("on"); })[0])); });
   onChange(phone, function () { groups.forEach(syncGroup); });
   root.addEventListener("resize", function () { groups.forEach(placePill); });
   if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(function () { groups.forEach(placePill); });
-
-  /* ---------- 9: swipe between days on a diet chart (phones) ---------- */
-  groups.forEach(function (o) {
-    if (!o.g.classList.contains("daypick")) return;
-    var count = o.buttons.length, sec = o.g.closest("section");
-    if (sec) sec.classList.add("has-swipe");  /* a card on its way in or out never widens the page */
-    function shownPane() { return o.paneOf(o.buttons[o.current], o.current); }
-    o.onShow = function (from, to) {  /* the new day slides in from the side it lives on */
-      if (still || !phone.matches) return;
-      var p = shownPane();
-      if (!p) return;
-      p.classList.remove("slide-from-r", "slide-from-l");
-      void p.offsetWidth;
-      p.classList.add(to > from ? "slide-from-r" : "slide-from-l");
-      clearTimeout(p._slideT);
-      p._slideT = setTimeout(function () { p.classList.remove("slide-from-r", "slide-from-l"); }, 400);
-    };
-    var t = null, blockClick = 0;
-    o.panes.forEach(function (p) {
-      p.classList.add("swipeday");
-      p.addEventListener("touchstart", function (e) {
-        if (!phone.matches || e.touches.length !== 1 || p.hidden) { t = null; return; }
-        var x = e.touches[0];
-        t = { x: x.clientX, y: x.clientY, at: Date.now(), dx: 0, dy: 0, side: false, p: p };
-      }, { passive: true });
-      p.addEventListener("touchmove", function (e) {
-        if (!t || t.p !== p) return;
-        var x = e.touches[0];
-        t.dx = x.clientX - t.x; t.dy = x.clientY - t.y;
-        if (!t.side && Math.abs(t.dx) > 10 && Math.abs(t.dx) > Math.abs(t.dy) * 1.2) t.side = true;
-        if (t.side && !still) { p.classList.add("dragging"); p.style.transform = "translateX(" + dragOffset(t.dx, o.current, count) + "px)"; }
-      }, { passive: true });
-      function end() {
-        if (!t || t.p !== p) return;
-        var go = t.side ? swipeIntent(t.dx, t.dy, Date.now() - t.at, o.current, count) : 0;
-        p.classList.remove("dragging");
-        p.style.transform = "";
-        if (t.side) blockClick = Date.now();
-        t = null;
-        if (go) o.buttons[o.current + go].click();
-      }
-      p.addEventListener("touchend", end);
-      p.addEventListener("touchcancel", function () { if (t && t.p === p) { p.classList.remove("dragging"); p.style.transform = ""; t = null; } });
-    });
-    /* a sideways swipe that ends on a meal row is not a tap on it */
-    doc.addEventListener("click", function (e) {
-      if (blockClick && Date.now() - blockClick < 400 && e.target.closest && e.target.closest(".swipeday")) { e.preventDefault(); e.stopPropagation(); }
-    }, true);
-  });
 
   /* ---------- 8: bars and bowls grow once as they come into view ----------
      (the katoris already pour in motion.js). Only here does anything start short, so without the script, under reduced
@@ -434,4 +365,48 @@
     });
     foot.appendChild(b);
   });
+
+  /* ---------- 15: a client's screenshot opens over the page; arrows step through them, Escape or a tap outside closes ---------- */
+  var shots = Array.prototype.slice.call(doc.querySelectorAll("a[data-shot]"));
+  if (shots.length) {
+    var view = doc.createElement("div"), big = doc.createElement("img"), at = 0, opener = null;
+    view.className = "shotview"; view.hidden = true;
+    view.setAttribute("role", "dialog"); view.setAttribute("aria-modal", "true"); view.setAttribute("aria-label", "Client's message");
+    function btn(cls, label, fn) {
+      var b = doc.createElement("button"); b.type = "button"; b.className = cls; b.textContent = label;
+      b.addEventListener("click", function (e) { e.stopPropagation(); fn(); }); view.appendChild(b); return b;
+    }
+    view.appendChild(big);
+    var close = btn("sv-x", "Close", function () { shut(); });
+    if (shots.length > 1) { btn("sv-prev", "Previous", function () { open(at - 1); }); btn("sv-next", "Next", function () { open(at + 1); }); }
+    doc.body.appendChild(view);
+    function open(i) {
+      at = (i + shots.length) % shots.length;
+      var a = shots[at], img = a.querySelector("img");
+      big.src = a.href; big.alt = img ? img.alt : "";
+      if (view.hidden) { opener = a; view.hidden = false; doc.documentElement.style.overflow = "hidden"; close.focus(); }
+    }
+    function shut() {
+      view.hidden = true; big.removeAttribute("src"); doc.documentElement.style.overflow = "";
+      if (opener) opener.focus();
+    }
+    shots.forEach(function (a, i) {
+      a.addEventListener("click", function (e) {
+        if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault(); open(i);
+      });
+    });
+    view.addEventListener("click", function (e) { if (e.target === view) shut(); });
+    doc.addEventListener("keydown", function (e) {
+      if (view.hidden) return;
+      if (e.key === "Escape") { e.preventDefault(); shut(); }
+      else if (e.key === "ArrowRight" && shots.length > 1) open(at + 1);
+      else if (e.key === "ArrowLeft" && shots.length > 1) open(at - 1);
+      else if (e.key === "Tab") {  /* keep the keyboard inside the open screenshot */
+        var bs = view.querySelectorAll("button"), first = bs[0], last = bs[bs.length - 1];
+        if (e.shiftKey && doc.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && doc.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
 })(typeof window !== "undefined" ? window : this);

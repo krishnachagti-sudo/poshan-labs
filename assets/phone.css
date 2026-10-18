@@ -252,14 +252,6 @@ h1 .h1sub{font-size:19px;margin-top:6px}
 table.buildtable td.mb,table.buildtable th.mb{width:22%;min-width:56px}
 table.buildtable th{font-size:13px}
 .portions{grid-template-columns:repeat(2,1fr);gap:10px}
-/* D27: plan weeks show one day at a time once the script runs (Day 1 to 7 buttons); without it every day shows */
-.daypick{margin-top:6px;margin-bottom:6px;position:sticky;top:52px;z-index:6;background:#fff;padding-top:8px;padding-bottom:8px;transition:top .25s ease}
-.bar-off .daypick{top:0}
-.daypick button{min-width:64px;justify-content:center}
-.js-sheets .weekhead{display:none}
-.js-sheets .week{margin-top:0}
-.js-sheets .day-card{border:0;background:none;padding:0}
-.js-sheets .day-card h3{font-size:26px;margin:14px 0 6px}
 /* D28: the pregnancy week chart as a compact table on phones */
 table.buildtable td .small{display:block;font-size:13px;line-height:1.35;margin-top:2px}
 /* D29/D31 on phones: the four steps as numbered rows, not four tall cards */
@@ -335,10 +327,6 @@ div.more-links{margin-top:26px}
 .foodguides{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m)) 16px;padding:0 var(--m) 4px;scrollbar-width:none}
 .foodguides::-webkit-scrollbar{display:none}
 .foodguides p,.foodguides p+p{flex:0 0 78%;scroll-snap-align:start;margin:0;border:1px solid var(--rule);border-radius:4px;padding:10px 12px;background:var(--tint);line-height:1.5}
-
-/* plan weeks: the seven day buttons sit in one row, so the pinned strip is one row tall, not four */
-.goals.daypick{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
-.daypick button{min-width:0;padding:6px 0;font-size:14px;justify-content:center;text-align:center;line-height:1.15}
 
 /* dishes: the plate drawing at a phone's size */
 .sec .read>svg.thali:not(.small){max-width:220px}
@@ -458,7 +446,7 @@ html{scroll-padding-top:76px}
 .band .hero{padding-top:calc(var(--cardh) + 26px)}
 .band .hero.compact{padding-top:calc(var(--cardh) + 18px)}
 .result{scroll-margin-top:76px}
-.az,.daypick{top:70px}
+.az{top:70px}
 .tabs{left:10px;right:10px;bottom:calc(var(--dock) + env(safe-area-inset-bottom));height:var(--tab);padding:0 4px;border:1px solid rgba(206,219,194,.8);border-radius:var(--r-lg);
   background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
   box-shadow:var(--shadow-dock)}
@@ -522,7 +510,6 @@ form.tool .result{padding:14px 16px}
 
 /* the phone's structures that are lists, not cards, keep their hairlines and no shadow */
 ol.steps li{box-shadow:none;border-radius:0}
-.js-sheets .day-card{box-shadow:none;border-radius:0}
 
 /* row lists: one rounded card, rows divided by hairlines inside it */
 .rows{margin:0;border:1px solid var(--line);border-radius:var(--r-md);background:#fff;overflow:hidden;box-shadow:var(--shadow-1)}
@@ -559,18 +546,14 @@ table.contact tr:last-child{border-bottom:0}
 .js-sheets .menu-sheet,.js-sheets .menu-sheet.open{left:0;right:0;bottom:0;max-height:none;border:0;border-radius:0;box-shadow:none;transform:none;
   padding:calc(8px + env(safe-area-inset-top)) var(--m) calc(26px + env(safe-area-inset-bottom))}
 
-/* sticky strips are frosted floating bars under the top card: the glossary letters, the plan's day picker */
+/* sticky strips are frosted floating bars under the top card: the glossary letters */
 .az{margin:0 -10px 10px;padding:4px 6px;border-radius:var(--r-pill);
   -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
-.goals.daypick{background:var(--glass);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);border:1px solid var(--line);
-  border-radius:var(--r-pill);box-shadow:var(--shadow-1);padding:5px;margin-left:-10px;margin-right:-10px;gap:2px}
-.goals.daypick button{border-color:transparent;background:none;min-height:40px;padding:4px 0}
-.goals.daypick button.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
 
 /* footer corners a touch smaller on a phone */
 footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 #fgrid .fcard>img,#fgrid .fcard>.fblank{border-radius:var(--r-sm)}
-.bar-off .az,.bar-off .daypick{top:8px}
+.bar-off .az{top:8px}
 .hero .txt>p.crumbs{font-size:14px}
 .kcal-help{margin-bottom:22px}
 .menu-sheet .sh .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
@@ -616,8 +599,8 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 }
 .menu-sheet .sh .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
 
-/* ===== PAGES lane (2026-10-18), phones: the goal and day rows as a segmented control with a sliding green pill
-   (pages.js adds .seg and the pill), days that swipe, calculator sliders, and the guides' pill above the dock ===== */
+/* ===== PAGES lane (2026-10-18), phones: the goal row as a segmented control with a sliding green pill
+   (pages.js adds .seg and the pill), calculator sliders, and the guides' pill above the dock ===== */
 .goals.seg{display:flex;position:relative;gap:0;margin:6px 0 4px;padding:4px;background:var(--tint);border:1px solid var(--rule);
   border-radius:var(--r-pill,999px);overflow:visible}
 .goals.seg button{flex:1 1 auto;min-width:0;position:relative;z-index:1;justify-content:center;text-align:center;gap:0;min-height:44px;
@@ -628,19 +611,6 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .goals.seg .seg-pill{position:absolute;z-index:0;top:4px;bottom:4px;left:0;width:0;border-radius:var(--r-pill,999px);background:var(--leaf);
   box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
 .goals.seg.seg-ready .seg-pill{transition:transform .3s var(--ease,cubic-bezier(.2,.8,.2,1)),width .3s var(--ease,cubic-bezier(.2,.8,.2,1))}
-/* the day row stays pinned under the top card while the week is read: a frosted floating pill */
-.goals.seg.daypick{gap:0;padding:4px;margin:8px 0 10px;background:var(--glass,rgba(255,255,255,.78));
-  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
-  box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
-.goals.seg.daypick button{flex:1 1 0;padding:4px 0;font-size:14px}
-/* 9: a day follows the finger sideways, and the next one slides in from its side */
-.has-swipe{overflow-x:clip}
-.js-sheets .swipeday{touch-action:pan-y;transition:transform .25s var(--ease,cubic-bezier(.2,.8,.2,1))}
-.js-sheets .swipeday.dragging{transition:none}
-.swipeday.slide-from-r{animation:pg-from-r .32s var(--ease,cubic-bezier(.2,.8,.2,1)) both}
-.swipeday.slide-from-l{animation:pg-from-l .32s var(--ease,cubic-bezier(.2,.8,.2,1)) both}
-@keyframes pg-from-r{from{transform:translateX(56px);opacity:.35}to{transform:none;opacity:1}}
-@keyframes pg-from-l{from{transform:translateX(-56px);opacity:.35}to{transform:none;opacity:1}}
 /* 11: sliders under height, weight and waist */
 .tool input.slide{display:block}
 .tool .ftin input.slide,.tool .cm input.slide{margin-top:8px}
@@ -649,7 +619,7 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .otp-card{width:calc(100vw - 24px);max-height:58vh}
 .rprog{left:20px;right:20px}
 .reading .pbar .rprog{opacity:1}
-@media (prefers-reduced-motion: reduce){.goals.seg .seg-pill,.js-sheets .swipeday{transition:none!important}.swipeday{animation:none!important}}
+@media (prefers-reduced-motion: reduce){.goals.seg .seg-pill{transition:none!important}}
 
 /* ===== QUOTES lane on phones: the same cards, a little tighter ===== */
 .testimonial,.quotes3 .testimonial,.strip .testimonial{padding:18px 18px 12px;margin-bottom:14px}
@@ -663,3 +633,14 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 ul.pts.tags li{padding:5px 13px}
 ul.pts.checks li{padding:11px 14px 11px 44px}
 ul.pts.checks li::before{left:13px;top:13px}
+
+/* ===== PROOF lane on phones ===== */
+ul.stats.words b{font-size:20px}
+ul.stats.words span{font-size:13px}
+
+/* ===== SCREENS lane on phones: two screenshots to a row ===== */
+.shots{columns:2;column-gap:10px}
+.shot{margin-bottom:10px}
+.shotview{padding:12px}
+.shotview img{max-width:94vw;max-height:78vh}
+.shotview .sv-prev,.shotview .sv-next{top:auto;bottom:18px;transform:none}
