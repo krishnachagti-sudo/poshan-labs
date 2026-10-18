@@ -121,9 +121,11 @@
       return panes[i];
     }
     function show(b) {
-      buttons.forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      var tabs = g.getAttribute("role") === "tablist";  /* pages.js makes the row tabs on phones (and slides its pill) */
+      buttons.forEach(function (x) { x.classList.toggle("on", x === b); x.setAttribute(tabs ? "aria-selected" : "aria-pressed", x === b ? "true" : "false"); });
       var p = pane(b, buttons.indexOf(b));
       panes.forEach(function (q) { q.hidden = phone.matches && q !== p; });
+      if (window.poshanGoalShown) window.poshanGoalShown(g, b);
     }
     /* U19: a food page opens on the goal the reader picked last (or the one in ?goal=), not always on PCOS */
     function byGoal(v) { return v ? buttons.filter(function (b) { return b.getAttribute("data-pick") === v; })[0] : null; }

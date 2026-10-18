@@ -1,11 +1,23 @@
-@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=c3b4cdfe) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=c3b4cdfe) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=c3b4cdfe) format('woff2')}
-@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=c3b4cdfe) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=2bf5653a) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=2bf5653a) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=2bf5653a) format('woff2')}
+@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=2bf5653a) format('woff2')}
 /* Georgia Bold scaled to Yrsa's width and height (build/fonts metrics), so headings don't jump when Yrsa arrives */
 @font-face{font-family:'Yrsa fallback';font-style:normal;font-weight:600 700;font-display:swap;src:local('Georgia Bold'),local('Georgia-Bold');size-adjust:76.9%;ascent-override:94.7%;descent-override:35.4%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--leaf:#3D5A27;--leaf-dark:#2C431C;--leaf-soft:#7FA84E;--tint:#F2F7ED;--band:#E9F2E1;--ink:#1F2A1B;--muted:#535E4D;--rule:#DCE5D3;--control:#7F8C77;--good:#2F5A1E;--ok:#8A5A00;--limit:#9A3324}
+/* design sense (2026-10-18): the navigation's shapes, depth and motion as tokens, used site-wide. Corners and shadows
+   anywhere on the site come only from these (tests/design_rules.py); the nav's own deeper shadows are named here too. */
+:root{--r-sm:10px;--r-md:16px;--r-lg:24px;--r-pill:999px;
+  --shadow-1:0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06);
+  --shadow-2:0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12);
+  --glass:rgba(255,255,255,.78);--glass-filter:saturate(1.4) blur(14px);--ease:cubic-bezier(.2,.8,.2,1);--line:rgba(196,212,182,.75);
+  --shadow-hair:0 1px 0 var(--rule);
+  --shadow-bar:0 18px 40px -18px rgba(31,42,27,.28),0 2px 6px -2px rgba(31,42,27,.08);
+  --shadow-bar-open:0 30px 60px -30px rgba(31,42,27,.35),0 1px 0 var(--rule);
+  --shadow-top:0 10px 26px -12px rgba(31,42,27,.3),0 1px 3px rgba(31,42,27,.06);
+  --shadow-dock:0 14px 34px -14px rgba(31,42,27,.4),0 2px 6px rgba(31,42,27,.06);
+  --shadow-raised:0 0 0 5px #fff,0 10px 20px -6px rgba(44,67,28,.55)}
 html{scroll-behavior:smooth}
 body{font-family:'Hind',system-ui,sans-serif;font-size:18px;line-height:1.65;color:var(--ink);background:#fff}
 img{display:block;max-width:100%}
@@ -462,7 +474,7 @@ ol.pts.steps.how3 li b{color:var(--ink);font-size:19px;margin-bottom:6px}
   table.facts{break-inside:avoid;font-size:10pt}
   .read p,.src{font-size:10pt}
   /* drawings print finished: the scroll-in animations never ran on paper (same end state as prefers-reduced-motion) */
-  *,*:before,*:after{animation:none!important;transition:none!important}
+  *,*:before,*:after{animation:none!important;transition:none!important;box-shadow:none!important}
   .js svg.thali .ink,.js svg.thali .arrow,.js svg.dabba .arrow{stroke-dashoffset:0!important}
   .js svg.thali .wash,.js svg.thali .lbl,.js svg.thali .ti circle,.js svg.thali .ti ellipse,.js svg.dabba .arrow,.js svg.dabba .lbl,.js svg.dabba .bowl,.js .verdicts .row i.spice,.js .notebook .tape{opacity:1!important;transform:none!important}
   .js .notebook p{clip-path:none!important}.js svg.dabba .lid{display:none}.js .katoris .fill{transform:none!important}.spice-trail,svg .steam{display:none!important}
@@ -883,7 +895,7 @@ ul.foodguides{list-style:none}.foodguides li+li{margin-top:6px}
 .book-done h3{font-size:24px;line-height:1.25;margin:0 0 10px}
 .book-done .btn{margin-top:4px}
 .book-done p+p{margin-top:14px}
-.book-nojs{padding:14px 16px;border:1px solid var(--rule);border-radius:4px;background:var(--cream)}
+.book-nojs{padding:14px 16px;border:1px solid var(--rule);border-radius:4px;background:var(--tint)}
 .book-sheet{display:none}
 @media (min-width:761px){
   .book-sheet.open{display:block;position:fixed;z-index:61;top:50%;left:50%;transform:translate(-50%,-50%);
@@ -901,8 +913,8 @@ ul.foodguides{list-style:none}.foodguides li+li{margin-top:6px}
 
 /* ================= navigation (2026-10-18, build/layout.py band() and nav_panel(), nav.js) =================
    A white bar at the top of the page; past about 80 px it lifts into a floating rounded bar in the middle, and "Menu" opens
-   a panel that grows out of it. The rounded corners and soft shadows here are the nav's own, and only the nav's: the
-   anti-AI-look checks (test_whole_site, test_phone) exempt rules whose every selector is a nav part, nothing else. */
+   a panel that grows out of it. Its corners and shadows come from the design-sense tokens at the top of this file (the
+   bar's deeper shadows are named there as --shadow-bar and --shadow-bar-open); tests/design_rules.py holds every rule to them. */
 :root{--navh:84px;--navease:cubic-bezier(.22,.8,.24,1)}
 nav.top{background:#fff}
 .navrow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0}
@@ -911,10 +923,10 @@ nav.top .links a{color:var(--ink);text-decoration:none;font-size:16px;font-weigh
 nav.top .links a:hover,nav.top .links a[aria-current]{color:var(--leaf)}
 nav.top .links a:not(.cta){background:linear-gradient(var(--leaf),var(--leaf)) 0 100%/0 1.5px no-repeat;padding:4px 0;transition:background-size .25s var(--navease),color .2s}
 nav.top .links a:not(.cta):hover,nav.top .links a[aria-current]{background-size:100% 1.5px}
-nav.top .links a.cta{background:var(--leaf);color:#fff;padding:10px 18px;border-radius:6px;font-weight:600;margin-left:2px;transition:background-color .2s,border-radius .45s var(--navease),padding .45s var(--navease)}
+nav.top .links a.cta{background:var(--leaf);color:#fff;padding:10px 18px;border-radius:var(--r-pill);font-weight:600;margin-left:2px;transition:background-color .2s,border-radius .45s var(--navease),padding .45s var(--navease)}
 nav.top .links a.cta:hover{background:var(--leaf-dark);color:#fff}
 nav.top .menu{display:none;align-items:center;gap:9px;background:#fff;border:1px solid var(--rule);color:var(--ink);font:500 16px/1 'Hind',sans-serif;
-  padding:10px 16px 10px 14px;min-height:44px;border-radius:22px;cursor:pointer;transition:background-color .2s,border-color .2s}
+  padding:10px 16px 10px 14px;min-height:44px;border-radius:var(--r-pill);cursor:pointer;transition:background-color .2s,border-color .2s}
 nav.top .menu:hover{background:var(--tint);border-color:#C6D5B8}
 nav.top .menu .mi{position:relative;width:16px;height:10px}
 nav.top .menu .mi:before,nav.top .menu .mi:after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:1px;transition:transform .35s var(--navease),top .35s var(--navease)}
@@ -930,7 +942,7 @@ nav.top .menu .ml{min-width:40px;text-align:left}
   html.nav-js{scroll-padding-top:100px}
   .nav-js .band>.wide{padding-top:var(--navh)}
   .nav-js nav.top{position:fixed;z-index:50;top:0;left:50%;width:100%;transform:translateX(-50%);
-    box-shadow:0 1px 0 var(--rule);border:1px solid transparent;border-width:0 1px;
+    box-shadow:var(--shadow-hair);border:1px solid transparent;border-width:0 1px;
     transition:top .5s var(--navease),width .5s var(--navease),border-radius .5s var(--navease),background-color .35s,box-shadow .5s var(--navease),border-color .35s}
   .nav-js nav.top .navrow{height:var(--navh);padding:0 max(20px,calc((100% - 1080px)/2));transition:height .5s var(--navease),padding .5s var(--navease)}
   .nav-js nav.top .menu{display:inline-flex}
@@ -939,16 +951,16 @@ nav.top .menu .ml{min-width:40px;text-align:left}
   .nav-js nav.top .mark small{transition:opacity .3s,max-height .45s var(--navease),margin .45s var(--navease);max-height:20px;overflow:hidden}
   .nav-js nav.top .mark{transition:font-size .45s var(--navease)}
   /* the floating bar */
-  .nav-float nav.top{top:14px;width:min(72%,1120px);border-radius:31px;background:rgba(255,255,255,.8);border-color:rgba(206,219,194,.75);border-width:1px;
+  .nav-float nav.top{top:14px;width:min(72%,1120px);border-radius:var(--r-pill);background:rgba(255,255,255,.8);border-color:rgba(206,219,194,.75);border-width:1px;
     -webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
-    box-shadow:0 18px 40px -18px rgba(31,42,27,.28),0 2px 6px -2px rgba(31,42,27,.08)}
+    box-shadow:var(--shadow-bar)}
   .nav-float nav.top .navrow{height:60px;padding:0 9px 0 26px}
   .nav-float nav.top .mark{font-size:23px}
   .nav-float nav.top .mark small{opacity:0;max-height:0;margin-top:0}
   .nav-float nav.top .links{gap:24px}
   .nav-float nav.top .links a{font-size:15.5px}
   .nav-float nav.top .menu{background:transparent;border-color:rgba(31,42,27,.14)}
-  .nav-float nav.top .links a.cta{border-radius:22px;padding:10px 20px}
+  .nav-float nav.top .links a.cta{border-radius:var(--r-pill);padding:10px 20px}
   /* the panel: it drops out of the bar; from the floating bar the bar widens first and the panel grows out of it */
   .nav-js .navpanel{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .5s var(--navease),visibility 0s .5s}
   .nav-open .navpanel{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .5s var(--navease) .06s}
@@ -960,14 +972,14 @@ nav.top .menu .ml{min-width:40px;text-align:left}
     padding:16px max(20px,calc((100vw - 1080px)/2)) 22px;opacity:0;transition:opacity .25s}
   .nav-open .navpanel .np-grid{opacity:1;transform:none;transition:opacity .35s .16s,transform .5s var(--navease) .12s}
   .nav-open .navpanel .np-goals{opacity:1;transition:opacity .35s .24s}
-  .nav-float.nav-open nav.top{width:calc(100% - 28px);border-radius:24px;background:#fff}
+  .nav-float.nav-open nav.top{width:calc(100% - 28px);border-radius:var(--r-lg);background:#fff}
   .nav-float.nav-open nav.top .navrow{padding:0 max(26px,calc((100% - 1080px)/2))}
   .nav-float nav.top .np-grid,.nav-float nav.top .np-goals{padding-left:max(26px,calc((100vw - 28px - 1080px)/2));padding-right:max(26px,calc((100vw - 28px - 1080px)/2))}
-  .nav-open nav.top{box-shadow:0 30px 60px -30px rgba(31,42,27,.35),0 1px 0 var(--rule)}
+  .nav-open nav.top{box-shadow:var(--shadow-bar-open)}
   .navpanel .np-h{font-size:14px;font-weight:600;color:var(--muted);margin:0 0 10px}
   .navpanel .np-col a{display:block;width:fit-content;font:600 38px/1.18 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);text-decoration:none;padding:3px 0}
   .navpanel .np-col a:hover,.navpanel .np-col a[aria-current]{color:var(--leaf);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:6px}
-  .navpanel .np-side{align-self:start;background:var(--tint);border-radius:6px;padding:24px 24px 22px;margin-top:30px}
+  .navpanel .np-side{align-self:start;background:var(--tint);border-radius:var(--r-lg);padding:24px 24px 22px;margin-top:30px}
   .navpanel .np-line{font:600 24px/1.3 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);margin:0 0 18px}
   .navpanel .np-call{font-size:15px;color:var(--muted);margin-top:12px}
   .navpanel .np-call a{color:var(--muted);white-space:nowrap}
@@ -985,3 +997,357 @@ nav.top .menu .ml{min-width:40px;text-align:left}
 @media (prefers-reduced-motion: reduce){
   nav.top,nav.top *,nav.top .navrow,nav.top .navpanel,nav.top .np-grid,nav.top .np-goals,.navscrim{transition:none!important}
 }
+
+/* ================= design sense, site-wide (2026-10-18): the navigation's feel on every page ==========   Pill buttons and chips, rounded cards that rest on a soft shadow and lift a little under a pointer, tinted rounded notes,
+   rounded tables, a floating answer card, frosted sticky bars, details that open smoothly. Corners and shadows come only
+   from the tokens in :root (tests/design_rules.py). phone.css adjusts these for phones at its end. */
+:root{interpolate-size:allow-keywords}
+
+/* buttons: green pill, ghost pill, quiet pill */
+.btn{border-radius:var(--r-pill);transition:background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),box-shadow .24s var(--ease)}
+.btn:hover{box-shadow:var(--shadow-1)}
+.btn.ghost:hover{background:var(--tint);color:var(--leaf-dark);border-color:var(--leaf-dark)}
+.closing .btn:hover{background:var(--tint);border-color:var(--tint);color:var(--leaf-dark)}
+.closing .btn.ghost:hover{background:rgba(255,255,255,.12);border-color:#fff;color:#fff}
+.btn.quiet,.pricebox a.quiet,.strip-nav button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 20px;border:0;
+  border-radius:var(--r-pill);background:rgba(61,90,39,.08);color:var(--leaf-dark);font:600 16px/1.2 'Hind',system-ui,sans-serif;text-decoration:none;cursor:pointer;
+  transition:background-color .2s var(--ease)}
+.btn.quiet:hover,.pricebox a.quiet:hover,.strip-nav button:hover{background:rgba(61,90,39,.15);box-shadow:none}
+.pricebox a.quiet{vertical-align:middle;margin-top:22px}
+.skip{border-radius:var(--r-pill)}
+.btn:focus-visible,.pricebox a.quiet:focus-visible,.strip-nav button:focus-visible{outline-offset:3px}
+
+/* chips and pill links: the link panels, calorie chips, diet and calorie switches, story chips, source tags */
+.inline-links{gap:8px}
+.inline-links a{display:inline-flex;align-items:center;min-height:40px;padding:6px 16px;border:1px solid var(--line);border-radius:var(--r-pill);background:#fff;
+  color:var(--leaf-dark);text-decoration:none;font-size:16px;line-height:1.3;white-space:normal;transition:background-color .2s var(--ease),border-color .2s var(--ease)}
+.inline-links a:hover{background:var(--tint);border-color:var(--leaf-soft)}
+.inline-links a[aria-current]{background:var(--leaf);border-color:var(--leaf);color:#fff}
+a.chip,.diet-group a.chip{border-radius:var(--r-pill);border-width:1.5px;transition:background-color .2s var(--ease),color .2s var(--ease)}
+a.chip{padding:5px 14px}
+.diet-group a.chip{padding:8px 18px}
+.storychips button{border:1px solid var(--line);border-radius:var(--r-pill);padding:6px 16px;transition:background-color .2s var(--ease),border-color .2s var(--ease)}
+.storychips button:hover{background:var(--tint)}
+.storychips button.on{border-color:var(--leaf)}
+.switch{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.switch b{margin-right:2px}
+.kcal-help{margin-bottom:36px}  /* air between the chart's switches and the week */
+.switch a,.switch span{display:inline-flex;align-items:center;min-height:38px;margin:0;padding:4px 15px;border:1px solid var(--line);border-radius:var(--r-pill);
+  background:#fff;color:var(--ink);text-decoration:none;font-weight:500;transition:background-color .2s var(--ease),border-color .2s var(--ease)}
+.switch a:hover{background:var(--tint);border-color:var(--leaf-soft)}
+.switch span,.switch span.on{background:var(--leaf);border-color:var(--leaf);color:#fff;font-weight:600}
+.src-tag{border-radius:var(--r-pill);padding:0 9px}
+
+/* cards: rounded, a hairline and a resting shadow; the ones that are links lift under a pointer */
+.helpcard,.goal-card,.diet-group,.quotes3 .testimonial,.strip .testimonial,.quals li,.glance,.toc,.portions figure,dl.factrow>div,
+.hscroll .panel:not(.lead){border:1px solid var(--line);border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-1)}
+.goalcard,.pricebox,.pricecard{border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1)}
+.goalcard{border-top:1px solid var(--line)}
+.goalcard h2 i.spice{background:var(--goal)}
+.quals li{border-top:1px solid var(--line)}
+.pricecard{border-top:1px solid var(--line)}
+.glance{border-radius:var(--r-lg)}
+.helpcard{padding:24px 24px 22px}
+.quals img.cert{border-radius:var(--r-sm)}
+.quotes3 .testimonial,.strip .testimonial{padding:22px}
+@media(min-width:761px){
+  ol.steps:not(.pts) li,.day-card{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-1)}
+  ol.steps:not(.pts) li{padding:22px 20px 20px}
+  .day-card{padding:16px 18px}
+  .meals .meal-card{border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-1);padding:18px 20px 12px}
+  /* food cards on the hubs: the photo is the card's top, the name and numbers sit inside it */
+  .fgrid .fcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-1);padding-bottom:14px}
+  .fgrid .fcard img,.fgrid .fcard svg.food-sketch,.fgrid .fcard .fblank{border-radius:0;outline:0}
+  .fgrid .fcard .fname{padding:0 14px;margin-top:10px}
+  .fgrid .fcard .fmeta{padding:0 14px}
+  .fgrid{gap:22px 20px}
+}
+@media(hover:hover) and (min-width:761px){
+  .helpcard,.fgrid .fcard{transition:box-shadow .28s var(--ease),transform .28s var(--ease),border-color .2s var(--ease)}
+  .helpcard:hover,.fgrid .fcard:hover{box-shadow:var(--shadow-2);transform:translateY(-3px);border-color:var(--line)}
+  .fgrid .fcard:hover .fname{text-decoration:none;color:var(--leaf-dark)}
+}
+.helpcard:focus-visible,.fcard:focus-visible{outline-offset:3px}
+
+/* before and after photos: each pair a framed card */
+.ba-grid figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:10px 10px 16px;box-shadow:var(--shadow-1)}
+.ba-grid img{border-radius:var(--r-md)}
+.ba-grid figcaption{padding:0 8px}
+
+/* notes and callouts: tinted rounded cards, no rule down the side */
+.notebook,.note,.book-nojs,blockquote.pull{background:var(--tint);border:1px solid rgba(127,168,78,.28);border-radius:var(--r-md)}
+.notebook{padding:20px 24px}
+.note{padding:14px 18px}
+blockquote.pull{padding:18px 22px}
+.sec.tint .notebook,.sec.tint .note,.sec.tint blockquote.pull,.hero .notebook,.hero .note{background:#fff}
+.result .example{border:0;border-radius:var(--r-sm);background:var(--tint);padding:8px 12px}
+
+/* tables: a rounded frame, a soft header, hairline rows */
+table.facts,table.cmpgrid{border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:var(--r-md);background:#fff}
+.facts th,.facts td{padding:10px 14px}
+.facts th{background:var(--tint);color:var(--muted);border-bottom:1px solid var(--rule)}
+.facts tr:last-child>td,.facts tr:last-child>th{border-bottom:0}
+.facts tr:first-child>:first-child,.cmpgrid thead tr>:first-child{border-top-left-radius:calc(var(--r-md) - 1px)}
+.facts tr:first-child>:last-child,.cmpgrid thead tr>:last-child{border-top-right-radius:calc(var(--r-md) - 1px)}
+.facts tr:last-child>:first-child,.cmpgrid tbody tr:last-child>:first-child{border-bottom-left-radius:calc(var(--r-md) - 1px)}
+.facts tr:last-child>:last-child,.cmpgrid tbody tr:last-child>:last-child{border-bottom-right-radius:calc(var(--r-md) - 1px)}
+.facts tr.total td{border-top:1px solid var(--rule);background:var(--tint)}
+.cmpgrid th,.cmpgrid td{padding:11px 14px}
+.cmpgrid thead th{background:var(--tint);border-bottom:1px solid var(--rule)}
+.cmpgrid tbody tr:last-child>*{border-bottom:0}
+.tablewrap{margin:6px 0 8px}
+.tablewrap>table.facts{margin:0}
+
+/* forms: rounded fields */
+.search,.tool input:not([type=radio]):not([type=checkbox]),.tool select,.ffilters select,.ffilters .search,.bookform input,.bookform select,.bookform textarea{border-radius:var(--r-sm)}
+.search,.ffilters .search{border-width:1px}
+
+/* calculators: a rounded panel, and the answer as a white card floating on it */
+.tool{border:1px solid var(--line);border-radius:var(--r-lg);padding:28px}
+form.tool .result{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-2);padding:18px 22px;margin:0 0 22px}
+form.tool .result.is-example{box-shadow:var(--shadow-1)}
+.tool .btn.go{padding:11px 24px}
+
+/* details: rounded groups that open smoothly */
+details.grp{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;padding:0 20px;margin-top:10px}
+details.grp:last-of-type{border-bottom:1px solid var(--line)}
+details.grp summary::after{transition:transform .28s var(--ease)}
+details::details-content{block-size:0;overflow:clip;transition:block-size .3s var(--ease),content-visibility .3s var(--ease) allow-discrete}
+details[open]::details-content{block-size:auto}
+@media (prefers-reduced-motion: reduce){details::details-content{transition:none!important}}
+
+/* photos: rounded, the hero ones the most */
+.hero-img,.hero-img[src^="/assets/foods/"],.hero.has-img svg.food-sketch,figure.vid{border-radius:var(--r-lg)}
+.fcard img,.fcard .fblank{border-radius:var(--r-md)}
+
+/* breadcrumbs: a small pill over the heading */
+.hero .txt>p.crumbs{font-size:14.5px;margin-top:0;max-width:none;color:var(--muted)}
+.crumbs{display:inline-flex;flex-wrap:wrap;align-items:center;column-gap:4px;padding:4px 14px;margin-bottom:14px;font-size:14.5px;line-height:1.6;
+  background:rgba(255,255,255,.66);border:1px solid var(--line);border-radius:var(--r-pill)}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{color:var(--leaf);text-decoration:underline}
+
+/* footer: the dark green, its top corners rounded over the section above */
+footer{position:relative;border-radius:var(--r-lg) var(--r-lg) 0 0;margin-top:calc(-1 * var(--r-lg))}
+main>:last-child{border-bottom:var(--r-lg) solid transparent}  /* the last section's own colour runs on under the footer's corners */
+.fine{border-top-color:rgba(228,235,217,.18)}
+footer a{transition:color .2s var(--ease)}
+footer a:hover{color:#fff}
+
+/* the booking dialog on a computer: a floating card over a frosted page */
+@media (min-width:761px){
+  .book-sheet.open{border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-2);padding:22px 32px 32px;
+    transition:opacity .26s var(--ease),transform .3s var(--ease)}
+  @starting-style{.book-sheet.open{opacity:0;transform:translate(-50%,-48%) scale(.985)}}
+  body.open:has(.book-sheet.open) .scrim{background:rgba(31,42,27,.24);-webkit-backdrop-filter:blur(6px) saturate(1.2);backdrop-filter:blur(6px) saturate(1.2)}
+  .book-sheet .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 18px;text-align:center;transition:background-color .2s var(--ease)}
+  .book-sheet .x:hover{background:var(--tint);text-decoration:none}
+}
+
+/* sticky bars are frosted: the glossary letters, the foods finder */
+.az{background:var(--glass);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);border:1px solid var(--line);
+  border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:6px 10px;gap:2px;margin-bottom:14px}
+.az a{display:inline-flex;align-items:center;justify-content:center;min-width:38px;min-height:38px;border-radius:var(--r-pill);text-decoration:none;
+  transition:background-color .18s var(--ease)}
+.az a:hover{background:var(--tint)}
+@media (min-width:761px){
+  .ffilters:not(.gfilter){position:sticky;top:12px;z-index:5;padding:12px 18px 14px;margin-bottom:14px;background:var(--glass);
+    -webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1)}
+  .nav-js .ffilters:not(.gfilter){top:88px}
+  .ffilters label.check{min-height:40px}
+  .ffilters:not(.gfilter) label{color:var(--ink)}  /* full contrast on the frosted bar, whatever scrolls under it */
+}
+
+/* the /book/ page: the form sits on a white floating card over the pale green, like the dialog it opens as elsewhere */
+@media (min-width:761px){
+  .sec.book-sec{background:var(--tint)}
+  .book-sec .bookform,.book-sec .book-done{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:30px 32px 32px}
+}
+/* ===== HOME lane (design sense, 2026-10-18): the before-and-after slider, the count-up numbers, the steps' line, goal
+   cards that respond, and the booking form in three steps. Shapes and depth use lane LOOK's tokens, with fallbacks.
+   home.js and book.js add the classes that switch each one on (.ba-frame.on, .hl-on, .hc-on, .bk-on); without the
+   scripts the photos sit side by side, the steps have no line, every card shows all, and the form is one page. ===== */
+/* before and after: one frame per client */
+.ba-grid.ba-slides{grid-template-columns:repeat(4,1fr);gap:30px 22px}
+@media(max-width:1100px){.ba-grid.ba-slides{grid-template-columns:1fr 1fr}}
+.ba-slides figure.ba{margin:0;min-width:0}
+.ba-frame{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:var(--r-md,16px);overflow:hidden;background:#fff;
+  box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+.ba-side{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--ba-bg,var(--tint))}
+.ba-slides .ba-side img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 22%;border-radius:0;-webkit-user-drag:none;user-select:none}
+.ba-frame[data-fit="contain"] .ba-side img{object-fit:contain}
+.ba-pill{position:absolute;top:10px;left:10px;z-index:1;padding:3px 12px 2px;border-radius:var(--r-pill,999px);font-size:14px;font-weight:600;line-height:1.5;
+  color:var(--ink);background:var(--glass,rgba(255,255,255,.78));-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  transition:opacity .2s}
+.ba-frame.on{display:block;aspect-ratio:3/4;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.ba-frame.on .ba-side{position:absolute;inset:0;aspect-ratio:auto}
+.ba-frame.on .ba-a{clip-path:inset(0 0 0 var(--pos,50%))}
+.ba-frame.on .ba-a .ba-pill{left:auto;right:10px}
+.ba-frame.b-gone .ba-b .ba-pill,.ba-frame.a-gone .ba-a .ba-pill{opacity:0}
+.ba-handle{position:absolute;z-index:2;top:0;bottom:0;left:var(--pos,50%);width:44px;margin-left:-22px;display:flex;align-items:center;justify-content:center;outline:none;cursor:ew-resize}
+.ba-handle::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:#fff;box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+.ba-knob{position:relative;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--leaf-dark);
+  background:var(--glass,rgba(255,255,255,.78));-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12));transition:transform .18s var(--ease,cubic-bezier(.2,.8,.2,1))}
+.ba-knob svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ba-frame.drag .ba-knob{transform:scale(1.08)}
+.ba-handle:focus-visible .ba-knob{outline:3px solid var(--leaf);outline-offset:2px}
+.ba-slides figcaption{font-size:15px;line-height:1.5;margin-top:12px}
+/* the numbers count up (motion.js); the width each digit takes stays the same while they do */
+ul.stats b{font-variant-numeric:tabular-nums}
+/* the steps' line (home.js measures it; it fills as the reader scrolls) */
+.howline{position:relative}
+.hl-track{position:absolute;z-index:0;border-radius:var(--r-pill,999px);background:rgba(61,90,39,.16);overflow:hidden;pointer-events:none}
+.hl-track i{position:absolute;inset:0;background:var(--leaf);transform-origin:0 0;transform:scaleX(0)}
+.howline ol.how3>li::before{z-index:1}
+.hl-on ol.pts.steps.how3 li::before{background:#fff;color:var(--leaf);border:2px solid var(--leaf);line-height:34px;transition:background .24s,color .24s}
+.hl-on ol.pts.steps.how3 li.hl-hit::before{background:var(--leaf);color:#fff}
+@media(min-width:761px){
+  .howline{display:grid;grid-template-columns:1fr auto;column-gap:40px;align-items:start}
+  .howline ol.how3{margin-top:0}
+  .howline .ctas.center{margin-top:2px;justify-content:flex-end}
+  .howline{margin-top:12px}
+}
+/* goal cards: a photo, the name, her words; on a laptop the card lifts and the photo leans in under the pointer */
+.helpcards .helpcard{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;background:#fff;border:1px solid var(--rule);
+  border-radius:var(--r-md,16px);box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06));
+  transition:transform .26s var(--ease,cubic-bezier(.2,.8,.2,1)),box-shadow .26s var(--ease,cubic-bezier(.2,.8,.2,1)),border-color .26s}
+.hc-img{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--tint)}
+.hc-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s var(--ease,cubic-bezier(.2,.8,.2,1))}
+.helpcards .helpcard h3{margin:18px 20px 8px;font-size:24px}
+.hc-link{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
+.hc-link::after{content:"";position:absolute;inset:0;z-index:1}
+.hc-link:focus-visible{outline:none}
+.helpcard:has(.hc-link:focus-visible){outline:3px solid var(--leaf);outline-offset:3px}
+.hc-more{display:grid;grid-template-rows:1fr;flex:1}
+.hc-in{display:flex;flex-direction:column;min-height:0;padding:0 20px 20px}
+.hc-in p{font-size:16px;line-height:1.55;color:var(--muted)}
+.hc-acts{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px}
+.hc-acts .btn{display:none;position:relative;z-index:2}
+.hc-acts .go{position:relative;z-index:2;font-weight:600;color:var(--leaf);text-decoration:none}
+.hc-acts .go:hover{text-decoration:underline}
+@media(hover:hover){
+  .helpcards .helpcard:hover{transform:translateY(-4px);border-color:transparent;box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12))}
+  .helpcards .helpcard:hover .hc-img img{transform:scale(1.05)}
+}
+/* the booking form in three steps (book.js); without it the steps read one under the other */
+.bookform fieldset.bk-step{border:0;padding:0;margin:0;min-width:0;display:grid;gap:18px}
+.bookform fieldset.bk-step[hidden]{display:none}
+.bookform .bk-h{margin:0;font-size:24px;line-height:1.2;color:var(--leaf-dark)}
+.bookform .bk-h:focus{outline:none}
+.bookform:not(.bk-on) fieldset.bk-step+fieldset.bk-step{padding-top:20px;border-top:1px solid var(--rule)}
+.bookform .lbl{font-weight:600;font-size:17px;line-height:1.3}
+.bk-pills{display:flex;flex-wrap:wrap;gap:10px}
+.bk-pills input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.bookform .bk-pills label{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:10px 20px;border:1.5px solid var(--control);
+  border-radius:var(--r-pill,999px);background:#fff;font-weight:500;font-size:17px;line-height:1.25;cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s}
+.bookform .bk-pills label:hover{border-color:var(--leaf)}
+.bookform .bk-pills input:checked+label{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.bookform .bk-pills input:checked+label::before{content:"";width:6px;height:12px;margin:-4px 2px 0 -2px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.bookform .bk-pills input:focus-visible+label{outline:3px solid var(--leaf);outline-offset:2px}
+.bookform input:not([type="radio"]),.bookform textarea{border-radius:var(--r-sm,10px)}
+.bk-prog{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:15px;color:var(--muted)}
+.bk-prog[hidden]{display:none}
+.bk-prog b{font-weight:600;color:var(--ink)}
+.bk-dots{display:flex;gap:7px}
+.bk-dots i{display:block;width:9px;height:9px;border-radius:var(--r-pill,999px);background:var(--rule);transition:width .26s var(--ease,cubic-bezier(.2,.8,.2,1)),background .26s}
+.bk-dots i.done{background:var(--leaf-soft)}
+.bk-dots i.now{width:26px;background:var(--leaf)}
+.bk-nav{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.bk-nav [hidden]{display:none}
+.bookform .bk-nav .btn{margin-top:4px}
+.bookform.bk-on .bk-nav .bk-next,.bookform.bk-on .bk-nav .bk-send{margin-left:auto}
+.bookform .bk-back{padding-left:22px;padding-right:22px}
+@keyframes bk-in-r{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes bk-in-l{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.bookform .bk-step.bk-fwd{animation:bk-in-r .26s var(--ease,cubic-bezier(.2,.8,.2,1))}
+.bookform .bk-step.bk-bwd{animation:bk-in-l .26s var(--ease,cubic-bezier(.2,.8,.2,1))}
+/* sent: a green tick draws itself above the thank-you words */
+.bk-tick{display:block;width:64px;height:64px;margin:0 0 14px}
+.bk-tick circle{fill:var(--tint);stroke:var(--leaf);stroke-width:2.5;stroke-dasharray:146;stroke-dashoffset:146;transform:rotate(-90deg);transform-origin:50% 50%;
+  animation:bk-draw .55s var(--ease,cubic-bezier(.2,.8,.2,1)) forwards}
+.bk-tick path{fill:none;stroke:var(--leaf);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:32;stroke-dashoffset:32;
+  animation:bk-draw .36s .4s var(--ease,cubic-bezier(.2,.8,.2,1)) forwards}
+@keyframes bk-draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){
+  .ba-pill,.ba-knob,.hl-on ol.pts.steps.how3 li::before,.helpcards .helpcard,.hc-img img,.bookform .bk-pills label,.bk-dots i{transition:none!important}
+  .helpcards .helpcard:hover{transform:none}
+  .helpcards .helpcard:hover .hc-img img{transform:none}
+  .bookform .bk-step.bk-fwd,.bookform .bk-step.bk-bwd,.bk-tick circle,.bk-tick path{animation:none!important;stroke-dashoffset:0}
+}
+=======
+/* ===== PAGES lane (2026-10-18): the nav's design sense on the food, diet chart, calculator, guide and glossary pages
+   (pages.js; tools.js for the sliders). Tokens come from the shared set, with their values as fallbacks. Nothing here
+   starts hidden or short unless pages.js put the class on it, so without the script and under reduced motion every
+   bar, bowl and pane is at its final state. ===== */
+.gpeek,.otp,.rprog{--pg-ease:var(--ease,cubic-bezier(.2,.8,.2,1))}
+/* 8: bars that grow once as they come into view (pages.js adds .pg-grow only to ones still below the screen) */
+.pairs.pg-grow .track i,.mbar.pg-grow i{transform:scaleX(0);transform-origin:0 50%}
+.pairs.pg-grow.pg-in .track i{transform:none;transition:transform .8s var(--ease,cubic-bezier(.2,.8,.2,1)) calc(var(--k,0) * 70ms)}
+.mbar.pg-grow.pg-in i{transform:none;transition:transform .7s var(--ease,cubic-bezier(.2,.8,.2,1)) .05s}
+svg.energybar.pg-grow{clip-path:inset(0 100% 0 0)}
+svg.energybar.pg-grow.pg-in{clip-path:inset(0 0 0 0);transition:clip-path 1.1s var(--ease,cubic-bezier(.2,.8,.2,1))}
+/* 11: calculator sliders are a phone thing (phone.css shows them) */
+.tool input.slide{display:none}
+.tool input.slide{-webkit-appearance:none;appearance:none;width:100%;max-width:none;height:44px;margin:4px 0 0;padding:0;border:0;
+  background:transparent;border-radius:var(--r-pill,999px);cursor:pointer;--p:50%}
+.tool input.slide:focus{outline:none}
+.tool input.slide:focus-visible{outline:none}
+.tool input.slide:focus-visible::-webkit-slider-thumb{outline:3px solid var(--leaf-dark);outline-offset:2px}
+.tool input.slide:focus-visible::-moz-range-thumb{outline:3px solid var(--leaf-dark);outline-offset:2px}
+.tool input.slide::-webkit-slider-runnable-track{height:10px;border-radius:var(--r-pill,999px);
+  background:linear-gradient(var(--leaf),var(--leaf)) 0 0/var(--p) 100% no-repeat,var(--band)}
+.tool input.slide::-moz-range-track{height:10px;border-radius:var(--r-pill,999px);background:var(--band)}
+.tool input.slide::-moz-range-progress{height:10px;border-radius:var(--r-pill,999px);background:var(--leaf)}
+.tool input.slide::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;margin-top:-10px;border-radius:50%;background:#fff;
+  border:2px solid var(--leaf);box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+.tool input.slide::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid var(--leaf);
+  box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+.tool input.slide.idle::-webkit-slider-runnable-track{background:var(--band)}
+.tool input.slide.idle::-webkit-slider-thumb{border-color:var(--control)}
+.tool input.slide.idle::-moz-range-progress{background:transparent}
+.tool input.slide.idle::-moz-range-thumb{border-color:var(--control)}
+/* 12: long guides: "On this page", a floating glass pill bottom left that opens the guide's sections as a card */
+.otp{position:fixed;z-index:40;left:24px;bottom:24px;opacity:0;transform:translateY(12px);pointer-events:none;visibility:hidden;
+  transition:opacity .22s,transform .3s var(--pg-ease),visibility 0s .3s}
+.otp.on{opacity:1;transform:none;pointer-events:auto;visibility:visible;transition:opacity .22s,transform .3s var(--pg-ease)}
+.otp-btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 20px 0 16px;cursor:pointer;
+  font:600 15px/1 'Hind',system-ui,sans-serif;color:var(--leaf-dark);border:1px solid rgba(206,219,194,.85);border-radius:var(--r-pill,999px);
+  background:var(--glass,rgba(255,255,255,.78));-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12));transition:background-color .2s}
+.otp-btn:hover,.otp.open .otp-btn{background:#fff}
+.otp-btn:focus-visible{outline:2px solid var(--leaf);outline-offset:3px}
+.otp-i{width:16px;height:11px;background:linear-gradient(currentColor,currentColor) 0 0/100% 2px no-repeat,
+  linear-gradient(currentColor,currentColor) 0 50%/70% 2px no-repeat,linear-gradient(currentColor,currentColor) 0 100%/85% 2px no-repeat}
+.otp-card{position:absolute;left:0;bottom:calc(100% + 10px);width:min(340px,calc(100vw - 48px));max-height:min(62vh,540px);overflow:auto;
+  overscroll-behavior:contain;box-sizing:border-box;padding:16px 8px 8px;background:#fff;border:1px solid var(--rule);border-radius:var(--r-lg,24px);
+  box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12));transform-origin:22px 100%;
+  opacity:0;transform:translateY(8px) scale(.96);transition:opacity .2s,transform .28s var(--pg-ease)}
+.otp.open .otp-card{opacity:1;transform:none}
+.otp-h{font-weight:600;font-size:14px;color:var(--muted);margin:0 12px 4px}
+.otp ol{list-style:none;margin:0;padding:0}
+.otp ol a{display:flex;align-items:center;min-height:44px;box-sizing:border-box;padding:6px 12px;border-radius:var(--r-sm,10px);color:var(--ink);
+  text-decoration:none;font-size:16px;line-height:1.3}
+.otp ol a:hover{background:var(--tint)}
+.otp ol a[aria-current]{background:var(--band);color:var(--leaf-dark);font-weight:600}
+.otp ol a:focus-visible{outline:2px solid var(--leaf);outline-offset:-2px}
+/* 12: the reading line along the bottom edge of the floating bar */
+.rprog{position:absolute;left:28px;right:28px;bottom:-1px;height:2px;border-radius:var(--r-pill,999px);overflow:hidden;opacity:0;
+  pointer-events:none;transition:opacity .25s}
+.rprog i{display:block;height:100%;background:var(--leaf);transform:scaleX(0);transform-origin:0 50%}
+@media(min-width:761px){.nav-float.reading:not(.nav-open) nav.top .rprog{opacity:1}}
+/* 13: glossary previews: a small floating card with the word's one line and a way to read more */
+.gpeek{position:absolute;z-index:60;box-sizing:border-box;padding:14px 18px 6px;background:rgba(255,255,255,.95);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border:1px solid var(--rule);
+  border-radius:var(--r-md,16px);box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12));
+  opacity:0;transform:translateY(4px) scale(.98);transform-origin:24px 0;transition:opacity .18s,transform .22s var(--pg-ease)}
+.gpeek.above{transform-origin:24px 100%;transform:translateY(-4px) scale(.98)}
+.gpeek.in{opacity:1;transform:none}
+.gpeek:focus{outline:none}
+.gpeek:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
+.gpeek .gp-t{font:600 20px/1.2 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);margin:0 0 4px}
+.gpeek .gp-m{font-size:15.5px;line-height:1.45;color:var(--ink);margin:0}
+.gpeek .gp-more{display:inline-flex;align-items:center;min-height:44px;font-weight:600;font-size:15px;color:var(--leaf-dark)}
+.gpeek .gp-more:after{content:"\203A";margin-left:6px;font-size:18px;line-height:1}
+@media only print{.otp,.gpeek,.rprog{display:none!important}.pg-grow i,.pg-grow .track i{transform:none!important}svg.pg-grow{clip-path:none!important}}

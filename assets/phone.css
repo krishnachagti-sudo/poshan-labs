@@ -452,31 +452,31 @@ ul.stats span{font-size:14px;line-height:1.3}
 
 /* ===== navigation (2026-10-18): the top bar is a floating card over the band, the tabs a floating dock with Book raised in
    the middle, and More opens the menu as a full screen that grows out of the More tab. The rounded corners and soft
-   shadows are the nav's own (test_no_app_chrome exempts rules whose every selector is a nav part, nothing else). ===== */
+   shadows are the design-sense tokens from site.css's :root (tests/design_rules.py). ===== */
 :root{--tab:62px;--dock:10px;--cardh:56px}
 body{padding-bottom:calc(var(--tab) + var(--dock) + 18px + env(safe-area-inset-bottom))}
 html{scroll-padding-top:76px}
-.pbar{top:8px;margin:0 10px calc(-1 * var(--cardh));min-height:var(--cardh);padding:5px 6px 5px 16px;border:1px solid rgba(206,219,194,.8);border-radius:18px;
+.pbar{top:8px;margin:0 10px calc(-1 * var(--cardh));min-height:var(--cardh);padding:5px 6px 5px 16px;border:1px solid rgba(206,219,194,.8);border-radius:var(--r-md);
   background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
-  box-shadow:0 10px 26px -12px rgba(31,42,27,.3),0 1px 3px rgba(31,42,27,.06)}
+  box-shadow:var(--shadow-top)}
 .pbar .back{padding-left:0}
-.pbar .cta{border-radius:13px;padding:9px 15px}
+.pbar .cta{border-radius:calc(var(--r-md) - 5px);padding:9px 15px}
 .bar-off .pbar{transform:translateY(calc(-100% - 40px))}
 .band .hero{padding-top:calc(var(--cardh) + 26px)}
 .band .hero.compact{padding-top:calc(var(--cardh) + 18px)}
 .result{scroll-margin-top:76px}
 .az,.daypick{top:70px}
-.tabs{left:10px;right:10px;bottom:calc(var(--dock) + env(safe-area-inset-bottom));height:var(--tab);padding:0 4px;border:1px solid rgba(206,219,194,.8);border-radius:24px;
+.tabs{left:10px;right:10px;bottom:calc(var(--dock) + env(safe-area-inset-bottom));height:var(--tab);padding:0 4px;border:1px solid rgba(206,219,194,.8);border-radius:var(--r-lg);
   background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
-  box-shadow:0 14px 34px -14px rgba(31,42,27,.4),0 2px 6px rgba(31,42,27,.06)}
+  box-shadow:var(--shadow-dock)}
 .tabs a{gap:2px;font-size:12px;font-weight:500;justify-content:flex-end;padding-bottom:7px}
-.tabs svg{flex:none;box-sizing:content-box;padding:2px 12px;border-radius:14px;transition:background-color .2s}
+.tabs svg{flex:none;box-sizing:content-box;padding:2px 12px;border-radius:var(--r-pill);transition:background-color .2s}
 .tabs a.on:before{display:none}
 .tabs a.on svg{background:var(--band)}
 .tabs a[data-tab="book"]{color:var(--leaf-dark);font-weight:600}
 .tabs a[data-tab="book"]:after{display:none}
 .tabs a[data-tab="book"] svg{width:24px;height:24px;padding:14px;margin-bottom:1px;border-radius:50%;color:#fff;background:var(--leaf);
-  box-shadow:0 0 0 5px #fff,0 10px 20px -6px rgba(44,67,28,.55)}
+  box-shadow:var(--shadow-raised)}
 .tabs a[data-tab="book"]:active svg{background:var(--leaf-dark)}
 .tabs a[data-tab="book"].on svg{background:var(--leaf-dark)}
 /* the More tab's menu: a full screen that opens out of the More tab, the pages in large type */
@@ -503,4 +503,157 @@ html{scroll-padding-top:76px}
 @media (prefers-reduced-motion: reduce){
   .js-sheets .menu-sheet,.js-sheets .menu-sheet.open,.js-sheets .menu-sheet .mgrid a,.js-sheets .menu-sheet .ms-line,.js-sheets .menu-sheet .btn,.pbar,.tabs svg{transition:none!important}
 }
-.menu-sheet .sh .x{border:1px solid var(--rule);border-radius:22px;padding:6px 16px;text-align:center}
+.menu-sheet .sh .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
+
+/* ===== design sense on phones (2026-10-18): the floating card and dock's shapes on everything else. Corners and shadows
+   are site.css's tokens only (tests/design_rules.py). ===== */
+.btn{border-radius:var(--r-pill)}
+.hero-img{border-radius:var(--r-lg)}
+.swipe img{border-radius:var(--r-md)}
+.shelf img{border-radius:var(--r-sm)}
+.meal,.sheet .meal-card{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px}
+.inline-links a{border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 14px;color:var(--leaf-dark)}
+.goals button,.storychips button{border:1px solid var(--line);border-radius:var(--r-pill);padding:8px 14px}
+.goals button.on{border-color:var(--leaf)}
+.switch a,.switch span{border:1px solid var(--line);border-radius:var(--r-pill);padding:6px 14px}
+.switch span,.switch span.on{border-color:var(--leaf)}
+.foodguides p,.foodguides p+p,.foodguides li,.foodguides li+li{border:1px solid rgba(127,168,78,.28);border-radius:var(--r-md);padding:12px 14px}
+.quals li{border-radius:var(--r-md)}
+.more-btn{min-height:40px;padding:6px 18px;margin-top:6px;border-radius:var(--r-pill);background:rgba(61,90,39,.08);color:var(--leaf-dark);text-decoration:none}
+.strip-nav button{min-width:96px}
+.sheet .x,.book-sheet .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
+.crumbs{font-size:14px;padding:3px 12px;margin-bottom:10px}
+.tool{padding:20px 16px}
+form.tool .result{padding:14px 16px}
+.notebook{padding:16px 18px}
+
+/* the phone's structures that are lists, not cards, keep their hairlines and no shadow */
+ol.steps li{box-shadow:none;border-radius:0}
+.js-sheets .day-card{box-shadow:none;border-radius:0}
+
+/* row lists: one rounded card, rows divided by hairlines inside it */
+.rows{margin:0;border:1px solid var(--line);border-radius:var(--r-md);background:#fff;overflow:hidden;box-shadow:var(--shadow-1)}
+.rows>*{padding:14px 16px}
+.rows>*:first-child{border-top:0}
+.rows>*:last-child{border-bottom:0}
+/* the home steps and questions: each a rounded card that opens in place */
+.accs{margin:0;display:grid;gap:10px}
+.accs details,.accs details:last-child{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-1)}
+.accs summary{padding:14px 16px}
+.accs details>p{padding:0 16px 16px}
+.accs summary::after,details.fold>summary::after{transition:transform .28s var(--ease),margin .28s var(--ease)}
+/* folds: rounded cards stacked with a little air between */
+details.fold,details.fold+details.fold,.read details.fold+details.fold{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;padding:0 16px}
+details.fold+details.fold,.read details.fold+details.fold{margin-top:10px}
+.read>details.fold:only-child{border:1px solid var(--line);margin:0}
+
+/* tables: the frame stays; a stacked table is a pile of rounded cards instead */
+.facts th:first-child,.facts td:first-child{padding-left:12px}.facts th:last-child,.facts td:last-child{padding-right:12px}
+table.stack{border:0;border-radius:0;background:none}
+table.stack tr{border:1px solid var(--line);border-radius:var(--r-md);background:#fff;padding:10px 14px 12px;box-shadow:var(--shadow-1)}
+table.stack td{background:none}
+table.stack td:first-child{padding:0 0 6px!important}
+table.labtable:not(.stack) tr{padding:4px 12px}
+table.contact{border:0;border-radius:0;background:none}
+table.contact td:first-child{padding:0!important;background:none}
+table.contact tr:last-child{border-bottom:0}
+
+/* sheets: a floating rounded card over a frosted page, like the dock; the More menu stays full screen */
+.js-sheets .scrim{background:rgba(31,42,27,.24);-webkit-backdrop-filter:blur(6px) saturate(1.2);backdrop-filter:blur(6px) saturate(1.2)}
+.js-sheets .sheet{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));max-height:calc(100svh - 24px);border:1px solid var(--line);
+  border-radius:var(--r-lg);box-shadow:var(--shadow-2);padding:14px var(--m) 24px;transform:translateY(calc(100% + 24px))}
+.js-sheets .sheet.open{transform:none}
+.js-sheets .menu-sheet,.js-sheets .menu-sheet.open{left:0;right:0;bottom:0;max-height:none;border:0;border-radius:0;box-shadow:none;transform:none;
+  padding:calc(8px + env(safe-area-inset-top)) var(--m) calc(26px + env(safe-area-inset-bottom))}
+
+/* sticky strips are frosted floating bars under the top card: the glossary letters, the plan's day picker */
+.az{margin:0 -10px 10px;padding:4px 6px;border-radius:var(--r-pill);
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 30px),transparent)}
+.goals.daypick{background:var(--glass);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter);border:1px solid var(--line);
+  border-radius:var(--r-pill);box-shadow:var(--shadow-1);padding:5px;margin-left:-10px;margin-right:-10px;gap:2px}
+.goals.daypick button{border-color:transparent;background:none;min-height:40px;padding:4px 0}
+.goals.daypick button.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
+
+/* footer corners a touch smaller on a phone */
+footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
+#fgrid .fcard>img,#fgrid .fcard>.fblank{border-radius:var(--r-sm)}
+.bar-off .az,.bar-off .daypick{top:8px}
+.hero .txt>p.crumbs{font-size:14px}
+.kcal-help{margin-bottom:22px}
+.menu-sheet .sh .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
+
+/* ===== HOME lane on phones (design sense, 2026-10-18): one before-and-after frame to a row, the steps' line runs down
+   to the Book button, goal cards fold to photo and name until tapped, and the booking steps fill the sheet. ===== */
+.ba-grid.ba-slides{grid-template-columns:1fr;gap:28px}
+.ba-frame.on{aspect-ratio:4/5}
+.ba-slides figcaption{font-size:16px}
+/* the line: the numbers sit on it, reached ones filled */
+.howline .accs .num{position:relative;z-index:1}
+.hl-on .accs .num{background:#fff;color:var(--leaf);border:2px solid var(--leaf);line-height:26px;transition:background .24s,color .24s}
+.hl-on .accs .num.hl-hit{background:var(--leaf);color:#fff}
+.howline .ctas.center{position:relative;z-index:1}
+/* goal cards: folded to photo and name, a tap opens her words with Book and Read more */
+.helpcards{gap:14px}
+.hc-on .helpcard{display:grid;grid-template-columns:72px 1fr;align-items:center;column-gap:14px;padding:10px 12px 10px 10px;cursor:pointer}
+.hc-on .hc-img{width:72px;height:72px;aspect-ratio:auto;border-radius:var(--r-sm,10px)}
+.hc-on .helpcard h3{margin:0;font-size:22px}
+.hc-tog{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:0;margin:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.hc-tog::after{content:"";flex:none;margin-left:auto;width:9px;height:9px;border-right:2px solid var(--control);border-bottom:2px solid var(--control);
+  transform:rotate(45deg);margin-top:-4px;transition:transform .28s var(--ease,cubic-bezier(.2,.8,.2,1))}
+.helpcard.open .hc-tog::after{transform:rotate(-135deg);margin-top:4px}
+.hc-tog:focus-visible{outline:3px solid var(--leaf);outline-offset:4px;border-radius:var(--r-sm,10px)}
+.hc-on .hc-more{grid-column:1/-1;grid-template-rows:0fr;visibility:hidden;
+  transition:grid-template-rows .3s var(--ease,cubic-bezier(.2,.8,.2,1)),visibility 0s .3s}
+.hc-on .helpcard.open .hc-more{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .3s var(--ease,cubic-bezier(.2,.8,.2,1))}
+.hc-on .hc-in{overflow:hidden;padding:0 4px}
+.hc-on .hc-in>p:first-child{padding-top:12px}
+.hc-acts{flex-direction:column;align-items:stretch;gap:4px}
+.hc-acts .btn{display:block;text-align:center;padding:13px 18px}
+.hc-acts .go{display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px}
+.hc-on .hc-acts{padding-bottom:6px}
+.helpcards .helpcard.open{box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12))}
+/* the booking steps */
+.bookform .bk-h{font-size:22px}
+.bk-pills{gap:8px}
+.bookform .bk-pills label{padding:10px 16px}
+.bookform.bk-on .bk-nav .btn{margin:0;padding:14px 18px}
+.bookform.bk-on .bk-nav .bk-next,.bookform.bk-on .bk-nav .bk-send{flex:1}
+@media (prefers-reduced-motion: reduce){
+  .hl-on .accs .num,.hc-tog::after,.hc-on .hc-more,.hc-on .helpcard.open .hc-more{transition:none!important}
+}
+.menu-sheet .sh .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
+
+/* ===== PAGES lane (2026-10-18), phones: the goal and day rows as a segmented control with a sliding green pill
+   (pages.js adds .seg and the pill), days that swipe, calculator sliders, and the guides' pill above the dock ===== */
+.goals.seg{display:flex;position:relative;gap:0;margin:6px 0 4px;padding:4px;background:var(--tint);border:1px solid var(--rule);
+  border-radius:var(--r-pill,999px);overflow:visible}
+.goals.seg button{flex:1 1 auto;min-width:0;position:relative;z-index:1;justify-content:center;text-align:center;gap:0;min-height:44px;
+  padding:4px 8px;border:0;background:transparent;border-radius:var(--r-pill,999px);font-size:15px;line-height:1.15;color:var(--ink);transition:color .2s}
+.goals.seg button.on{background:transparent;color:#fff}
+.goals.seg button:focus-visible{outline:2px solid var(--leaf-dark);outline-offset:2px}
+.goals.seg i.spice{display:none}  /* the dot stays on every verdict below; the segment has room for the word only */
+.goals.seg .seg-pill{position:absolute;z-index:0;top:4px;bottom:4px;left:0;width:0;border-radius:var(--r-pill,999px);background:var(--leaf);
+  box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+.goals.seg.seg-ready .seg-pill{transition:transform .3s var(--ease,cubic-bezier(.2,.8,.2,1)),width .3s var(--ease,cubic-bezier(.2,.8,.2,1))}
+/* the day row stays pinned under the top card while the week is read: a frosted floating pill */
+.goals.seg.daypick{gap:0;padding:4px;margin:8px 0 10px;background:var(--glass,rgba(255,255,255,.78));
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+.goals.seg.daypick button{flex:1 1 0;padding:4px 0;font-size:14px}
+/* 9: a day follows the finger sideways, and the next one slides in from its side */
+.has-swipe{overflow-x:clip}
+.js-sheets .swipeday{touch-action:pan-y;transition:transform .25s var(--ease,cubic-bezier(.2,.8,.2,1))}
+.js-sheets .swipeday.dragging{transition:none}
+.swipeday.slide-from-r{animation:pg-from-r .32s var(--ease,cubic-bezier(.2,.8,.2,1)) both}
+.swipeday.slide-from-l{animation:pg-from-l .32s var(--ease,cubic-bezier(.2,.8,.2,1)) both}
+@keyframes pg-from-r{from{transform:translateX(56px);opacity:.35}to{transform:none;opacity:1}}
+@keyframes pg-from-l{from{transform:translateX(-56px);opacity:.35}to{transform:none;opacity:1}}
+/* 11: sliders under height, weight and waist */
+.tool input.slide{display:block}
+.tool .ftin input.slide,.tool .cm input.slide{margin-top:8px}
+/* 12: the guides' pill sits above the dock; the reading line runs along the top card's bottom edge */
+.otp{left:12px;bottom:calc(var(--tab,62px) + var(--dock,10px) + 12px + env(safe-area-inset-bottom))}
+.otp-card{width:calc(100vw - 24px);max-height:58vh}
+.rprog{left:20px;right:20px}
+.reading .pbar .rprog{opacity:1}
+@media (prefers-reduced-motion: reduce){.goals.seg .seg-pill,.js-sheets .swipeday{transition:none!important}.swipeday{animation:none!important}}

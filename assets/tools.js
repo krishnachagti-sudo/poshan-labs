@@ -169,6 +169,31 @@
     return n * 2.54;
   }
 
+  /* Sliders (phones, 2026-10-18): height, weight and waist get a range slider under the box, so a thumb can set them; the
+     box still takes typing, and each follows the other. A slider spans the usual values (a typed value outside it is
+     still fine, and parks the thumb at its end); its unit follows the form's switches. Height in feet and inches is one
+     slider in inches, which fills both boxes. [min, max, step] */
+  var SLIDE = { height: { cm: [120, 210, 0.5], ftin: [48, 84, 0.5] }, weight: { kg: [30, 150, 0.5] },
+    waist: { cm: [50, 150, 0.5], "in": [20, 60, 0.5] } };
+  function slideRange(name, unit) { var s = SLIDE[name]; return s ? s[unit] || null : null; }
+  /* where the thumb sits for a box's value: snapped to the step, kept inside the slider; null for an empty or odd box */
+  function slidePos(value, range) {
+    var n = blank(value) ? NaN : Number(value);
+    if (!isFinite(n)) return null;
+    var v = Math.round(n / range[2]) * range[2];
+    return Math.min(range[1], Math.max(range[0], r1(v)));
+  }
+  /* inches on the slider into the feet and inches boxes, and back (5 ft 3.5 in is 63.5) */
+  function slideFtIn(total) { var t = Number(total), ft = Math.floor(t / 12); return { ft: ft, "in": r1(t - ft * 12) }; }
+  function ftInTotal(ft, inch) {
+    var f = blank(ft) ? NaN : Number(ft), i = blank(inch) ? 0 : Number(inch);
+    return isFinite(f) && isFinite(i) ? f * 12 + i : null;
+  }
+  function slideSay(name, unit, v) {
+    if (name === "height" && unit === "ftin") { var fi = slideFtIn(v); return fi.ft + " ft " + fi["in"] + " in"; }
+    return v + " " + ({ cm: "cm", kg: "kg", "in": "inches" }[unit] || unit);
+  }
+
   /* Worked example shown before anyone types, so the form never looks filled in when it isn't. */
   var EXAMPLE = { height: 160, ft: 5, "in": 3, weight: 58, age: 40, waist: 78, hip: 98, neck: 32, minutes: 30, a1c: 6.5, glucose: 85, glucose_mmol: 4.7, insulin: 5 };
   function tapeSay(word, cm, tunit) { return word + " " + (tunit === "in" ? r1(cm / 2.54) + " in" : cm + " cm"); }
@@ -406,7 +431,7 @@
     waistHeight: waistHeight, waistHip: waistHip, bodyFatNavy: bodyFatNavy, water: water, hba1cToEag: hba1cToEag,
     pregnancyGain: pregnancyGain, homaIR: homaIR, homaBand: homaBand, thali: thali, ftInToCm: ftInToCm, cmToFtIn: cmToFtIn, exampleNote: exampleNote, exampleFor: exampleFor, scale: scale, scaleSvg: scaleSvg, EXAMPLE: EXAMPLE,
     answer: answer, WAITING: WAITING, nextLinks: nextLinks, bmiBand: bmiBand, a1cBand: a1cBand, fatBand: fatBand, summary: summary, prompt: prompt,
-    exampleValue: exampleValue, waHref: waHref, THALI_START: THALI_START, UNDER_18: UNDER_18, FT_RANGE: FT_RANGE };
+    exampleValue: exampleValue, waHref: waHref, slideRange: slideRange, slidePos: slidePos, slideFtIn: slideFtIn, ftInTotal: ftInTotal, slideSay: slideSay, THALI_START: THALI_START, UNDER_18: UNDER_18, FT_RANGE: FT_RANGE };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
   root.PoshanTools = api;
 
@@ -614,7 +639,81 @@
       if (real) reveal(out);
       bringIntoView();
     });
+    sliders(form);
     example(true);
+  }
+
+  /* The sliders (SLIDE above). Each one moves its box (or the feet and inches boxes) and lets its input event carry on to
+     the form, so the live answer, the "Show my answer" button and the error messages work exactly as with typing.
+     site.css hides them on computers; phone.css shows them. With no number yet the thumb rests on the example. */
+  function sliders(form) {
+    var kind = form.getAttribute("data-tool"), list = [];
+    function unitOf(name) {
+      if (name === "height") { var h = form.querySelector("input[name=hunit]:checked"); return h ? h.value : "cm"; }
+      if (name === "waist") { var t = form.querySelector("input[name=tunit]:checked"); return t ? t.value : "cm"; }
+      return "kg";
+    }
+    function add(name, unit, after, boxes) {
+      var r = slideRange(name, unit);
+      if (!r || !after) return;
+      var el = document.createElement("input");
+      el.type = "range";
+      el.className = "slide";
+      el.setAttribute("aria-label", { height: "Height", weight: "Weight", waist: "Waist" }[name] + ", slider");
+      after.parentNode.insertBefore(el, after.nextSibling);
+      var o = { el: el, name: name, unit: unit, boxes: boxes };
+      list.push(o);
+      el.addEventListener("input", function () { put(o); });
+    }
+    function range(o) {
+      var u = o.name === "waist" ? unitOf("waist") : o.unit, r = slideRange(o.name, u);
+      o.cur = u;
+      o.el.min = r[0]; o.el.max = r[1]; o.el.step = r[2];
+      return r;
+    }
+    function boxValue(o) {
+      if (o.name === "height" && o.unit === "ftin") return ftInTotal(o.boxes[0].value, o.boxes[1].value);
+      return o.boxes[0].value;
+    }
+    function paint(o, v) {
+      var r = [Number(o.el.min), Number(o.el.max)];
+      o.el.style.setProperty("--p", ((v - r[0]) / (r[1] - r[0]) * 100).toFixed(1) + "%");
+      o.el.setAttribute("aria-valuetext", slideSay(o.name, o.cur, v));
+    }
+    function take(o) {  /* box -> thumb */
+      var r = range(o), v = slidePos(boxValue(o), r), idle = v == null;
+      if (idle) v = slidePos(o.name === "height" && o.unit === "ftin" ? ftInTotal(EXAMPLE.ft, EXAMPLE["in"])
+        : exampleValue(o.name, null, kind, o.cur), r);
+      o.el.value = v;
+      o.el.classList.toggle("idle", idle);
+      paint(o, Number(o.el.value));
+    }
+    function put(o) {  /* thumb -> box */
+      var v = Number(o.el.value);
+      if (o.name === "height" && o.unit === "ftin") { var fi = slideFtIn(v); o.boxes[0].value = fi.ft; o.boxes[1].value = fi["in"]; }
+      else o.boxes[0].value = v;
+      o.el.classList.remove("idle");
+      paint(o, v);
+    }
+    var hgt = form.querySelector(".hgt");
+    if (hgt) {
+      var ft = hgt.querySelector("[name=ft]"), inch = hgt.querySelector("[name=in]"), cm = hgt.querySelector("[name=height]");
+      add("height", "ftin", hgt.querySelector(".ftin .pair:last-child"), [ft, inch]);
+      add("height", "cm", cm && cm.closest(".pair"), [cm]);
+    }
+    var w = form.querySelector("input[name=weight]");
+    if (w) add("weight", "kg", w, [w]);
+    var waist = form.querySelector("input[name=waist]");
+    if (waist) add("waist", "cm", waist, [waist]);
+    if (!list.length) return;
+    form.classList.add("has-slides");
+    list.forEach(take);
+    form.addEventListener("input", function (e) {
+      if (e.target.type !== "number") return;
+      list.forEach(function (o) { if (o.boxes.indexOf(e.target) > -1) take(o); });
+    });
+    /* after the unit switches have carried the typed numbers across (their listeners were added first) */
+    form.addEventListener("change", function (e) { if (e.target.type === "radio") list.forEach(take); });
   }
 
   /* The thali: one row per food. Every control has its own label, every Remove button names its food, and focus never

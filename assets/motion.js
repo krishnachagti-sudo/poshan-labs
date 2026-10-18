@@ -224,6 +224,14 @@
   function start() {
     if (reduce) { doc.classList.remove("js"); videos(); strips(); return; }
     tag();
+    /* a number that counts up starts from nothing once the script is here (the page itself says the final number, which
+       is what reduced motion and no script keep) */
+    /* only numbers still below the screen start from 0 and count up as they arrive; one already on screen at load keeps
+       its real value, so nobody ever reads "0+" waiting for a trigger */
+    if (io) each("[data-count]", function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) { el.removeAttribute("data-count"); return; }
+      el.textContent = "0" + (el.dataset.fmt || "");
+    });
     if (io) each(".rv, [data-count]", function (el) { io.observe(el); });
     else each(".rv", function (el) { el.classList.add("in"); });
     videos();

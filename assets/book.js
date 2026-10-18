@@ -57,7 +57,36 @@
   /* where a request goes: the form's endpoint when it is a web address, else WhatsApp */
   function mode(endpoint) { return /^https:\/\/\S+$/.test(clean(endpoint)) ? "post" : "whatsapp"; }
 
-  var api = { helpFor: helpFor, phoneOk: phoneOk, check: check, message: message, waUrl: waUrl, mode: mode, HELP: HELP, TIME: TIME };
+  /* the note a page fills in for the reader: what the button asks for, then a calculator's answer; both are already
+     sentences in the reader's words ("Please send me this chart: ...", "My BMI came out at 26.6, ...") */
+  function noteLine(ask, answer) { return [clean(ask), clean(answer)].filter(Boolean).join(" "); }
+
+  /* The form in three steps (build/booking.py STEPS): 1 what it is about, 2 name and number, 3 time, city and note.
+     Only step 2 can stop the reader: Next checks the name and number before step 3 opens, and sending from step 3 goes
+     back to step 2 if they are not right. */
+  var STEPS = 3;
+  function stepErrors(step, f) {
+    if (step !== 2) return {};
+    return check(f);
+  }
+  /* where Back (dir -1) or Next (dir 1) leads from a step: { step, errs } (errs set when Next is held up) */
+  function move(step, dir, f) {
+    var errs = dir > 0 ? stepErrors(step, f) : {};
+    if (Object.keys(errs).length) return { step: step, errs: errs };
+    return { step: Math.max(1, Math.min(STEPS, step + dir)), errs: {} };
+  }
+  /* on send: the first step with something to fix, or 0 when the form can go */
+  function firstBad(f) {
+    for (var s = 1; s <= STEPS; s++) if (Object.keys(stepErrors(s, f)).length) return s;
+    return 0;
+  }
+  /* what a screen reader hears when a step is held up: every message, in order */
+  function announce(errs) {
+    return ["name", "phone"].filter(function (k) { return errs[k]; }).map(function (k) { return errs[k]; }).join(" ");
+  }
+
+  var api = { helpFor: helpFor, noteLine: noteLine, phoneOk: phoneOk, check: check, message: message, waUrl: waUrl, mode: mode, HELP: HELP, TIME: TIME,
+    STEPS: STEPS, stepErrors: stepErrors, move: move, firstBad: firstBad, announce: announce };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
   root.PoshanBook = api;
 
@@ -88,6 +117,8 @@
         if (msg) { msg.textContent = ""; msg.hidden = true; }
       }
     });
+    var said = form.querySelector(".bk-live");
+    if (said) said.textContent = first ? announce(errs) : "";
     if (first) first.focus();
     return !first;
   }
@@ -108,10 +139,12 @@
     if (w) { try { w.opener = null; } catch (e) {} }
     return !!w;
   }
+  /* a green tick that draws itself (site.css; drawn at once under reduced motion) above the thank-you words */
+  var TICK = '<svg class="bk-tick" viewBox="0 0 52 52" aria-hidden="true" focusable="false"><circle cx="26" cy="26" r="23"/><path d="M15.5 27.5l7 7 14-15"/></svg>';
   function done(form, html) {
     var box = form.parentNode.querySelector(".book-done");
     form.hidden = true;
-    box.innerHTML = html;
+    box.innerHTML = TICK + html;
     box.hidden = false;
     box.focus();
   }
@@ -131,6 +164,9 @@
   function submit(form, e) {
     e.preventDefault();
     var f = values(form);
+    if (form._step && form._step() < STEPS) { form._go(1); return; }  /* Enter in an early step is Next */
+    var bad = firstBad(f);
+    if (bad && form._step) form._go(bad - form._step(), true);
     if (!showErrors(form, check(f))) return;
     var endpoint = form.getAttribute("data-endpoint") || "";
     if (mode(endpoint) === "whatsapp" || !root.fetch || !root.FormData) {
@@ -156,16 +192,73 @@
     form.setAttribute("data-bound", "1");
     form.noValidate = true;  /* our messages, tied to each field, instead of the browser's bubbles */
     live(form);
+    steps(form);
+    [].forEach.call(form.querySelectorAll('input[name="help"]'), function (r) {
+      r.addEventListener("change", function () { form.removeAttribute("data-help-auto"); });  /* the reader's own pick stays */
+    });
     form.addEventListener("submit", function (e) { submit(form, e); });
   }
-  /* what the page knows: where the reader came from, its topic, and a calculator's answer when one is showing */
+  /* One step at a time: the progress dots, Back and Next, and the step's heading takes focus as it opens, so a screen
+     reader says where the reader is. Without this script the three steps read one under the other. */
+  var still = root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function steps(form) {
+    var parts = [].slice.call(form.querySelectorAll(".bk-step"));
+    if (parts.length !== STEPS) return;
+    var prog = form.querySelector(".bk-prog"), back = form.querySelector(".bk-back"), next = form.querySelector(".bk-next"),
+      send = form.querySelector(".bk-send"), n = form.querySelector(".bk-n"), dots = form.querySelectorAll(".bk-dots i"), at = 1;
+    form.classList.add("bk-on");
+    prog.hidden = false;
+    function show(to, dir, focus) {
+      at = to;
+      parts.forEach(function (p, i) {
+        var on = i + 1 === to;
+        p.hidden = !on;
+        p.classList.remove("bk-fwd", "bk-bwd");
+        if (on && dir && !still) { void p.offsetWidth; p.classList.add(dir > 0 ? "bk-fwd" : "bk-bwd"); }
+      });
+      [].forEach.call(dots, function (d, i) { d.className = i + 1 < to ? "done" : i + 1 === to ? "now" : ""; });
+      n.textContent = to;
+      back.hidden = to === 1;
+      next.hidden = to === STEPS;
+      send.hidden = to !== STEPS;
+      if (focus) {
+        var h = parts[to - 1].querySelector(".bk-h");
+        h.focus({ preventScroll: true });
+        var r = h.getBoundingClientRect();
+        if (r.top < 0 || r.bottom > root.innerHeight) h.scrollIntoView({ block: "nearest" });
+      }
+    }
+    form._step = function () { return at; };
+    /* by steps (Next and Back); skip true jumps there without checking (sending goes back to what needs fixing) */
+    form._go = function (dir, skip) {
+      if (skip) { show(at + dir, dir, false); return; }
+      var r = move(at, dir, values(form));
+      if (r.step === at) { showErrors(form, r.errs); return; }
+      if (dir > 0 && at === 2) showErrors(form, {});
+      show(r.step, dir, true);
+    };
+    form._reset = function () { show(1, 0, false); };
+    form._head = function () { var h = parts[at - 1].querySelector(".bk-h"); h.focus({ preventScroll: true }); };
+    /* Enter in a box (not the note) is Next until the last step, whether or not the browser counts the hidden send button */
+    form.addEventListener("keydown", function (e) {
+      var t = e.target;
+      if (e.key !== "Enter" || at === STEPS || !t || t.tagName !== "INPUT" || e.isComposing) return;
+      e.preventDefault();
+      form._go(1);
+    });
+    next.addEventListener("click", function () { form._go(1); });
+    back.addEventListener("click", function () { form._go(-1); });
+    show(1, 0, false);
+  }
+  /* what the page knows: where the reader came from, its topic (or the goal a card's button names), a calculator's answer
+     when one is showing, and what the button itself asks for (a diet chart's "Get this chart": "Please send me this chart: ...") */
   var autoNote = "";
-  function context(form, from) {
+  function context(form, from, pick, ask) {
     form.elements.page.value = from;
-    var help = form.elements.help, want = helpFor(from);
-    if (want && (!help.value || help.getAttribute("data-auto"))) { help.value = want; help.setAttribute("data-auto", "1"); }
+    var help = form.elements.help, want = pick || helpFor(from);
+    if (want && (!help.value || form.getAttribute("data-help-auto"))) { help.value = want; form.setAttribute("data-help-auto", "1"); }
     var note = form.elements.note, ans = clean(root.poshanAnswer);
-    var line = ans;  /* already a sentence in the reader's words: "My BMI came out at 26.6, ..." */
+    var line = noteLine(ask, ans);
     if (note.value === autoNote) { note.value = line; autoNote = line; }
   }
   function sheet() {
@@ -177,15 +270,13 @@
     s = doc.getElementById("book");
     if (s) s.classList.add("sheet");  /* now one of phone.js's sheets: Back, Escape, Tab, the dimmed page */
     var form = s && s.querySelector("form");
-    if (form) {
-      bind(form);
-      form.elements.help.addEventListener("change", function () { form.elements.help.removeAttribute("data-auto"); });
-    }
+    if (form) bind(form);
     return s;
   }
   function reset(s) {  /* a sheet opened again after a request starts fresh, keeping what was typed only until it is sent */
     var form = s.querySelector("form"), box = s.querySelector(".book-done");
-    if (form.hidden) { form.reset(); form.hidden = false; box.hidden = true; box.innerHTML = ""; autoNote = ""; }
+    if (form.hidden) { form.reset(); form.hidden = false; box.hidden = true; box.innerHTML = ""; autoNote = ""; form.removeAttribute("data-help-auto"); }
+    if (form._reset) form._reset();  /* every opening starts at the first step; what was typed stays until it is sent */
   }
   function isBook(a) {
     return a && a.origin === root.location.origin && a.pathname === "/book/" && !a.hash;
@@ -206,7 +297,7 @@
     if (own) {  /* already on /book/: go to the form */
       e.preventDefault();
       own.scrollIntoView({ block: "start" });
-      if (!own.hidden) own.elements.name.focus();
+      if (!own.hidden && own._head) own._head();
       return;
     }
     var api2 = root.poshanSheet, s = api2 && sheet();
@@ -216,9 +307,9 @@
        still closes everything */
     [].forEach.call(doc.querySelectorAll(".sheet.open"), function (o) { o.classList.remove("open"); });
     reset(s);
-    context(s.querySelector("form"), root.location.pathname);
+    context(s.querySelector("form"), root.location.pathname, a.getAttribute("data-help"), a.getAttribute("data-book-note"));  /* a goal card names its goal; a chart asks for itself */
     api2.open("book", a);
-    if (!phone.matches) { var n = s.querySelector('input[name="name"]'); if (n) n.focus(); }  /* a phone keeps the keyboard down until a field is tapped */
+    if (!phone.matches) { var f0 = s.querySelector("form"); if (f0._head) f0._head(); }  /* the first step's question; a phone keeps focus on Close */
   });
   /* phone.js closes a sheet from its Close button on phones only (the menu sheet is a phone thing); this one closes it
      on computers too */
