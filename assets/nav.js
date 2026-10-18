@@ -1,9 +1,69 @@
+/* The laptop's top bar (2026-10-18). At the top of the page it is a plain white bar; once you have scrolled past about
+   80 px it lifts off into a floating rounded bar in the middle (html.nav-float), and settles back at the top. "Menu" opens
+   the panel below it (#navpanel): from the floating bar, the bar widens and the panel grows out of it. Escape, the Close
+   button, a click outside or any link inside shuts it; Tab stays inside the bar and the panel while it is open.
+   The head script adds nav-js before first paint and takes it off at load unless this file ran, so without it the Menu
+   button never shows and the links read inline. */
 (function () {
-  var b = document.querySelector(".menu"), l = document.getElementById("navlinks");
-  if (b && l) b.addEventListener("click", function () {
-    var open = l.classList.toggle("open");
-    b.setAttribute("aria-expanded", open ? "true" : "false");
+  var root = document.documentElement, nav = document.querySelector("nav.top"), btn = nav && nav.querySelector(".menu"),
+    panel = document.getElementById("navpanel");
+  if (!nav || !btn || !panel || !window.matchMedia) { root.classList.remove("nav-js"); return; }
+  var desk = matchMedia("(min-width:761px)"), label = btn.querySelector(".ml"), isOpen = false, busy = false;
+
+  /* the page you are on (and its section on the home page) */
+  [].forEach.call(nav.querySelectorAll("a[href]"), function (a) {
+    if (a.hash || a.origin !== location.origin) return;
+    var p = a.pathname;
+    if (p !== "/" && location.pathname.indexOf(p) === 0) a.setAttribute("aria-current", "page");
   });
+
+  function float() {
+    busy = false;
+    if (isOpen) return;  /* the bar keeps its shape while the panel is open */
+    root.classList.toggle("nav-float", desk.matches && window.pageYOffset > 80);
+  }
+  window.addEventListener("scroll", function () { if (!busy) { busy = true; requestAnimationFrame(float); } }, { passive: true });
+  float();
+
+  var scrim = document.createElement("div");
+  scrim.className = "navscrim";
+  scrim.setAttribute("aria-hidden", "true");
+  document.body.appendChild(scrim);
+
+  function focusables() {
+    return [].slice.call(nav.querySelectorAll("a[href], button")).filter(function (el) { return el.offsetWidth || el.offsetHeight; });
+  }
+  function set(open, back) {
+    if (open === isOpen) return;
+    isOpen = open;
+    root.classList.toggle("nav-open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (label) label.textContent = open ? "Close" : "Menu";
+    if (open) {
+      var first = panel.querySelector("a[href]");
+      setTimeout(function () { if (isOpen && first) first.focus({ preventScroll: true }); }, 60);
+    } else {
+      if (back) btn.focus({ preventScroll: true });
+      float();
+    }
+  }
+  btn.addEventListener("click", function () { set(!isOpen, true); });
+  scrim.addEventListener("click", function () { set(false, true); });
+  /* any link in the panel shuts it first: one to this page's own section scrolls there; Book then opens the form */
+  panel.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("a[href]")) set(false, false); });
+  document.addEventListener("keydown", function (e) {
+    if (!isOpen) return;
+    if (e.key === "Escape") { e.preventDefault(); set(false, true); return; }
+    if (e.key !== "Tab") return;
+    var f = focusables(), first = f[0], end = f[f.length - 1];
+    if (!f.length) return;
+    if (e.shiftKey && (document.activeElement === first || !nav.contains(document.activeElement))) { e.preventDefault(); end.focus(); }
+    else if (!e.shiftKey && (document.activeElement === end || !nav.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+  });
+  function change() { if (!desk.matches) set(false, false); float(); }
+  if (desk.addEventListener) desk.addEventListener("change", change); else if (desk.addListener) desk.addListener(change);
+  window.addEventListener("pageshow", function (e) { if (e.persisted) set(false, false); });
+  window.poshanNav = true;
 })();
 /* U48: WhatsApp links open in a new tab on a computer (the build marks them so), but on a phone they hand over to the app,
    where a new tab would only leave an empty page behind. Links the calculators write later are covered too. */

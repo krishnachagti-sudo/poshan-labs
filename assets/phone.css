@@ -449,3 +449,58 @@ ul.stats span{font-size:14px;line-height:1.3}
 .book-sheet .sh h2{font-size:26px}
 .book-sheet .bookform{padding-bottom:8px}
 .book-done .btn{display:block;text-align:center}
+
+/* ===== navigation (2026-10-18): the top bar is a floating card over the band, the tabs a floating dock with Book raised in
+   the middle, and More opens the menu as a full screen that grows out of the More tab. The rounded corners and soft
+   shadows are the nav's own (test_no_app_chrome exempts rules whose every selector is a nav part, nothing else). ===== */
+:root{--tab:62px;--dock:10px;--cardh:56px}
+body{padding-bottom:calc(var(--tab) + var(--dock) + 18px + env(safe-area-inset-bottom))}
+html{scroll-padding-top:76px}
+.pbar{top:8px;margin:0 10px calc(-1 * var(--cardh));min-height:var(--cardh);padding:5px 6px 5px 16px;border:1px solid rgba(206,219,194,.8);border-radius:18px;
+  background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  box-shadow:0 10px 26px -12px rgba(31,42,27,.3),0 1px 3px rgba(31,42,27,.06)}
+.pbar .back{padding-left:0}
+.pbar .cta{border-radius:13px;padding:9px 15px}
+.bar-off .pbar{transform:translateY(calc(-100% - 40px))}
+.band .hero{padding-top:calc(var(--cardh) + 26px)}
+.band .hero.compact{padding-top:calc(var(--cardh) + 18px)}
+.result{scroll-margin-top:76px}
+.az,.daypick{top:70px}
+.tabs{left:10px;right:10px;bottom:calc(var(--dock) + env(safe-area-inset-bottom));height:var(--tab);padding:0 4px;border:1px solid rgba(206,219,194,.8);border-radius:24px;
+  background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  box-shadow:0 14px 34px -14px rgba(31,42,27,.4),0 2px 6px rgba(31,42,27,.06)}
+.tabs a{gap:2px;font-size:12px;font-weight:500;justify-content:flex-end;padding-bottom:7px}
+.tabs svg{flex:none;box-sizing:content-box;padding:2px 12px;border-radius:14px;transition:background-color .2s}
+.tabs a.on:before{display:none}
+.tabs a.on svg{background:var(--band)}
+.tabs a[data-tab="book"]{color:var(--leaf-dark);font-weight:600}
+.tabs a[data-tab="book"]:after{display:none}
+.tabs a[data-tab="book"] svg{width:24px;height:24px;padding:14px;margin-bottom:1px;border-radius:50%;color:#fff;background:var(--leaf);
+  box-shadow:0 0 0 5px #fff,0 10px 20px -6px rgba(44,67,28,.55)}
+.tabs a[data-tab="book"]:active svg{background:var(--leaf-dark)}
+.tabs a[data-tab="book"].on svg{background:var(--leaf-dark)}
+/* the More tab's menu: a full screen that opens out of the More tab, the pages in large type */
+.js-sheets .menu-sheet{top:0;bottom:0;max-height:none;border-top:0;transform:none;display:flex;flex-direction:column;
+  padding:calc(8px + env(safe-area-inset-top)) var(--m) calc(26px + env(safe-area-inset-bottom));
+  clip-path:circle(0 at calc(100% - 46px) calc(100% - 42px));transition:clip-path .5s cubic-bezier(.6,0,.25,1),visibility 0s .5s}
+.js-sheets .menu-sheet.open{clip-path:circle(150% at calc(100% - 46px) calc(100% - 42px));transform:none;transition:clip-path .6s cubic-bezier(.5,0,.2,1)}
+.menu-sheet .sh{align-items:center;margin-bottom:6px;min-height:52px}
+.menu-sheet .sh h2{font-size:22px;color:var(--muted);font-weight:600}
+.menu-sheet .x{font-size:16px}
+.menu-sheet .mgrid:first-of-type{grid-template-columns:1fr;border-top:0}
+.menu-sheet .mgrid:first-of-type a{font:600 31px/1.15 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);min-height:50px;padding:4px 0;border-bottom:0}
+.menu-sheet .mgrid+.mgrid{margin-top:22px;border-top:1px solid var(--rule);padding-top:6px}
+.menu-sheet .mgrid+.mgrid a{min-height:44px;border-bottom:0;font-size:17px}
+.menu-sheet .mgrid a[aria-current]:before{width:7px;height:7px}
+.menu-sheet .ms-line{margin-top:auto;padding-top:22px;font:600 20px/1.3 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark)}
+.menu-sheet .btn{display:block;text-align:center;margin-top:14px;padding:14px 18px}
+.js-sheets .menu-sheet .mgrid a,.js-sheets .menu-sheet .ms-line,.js-sheets .menu-sheet .btn{opacity:0;transform:translateY(12px);transition:opacity .2s,transform .2s}
+.js-sheets .menu-sheet.open .mgrid a,.js-sheets .menu-sheet.open .ms-line,.js-sheets .menu-sheet.open .btn{opacity:1;transform:none;
+  transition:opacity .4s calc(.16s + var(--k,0) * 28ms),transform .55s cubic-bezier(.2,.8,.2,1) calc(.16s + var(--k,0) * 28ms)}
+.menu-sheet .mgrid a:nth-child(2){--k:1}.menu-sheet .mgrid a:nth-child(3){--k:2}.menu-sheet .mgrid a:nth-child(4){--k:3}
+.menu-sheet .mgrid a:nth-child(5){--k:4}.menu-sheet .mgrid a:nth-child(6){--k:5}.menu-sheet .mgrid a:nth-child(7){--k:6}
+.menu-sheet .mgrid+.mgrid a{--k:7}.menu-sheet .ms-line,.menu-sheet .btn{--k:8}
+@media (prefers-reduced-motion: reduce){
+  .js-sheets .menu-sheet,.js-sheets .menu-sheet.open,.js-sheets .menu-sheet .mgrid a,.js-sheets .menu-sheet .ms-line,.js-sheets .menu-sheet .btn,.pbar,.tabs svg{transition:none!important}
+}
+.menu-sheet .sh .x{border:1px solid var(--rule);border-radius:22px;padding:6px 16px;text-align:center}

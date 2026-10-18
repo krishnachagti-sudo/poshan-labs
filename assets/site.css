@@ -1,7 +1,7 @@
-@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=f62a9aa5) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=f62a9aa5) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=f62a9aa5) format('woff2')}
-@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=f62a9aa5) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=c3b4cdfe) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=c3b4cdfe) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=c3b4cdfe) format('woff2')}
+@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=c3b4cdfe) format('woff2')}
 /* Georgia Bold scaled to Yrsa's width and height (build/fonts metrics), so headings don't jump when Yrsa arrives */
 @font-face{font-family:'Yrsa fallback';font-style:normal;font-weight:600 700;font-display:swap;src:local('Georgia Bold'),local('Georgia-Bold');size-adjust:76.9%;ascent-override:94.7%;descent-override:35.4%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -31,16 +31,8 @@ ul.plain{list-style:none}
 /* band (clean look, 2026-10-17): a white top bar, then the page's band in a pale leaf green; one green button */
 h1,h2{color:var(--leaf-dark)}
 .band{background:var(--band);color:var(--ink)}
-nav.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;background:#fff;
-  border-image:conic-gradient(#fff 0 0) fill 0//0 100vmax}
 .mark{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-weight:700;font-size:27px;line-height:1;color:var(--leaf-dark);text-decoration:none;white-space:nowrap}
 .mark small{display:block;font-family:'Hind',sans-serif;font-weight:500;font-size:13px;color:var(--muted);margin-top:5px}
-nav.top .links{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:4px 26px}
-nav.top .links a{color:var(--ink);text-decoration:none;font-size:16px;font-weight:500}
-nav.top .links a:hover{color:var(--leaf);text-decoration:underline}
-nav.top .links a.cta{background:var(--leaf);color:#fff;padding:10px 18px;border-radius:6px;white-space:nowrap;font-weight:600;margin-left:6px}
-nav.top .links a.cta:hover{background:var(--leaf-dark);text-decoration:none;color:#fff}
-.menu{display:none;background:transparent;border:1.5px solid var(--ink);color:var(--ink);font:600 15px 'Hind',sans-serif;padding:6px 12px;border-radius:4px}
 .hero{padding:48px 0 56px}
 .hero .txt{max-width:760px}
 .hero h1{font-size:50px;line-height:1.06;font-weight:700}
@@ -142,11 +134,6 @@ footer a:hover{text-decoration:underline}
 
 @media(min-width:761px){footer{padding-bottom:44px}}
 @media(max-width:860px){
-  .menu{display:block}
-  nav.top{flex-wrap:wrap}
-  nav.top .links{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:10px;padding:10px 0 6px}
-  nav.top .links.open{display:flex}
-  .mark small{display:none}
   .hero.has-img{grid-template-columns:1fr}
   .hero h1,.hero.has-img h1{font-size:38px}
   .hero-img{height:360px}
@@ -456,7 +443,7 @@ ol.pts.steps.how3 li b{color:var(--ink);font-size:19px;margin-bottom:6px}
   @page{margin:11mm 12mm}
   html,body{background:#fff;color:#000;font-size:11pt;line-height:1.4}
   body{padding:0}
-  .lid-cover,.tiles,.steel,.pbar,nav.top,.tabs,.stickybar,.scrim,.sheet,.menu,footer,.hero-img,.crumbs,.vid,.vid-band,video,
+  .lid-cover,.tiles,.steel,.pbar,nav.top,.navscrim,.tabs,.stickybar,.scrim,.sheet,.menu,footer,.hero-img,.crumbs,.vid,.vid-band,video,
   .btn,.ctas,.switch,.closing,.byline,.wa-note,.kcal-help{display:none!important}
   .band,.hero,.hero.has-img{display:block;background:none;padding:0;color:#000}
   .band .wide,.wide,.read{max-width:none;padding:0}
@@ -910,4 +897,91 @@ ul.foodguides{list-style:none}.foodguides li+li{margin-top:6px}
   .book-sheet .bookform{max-width:none}
   body.open:has(.book-sheet.open){overflow:hidden}
   body.open:has(.book-sheet.open) .scrim{display:block;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45)}
+}
+
+/* ================= navigation (2026-10-18, build/layout.py band() and nav_panel(), nav.js) =================
+   A white bar at the top of the page; past about 80 px it lifts into a floating rounded bar in the middle, and "Menu" opens
+   a panel that grows out of it. The rounded corners and soft shadows here are the nav's own, and only the nav's: the
+   anti-AI-look checks (test_whole_site, test_phone) exempt rules whose every selector is a nav part, nothing else. */
+:root{--navh:84px;--navease:cubic-bezier(.22,.8,.24,1)}
+nav.top{background:#fff}
+.navrow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0}
+nav.top .links{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:4px 26px}
+nav.top .links a{color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;white-space:nowrap}
+nav.top .links a:hover,nav.top .links a[aria-current]{color:var(--leaf)}
+nav.top .links a:not(.cta){background:linear-gradient(var(--leaf),var(--leaf)) 0 100%/0 1.5px no-repeat;padding:4px 0;transition:background-size .25s var(--navease),color .2s}
+nav.top .links a:not(.cta):hover,nav.top .links a[aria-current]{background-size:100% 1.5px}
+nav.top .links a.cta{background:var(--leaf);color:#fff;padding:10px 18px;border-radius:6px;font-weight:600;margin-left:2px;transition:background-color .2s,border-radius .45s var(--navease),padding .45s var(--navease)}
+nav.top .links a.cta:hover{background:var(--leaf-dark);color:#fff}
+nav.top .menu{display:none;align-items:center;gap:9px;background:#fff;border:1px solid var(--rule);color:var(--ink);font:500 16px/1 'Hind',sans-serif;
+  padding:10px 16px 10px 14px;min-height:44px;border-radius:22px;cursor:pointer;transition:background-color .2s,border-color .2s}
+nav.top .menu:hover{background:var(--tint);border-color:#C6D5B8}
+nav.top .menu .mi{position:relative;width:16px;height:10px}
+nav.top .menu .mi:before,nav.top .menu .mi:after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:1px;transition:transform .35s var(--navease),top .35s var(--navease)}
+nav.top .menu .mi:before{top:1px}
+nav.top .menu .mi:after{top:7.5px}
+.nav-open nav.top .menu .mi:before{top:4.25px;transform:rotate(45deg)}
+.nav-open nav.top .menu .mi:after{top:4.25px;transform:rotate(-45deg)}
+nav.top .menu .ml{min-width:40px;text-align:left}
+.navpanel{display:none}
+.navscrim{display:none}
+
+@media(min-width:761px){
+  html.nav-js{scroll-padding-top:100px}
+  .nav-js .band>.wide{padding-top:var(--navh)}
+  .nav-js nav.top{position:fixed;z-index:50;top:0;left:50%;width:100%;transform:translateX(-50%);
+    box-shadow:0 1px 0 var(--rule);border:1px solid transparent;border-width:0 1px;
+    transition:top .5s var(--navease),width .5s var(--navease),border-radius .5s var(--navease),background-color .35s,box-shadow .5s var(--navease),border-color .35s}
+  .nav-js nav.top .navrow{height:var(--navh);padding:0 max(20px,calc((100% - 1080px)/2));transition:height .5s var(--navease),padding .5s var(--navease)}
+  .nav-js nav.top .menu{display:inline-flex}
+  .nav-js nav.top .links{flex-wrap:nowrap;gap:28px}
+  .nav-js nav.top .links a.cta{margin-left:-14px}
+  .nav-js nav.top .mark small{transition:opacity .3s,max-height .45s var(--navease),margin .45s var(--navease);max-height:20px;overflow:hidden}
+  .nav-js nav.top .mark{transition:font-size .45s var(--navease)}
+  /* the floating bar */
+  .nav-float nav.top{top:14px;width:min(72%,1120px);border-radius:31px;background:rgba(255,255,255,.8);border-color:rgba(206,219,194,.75);border-width:1px;
+    -webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
+    box-shadow:0 18px 40px -18px rgba(31,42,27,.28),0 2px 6px -2px rgba(31,42,27,.08)}
+  .nav-float nav.top .navrow{height:60px;padding:0 9px 0 26px}
+  .nav-float nav.top .mark{font-size:23px}
+  .nav-float nav.top .mark small{opacity:0;max-height:0;margin-top:0}
+  .nav-float nav.top .links{gap:24px}
+  .nav-float nav.top .links a{font-size:15.5px}
+  .nav-float nav.top .menu{background:transparent;border-color:rgba(31,42,27,.14)}
+  .nav-float nav.top .links a.cta{border-radius:22px;padding:10px 20px}
+  /* the panel: it drops out of the bar; from the floating bar the bar widens first and the panel grows out of it */
+  .nav-js .navpanel{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .5s var(--navease),visibility 0s .5s}
+  .nav-open .navpanel{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .5s var(--navease) .06s}
+  .navpanel .np-in{min-height:0;overflow:hidden}
+  .nav-open .navpanel .np-in{max-height:calc(100vh - var(--navh) - 40px);overflow-y:auto;overscroll-behavior:contain}
+  .navpanel .np-grid{display:grid;grid-template-columns:1fr 1fr minmax(260px,1.05fr);gap:32px 48px;border-top:1px solid var(--rule);
+    padding:34px max(20px,calc((100vw - 1080px)/2)) 30px;opacity:0;transform:translateY(-10px);transition:opacity .25s,transform .4s var(--navease)}
+  .navpanel .np-goals{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 26px;border-top:1px solid var(--rule);
+    padding:16px max(20px,calc((100vw - 1080px)/2)) 22px;opacity:0;transition:opacity .25s}
+  .nav-open .navpanel .np-grid{opacity:1;transform:none;transition:opacity .35s .16s,transform .5s var(--navease) .12s}
+  .nav-open .navpanel .np-goals{opacity:1;transition:opacity .35s .24s}
+  .nav-float.nav-open nav.top{width:calc(100% - 28px);border-radius:24px;background:#fff}
+  .nav-float.nav-open nav.top .navrow{padding:0 max(26px,calc((100% - 1080px)/2))}
+  .nav-float nav.top .np-grid,.nav-float nav.top .np-goals{padding-left:max(26px,calc((100vw - 28px - 1080px)/2));padding-right:max(26px,calc((100vw - 28px - 1080px)/2))}
+  .nav-open nav.top{box-shadow:0 30px 60px -30px rgba(31,42,27,.35),0 1px 0 var(--rule)}
+  .navpanel .np-h{font-size:14px;font-weight:600;color:var(--muted);margin:0 0 10px}
+  .navpanel .np-col a{display:block;width:fit-content;font:600 38px/1.18 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);text-decoration:none;padding:3px 0}
+  .navpanel .np-col a:hover,.navpanel .np-col a[aria-current]{color:var(--leaf);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:6px}
+  .navpanel .np-side{align-self:start;background:var(--tint);border-radius:6px;padding:24px 24px 22px;margin-top:30px}
+  .navpanel .np-line{font:600 24px/1.3 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);margin:0 0 18px}
+  .navpanel .np-call{font-size:15px;color:var(--muted);margin-top:12px}
+  .navpanel .np-call a{color:var(--muted);white-space:nowrap}
+  .navpanel .np-goals .np-h{margin:0 6px 0 0}
+  .navpanel .np-goals a{color:var(--ink);font-size:16px;font-weight:500;text-decoration:none}
+  .navpanel .np-goals a:hover{color:var(--leaf);text-decoration:underline}
+  .nav-js .navscrim{display:block;position:fixed;inset:0;z-index:49;background:rgba(31,42,27,.22);opacity:0;pointer-events:none;transition:opacity .4s}
+  .nav-open .navscrim{opacity:1;pointer-events:auto}
+  .nav-js .az{top:88px}
+}
+/* the inline links need the room: under 1100 px the top bar has Menu, and the floating bar keeps them from 1360 px */
+@media(min-width:761px) and (max-width:1099px){.nav-js nav.top .links>a:not(.cta){display:none}.nav-js nav.top .links a.cta{margin-left:0}}
+@media(min-width:1100px) and (max-width:1359px){.nav-float nav.top .links>a:not(.cta){display:none}.nav-float nav.top .links a.cta{margin-left:0}}
+@media(max-width:860px){.nav-js nav.top .mark small{display:none}}
+@media (prefers-reduced-motion: reduce){
+  nav.top,nav.top *,nav.top .navrow,nav.top .navpanel,nav.top .np-grid,nav.top .np-goals,.navscrim{transition:none!important}
 }
