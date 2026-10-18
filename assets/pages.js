@@ -418,4 +418,20 @@
     if (e.key === "Escape" && peek && !peek.hidden) { e.preventDefault(); hide(true); }
   });
   root.addEventListener("resize", function () { hide(false); });
+
+  /* ---------- 14: a client's whole words fold to three lines under her key line, with Read all ---------- */
+  each(".testimonial .q-full", function (p) {
+    var q = p.parentNode, foot = q.querySelector(".q-who");
+    q.classList.add("folded");
+    if (!foot || p.scrollHeight <= p.clientHeight + 2) { q.classList.remove("folded"); return; }
+    var b = doc.createElement("button");
+    b.type = "button"; b.className = "q-more"; b.textContent = "Read all";
+    b.setAttribute("aria-expanded", "false"); b.setAttribute("aria-controls", idFor(p, "qfull"));
+    b.addEventListener("click", function () {
+      var open = q.classList.toggle("folded") === false;
+      b.textContent = open ? "Show less" : "Read all";
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    foot.appendChild(b);
+  });
 })(typeof window !== "undefined" ? window : this);

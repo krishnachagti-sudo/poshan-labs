@@ -330,13 +330,6 @@ div.more-links{margin-top:26px}
 .quals b{font-size:18px}
 .quals .by{font-size:15px}.quals .small{font-size:14px}
 
-/* results: long quotes show five lines with "Read it all" (phone.js); the words themselves are never cut */
-.js-sheets #storyquotes .testimonial:not(.open)>p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-.testimonial p{font-size:17px}
-.testimonial .readall{grid-column:2;justify-self:start;min-height:44px;padding:0;background:none;border:0;font:600 15px 'Hind',system-ui,sans-serif;color:var(--leaf);
-  text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.testimonial .readall[hidden]{display:none}
-.quotes .testimonial{margin-bottom:22px}
 
 /* foods hub: the four ways in are a sideways row, so the finder is near the top */
 .foodguides{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1 * var(--m)) 16px;padding:0 var(--m) 4px;scrollbar-width:none}
@@ -657,3 +650,16 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .rprog{left:20px;right:20px}
 .reading .pbar .rprog{opacity:1}
 @media (prefers-reduced-motion: reduce){.goals.seg .seg-pill,.js-sheets .swipeday{transition:none!important}.swipeday{animation:none!important}}
+
+/* ===== QUOTES lane on phones: the same cards, a little tighter ===== */
+.testimonial,.quotes3 .testimonial,.strip .testimonial{padding:18px 18px 12px;margin-bottom:14px}
+.quotes3 .testimonial,.strip .testimonial{margin:0}
+.testimonial .q-gist{font-size:19px}
+.checkins{grid-template-columns:1fr 1fr;gap:10px}
+.checkins li{padding:14px}
+.checkins b{font-size:19px}
+
+/* ===== LISTS lane on phones ===== */
+ul.pts.tags li{padding:5px 13px}
+ul.pts.checks li{padding:11px 14px 11px 44px}
+ul.pts.checks li::before{left:13px;top:13px}

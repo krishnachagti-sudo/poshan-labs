@@ -212,22 +212,6 @@
     });
   });
 })();
-/* Results page: a long quote shows five lines and a "Read it all" button (phone.css clamps only while js-sheets is on) */
-(function () {
-  var phone = window.matchMedia && matchMedia("(max-width:760px)");
-  if (!phone || !phone.matches) return;
-  document.querySelectorAll("#storyquotes .testimonial").forEach(function (q) {
-    var p = q.querySelector("p");
-    if (!p || p.scrollHeight <= p.clientHeight + 2) return;
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "readall";
-    b.textContent = "Read it all";
-    b.setAttribute("aria-expanded", "false");
-    b.addEventListener("click", function () { q.classList.add("open"); b.hidden = true; b.setAttribute("aria-expanded", "true"); });
-    p.parentNode.insertBefore(b, p.nextSibling);
-  });
-})();
 /* Sideways rows on a phone (the certificates on /about/, the foods hub's ways in): "2 of 7" with Previous and Next under
    the row, as under the home page's quotes, so a card cut off at the edge reads as "more this way", not as a broken page */
 (function () {
