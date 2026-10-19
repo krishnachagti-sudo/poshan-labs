@@ -1,7 +1,7 @@
-@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=5c07792d) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=5c07792d) format('woff2')}
-@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=5c07792d) format('woff2')}
-@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=5c07792d) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:400;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-400.woff2?v=eaa94297) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:500;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-500.woff2?v=eaa94297) format('woff2')}
+@font-face{font-family:'Hind';font-style:normal;font-weight:600;font-display:swap;src:url(/poshan-labs/assets/fonts/hind-600.woff2?v=eaa94297) format('woff2')}
+@font-face{font-family:'Yrsa';font-style:normal;font-weight:600 700;font-display:swap;src:url(/poshan-labs/assets/fonts/yrsa.woff2?v=eaa94297) format('woff2')}
 /* Georgia Bold scaled to Yrsa's width and height (build/fonts metrics), so headings don't jump when Yrsa arrives */
 @font-face{font-family:'Yrsa fallback';font-style:normal;font-weight:600 700;font-display:swap;src:local('Georgia Bold'),local('Georgia-Bold');size-adjust:76.9%;ascent-override:94.7%;descent-override:35.4%;line-gap-override:0%}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1400,6 +1400,8 @@ ul.stats.words span{max-width:24ch;margin:6px auto 0}
 .shot a{display:block;border-radius:var(--r-md,16px);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-1);background:#fff}
 .shot img{display:block;width:100%;height:auto;max-height:640px;object-fit:cover;object-position:top}
 .shot figcaption{margin:8px 4px 0;font-size:15px;color:var(--muted)}
+.shots.folded .shot:nth-child(n+9){display:none}
+.shots-more{display:flex;margin:6px auto 0}
 @media (hover:hover){
   .shot a{transition:box-shadow .25s var(--ease),transform .25s var(--ease)}
   .shot a:hover{box-shadow:var(--shadow-2);transform:translateY(-2px)}

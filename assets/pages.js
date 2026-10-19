@@ -368,6 +368,21 @@
 
   /* ---------- 15: a client's screenshot opens over the page; arrows step through them, Escape or a tap outside closes ---------- */
   var shots = Array.prototype.slice.call(doc.querySelectorAll("a[data-shot]"));
+  /* a long wall of messages shows its first SHOTS_SHOWN, with a button for the rest (every one is in the page without the script) */
+  var SHOTS_SHOWN = 8, wall = doc.querySelector(".shots");
+  if (wall && wall.children.length > SHOTS_SHOWN + 2) {
+    wall.classList.add("folded");
+    var more = doc.createElement("button");
+    more.type = "button"; more.className = "btn ghost shots-more";
+    more.textContent = "See all " + wall.children.length + " messages";
+    more.setAttribute("aria-expanded", "false"); more.setAttribute("aria-controls", idFor(wall, "shots"));
+    more.addEventListener("click", function () {
+      wall.classList.remove("folded"); more.hidden = true; more.setAttribute("aria-expanded", "true");
+      var next = wall.children[SHOTS_SHOWN] && wall.children[SHOTS_SHOWN].querySelector("a");
+      if (next) next.focus();
+    });
+    wall.parentNode.insertBefore(more, wall.nextSibling);
+  }
   if (shots.length) {
     var view = doc.createElement("div"), big = doc.createElement("img"), at = 0, opener = null;
     view.className = "shotview"; view.hidden = true;
