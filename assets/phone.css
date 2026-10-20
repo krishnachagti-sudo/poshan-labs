@@ -1,11 +1,11 @@
 /* Phone edition. Loaded after site.css with media="(max-width:760px)", so every rule here is phone-only and wins ties.
-   The look follows the desktop's clean green and white (2026-10-17): a white bar, a pale green band, Yrsa headings over
-   Hind, arranged the way phones read. Class contract for page families: .ph phone-only, .dk desktop-only, .sheet[id] opened by
+   The look follows the desktop's ivory and white (2026-10-19, IVORY FOUNDATION at the end): a white header, ivory and
+   white sections, Inter throughout, arranged the way phones read. Class contract for page families: .ph phone-only, .dk desktop-only, .sheet[id] opened by
    [data-sheet="id"], .rows row list, .swipe sideways row, .goals switcher with [data-goal] panes. */
-:root{--m:20px;--tab:56px}
+:root{--m:20px}
 *{-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:76px}
-body{font-size:17px;line-height:1.55;padding-bottom:calc(var(--tab) + env(safe-area-inset-bottom))}
+body{font-size:17px;line-height:1.55}
 h1,h2{font-weight:700;line-height:1.1}
 .ph{display:revert}
 .dk{display:none!important}
@@ -47,7 +47,7 @@ h1,h2{font-weight:700;line-height:1.1}
 .rows .tx span{display:block;font-size:15px;color:var(--muted);line-height:1.4;margin-top:2px}
 .rows .k{font-size:15px;color:var(--muted);white-space:nowrap}
 .rows .chev{color:var(--control);font-size:24px;line-height:1}
-.rows .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;font:700 17px/30px 'Yrsa','Yrsa fallback',Georgia,serif;text-align:center;padding:0}
+.rows .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;font:700 17px/30px var(--sans);text-align:center;padding:0}
 .rows i.spice{width:14px;height:14px;flex:0 0 14px;margin:0}
 
 /* a sideways row: photos and captions side by side, the next one peeking */
@@ -67,12 +67,12 @@ h1,h2{font-weight:700;line-height:1.1}
 /* goal switcher: one verdict at a time once the script runs; every pane shows without it */
 .goals{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--m));padding:0 var(--m)}
 .goals::-webkit-scrollbar{display:none}
-.goals button{flex:0 0 auto;display:flex;align-items:center;gap:7px;min-height:44px;font:500 16px 'Hind',system-ui,sans-serif;color:var(--ink);
+.goals button{flex:0 0 auto;display:flex;align-items:center;gap:7px;min-height:44px;font:500 16px var(--sans);color:var(--ink);
   border:1.5px solid var(--control);background:#fff;border-radius:4px;padding:8px 12px;cursor:pointer}
 .goals button.on{border-color:var(--leaf);background:var(--leaf);color:#fff}
 .goals i.spice{margin:0}
 [data-goal][hidden]{display:none!important}
-.verdict{padding:14px 0 4px}.verdict .w{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:26px;font-weight:700}.verdict p{margin-top:4px}
+.verdict{padding:14px 0 4px}.verdict .w{font-family:var(--sans);font-size:26px;font-weight:700}.verdict p{margin-top:4px}
 .v-good{color:var(--good)}.v-ok{color:var(--ok)}.v-limit{color:var(--limit)}
 
 /* the desktop's tables, katoris and switches at phone size */
@@ -91,7 +91,7 @@ table.facts{font-size:17px}
   padding:6px 11px;text-decoration:none;color:var(--ink);font-weight:500}
 .switch span,.switch span.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
 
-/* footer: the pages the tab bar has no room for, three to a row, then who I am and how to reach me on two lines;
+/* footer: every section, three to a row, then who I am and how to reach me on two lines;
    the long link lists are desktop-only */
 footer{font-size:15px;padding:18px 0 22px}
 .foot{display:block;line-height:1.5}
@@ -105,19 +105,11 @@ footer{font-size:15px;padding:18px 0 22px}
 .fine{margin-top:8px;padding-top:6px;font-size:13px;line-height:1.5}
 .fine a{min-height:0;padding:0}
 
-/* tab bar: the same paper and ink, no app chrome */
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--tab) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
-  display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--rule)}
-.tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:44px;font-size:12px;line-height:1.2;
-  color:var(--muted);text-decoration:none;position:relative;white-space:nowrap}
-.tabs svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.tabs a.on{color:var(--leaf-dark);font-weight:600}.tabs a.on:before{content:"";position:absolute;top:0;left:28%;right:28%;height:3px;background:var(--leaf)}
-
 /* sheets: a white sheet with a green edge. Without the script a sheet is an ordinary block where it sits. */
 .sheet{border-top:4px solid var(--leaf);padding:10px 0 4px;margin-top:18px}
 .sheet .sh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
-.sheet h3,.sheet .sh h2{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:24px;line-height:1.15;margin:0}
-.sheet .x{display:none;font:600 15px 'Hind',system-ui,sans-serif;color:var(--leaf);background:none;border:0;padding:4px 0 4px 8px;min-height:44px;min-width:44px;text-align:right;cursor:pointer}
+.sheet h3,.sheet .sh h2{font-family:var(--sans);font-size:24px;line-height:1.15;margin:0}
+.sheet .x{display:none;font:600 15px var(--sans);color:var(--leaf);background:none;border:0;padding:4px 0 4px 8px;min-height:44px;min-width:44px;text-align:right;cursor:pointer}
 .scrim{display:none}
 .js-sheets .scrim{display:block;position:fixed;inset:0;z-index:60;background:rgba(42,38,32,.4);opacity:0;pointer-events:none;transition:opacity .25s}
 .js-sheets .sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;margin:0;background:#fff;max-height:86svh;overflow-y:auto;overscroll-behavior:contain;
@@ -147,9 +139,9 @@ html:not(.js-sheets) .goals{display:none}
 .verdict .w{display:block}
 
 /* plan: the day total, then a row per meal that opens its card */
-.total{font-size:17px;margin:4px 0 14px}.total b{font-family:'Yrsa','Yrsa fallback',Georgia,serif;font-size:26px}
+.total{font-size:17px;margin:4px 0 14px}.total b{font-family:var(--sans);font-size:26px}
 .rows .when{flex:0 0 64px;white-space:normal}
-.sheet .sh h3 span{display:block;font-family:'Hind',system-ui,sans-serif;font-size:16px;font-weight:400;color:var(--muted);margin-top:2px}
+.sheet .sh h3 span{display:block;font-family:var(--sans);font-size:16px;font-weight:400;color:var(--muted);margin-top:2px}
 .sheet .meal-card{padding:10px 12px;border:1px solid var(--rule);border-radius:4px}
 .sheet .meal-card svg.thali{width:100%;max-width:320px;height:auto;display:block;margin:0 auto}
 .sheet .meal-card li span.kc{white-space:nowrap}
@@ -217,7 +209,7 @@ table.labtable:not(.stack) th.src-cell{display:none}
 .accs summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid var(--control);border-bottom:2px solid var(--control);transform:rotate(45deg);margin:0 4px 4px 0}
 .accs details[open] summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
 .accs .tx{flex:1;min-width:0}.accs .tx b{display:block;font-weight:600;font-size:18px;line-height:1.3}
-.accs .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;font:700 17px/30px 'Yrsa',Georgia,serif;text-align:center}
+.accs .num{flex:0 0 30px;height:30px;border-radius:50%;background:var(--leaf);color:#fff;font:700 17px/30px var(--sans);text-align:center}
 .accs details>p{padding:0 var(--m) 16px}
 
 /* design lane: a slimmer pinned bar that steps away while you read down (phone.js) and back on the way up (D3) */
@@ -273,7 +265,7 @@ details.fold{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule
 .read details.fold:not(:first-child),.wide details.fold:not(:first-child){margin-top:22px}
 details.fold+details.fold,.read details.fold+details.fold{margin-top:0;border-top:0}
 details.fold>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:8px 0;cursor:pointer}
-details.fold>summary>h2,details.fold>summary>h3,.sec details.fold>summary>h2{font-size:20px;line-height:1.25;margin:0!important;font-family:'Yrsa','Yrsa fallback',Georgia,serif}
+details.fold>summary>h2,details.fold>summary>h3,.sec details.fold>summary>h2{font-size:20px;line-height:1.25;margin:0!important;font-family:var(--sans)}
 details.fold>summary::after{content:"";flex:none;width:9px;height:9px;border-right:2px solid var(--control);border-bottom:2px solid var(--control);transform:rotate(45deg);margin:0 4px 4px 0}
 details.fold[open]>summary::after{transform:rotate(-135deg);margin:4px 4px 0 0}
 details.fold>.fold-b{padding:0 0 16px}
@@ -285,7 +277,7 @@ details.fold .small,details.fold p.src{font-size:15px}
 .inline-links a{border:1px solid var(--rule);border-radius:4px;background:#fff;padding:4px 11px;text-decoration:none;line-height:1.3;font-size:16px}
 .js-sheets .inline-links:has(>a:nth-of-type(9)):not(.all)>a:nth-of-type(n+7){display:none}
 .js-sheets ul.clip:has(>li:nth-child(7)):not(.all)>li:nth-child(n+5){display:none}
-.more-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;background:none;border:0;font:600 16px 'Hind',system-ui,sans-serif;color:var(--leaf);
+.more-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;background:none;border:0;font:600 16px var(--sans);color:var(--leaf);
   text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 html:not(.js-sheets) .more-btn{display:none}
 .more-btn[hidden]{display:none}
@@ -295,7 +287,7 @@ html:not(.js-sheets) .more-btn{display:none}
 .read>details.fold:only-child{border:0;margin:0}
 
 /* "where next" link panels (glossary, tools): small headings over their chips, not a stack of big h2s */
-.more-links h2,.sec .more-links h2,.sec.more-links h2{font-family:'Hind',system-ui,sans-serif;font-size:17px;font-weight:600;line-height:1.3;margin:18px 0 8px!important}
+.more-links h2,.sec .more-links h2,.sec.more-links h2{font-family:var(--sans);font-size:17px;font-weight:600;line-height:1.3;margin:18px 0 8px!important}
 .more-links h2:first-child,.sec.more-links .read>h2:first-child{margin-top:0!important}
 div.more-links{margin-top:26px}
 .more-links p+p{margin-top:10px}
@@ -391,7 +383,7 @@ ol.pts.steps li{display:block;padding:12px 0 12px 44px}
 ol.pts.steps li::before{top:12px}
 .credits .credit-list{columns:1}
 
-/* ===== clean look (2026-10-17): the home hero puts her photo in the first screen; Book is the accent tab ===== */
+/* ===== clean look (2026-10-17): the home hero puts her photo in the first screen ===== */
 .hero.home{padding:20px var(--m) 22px}
 .hero.home h1{font-size:31px;line-height:1.1}
 .hero.home .txt{padding:0 0 18px}
@@ -414,10 +406,6 @@ ul.stats span{font-size:14px;line-height:1.3}
 .closing.big{padding:56px 0}
 .closing.big h2{font-size:32px}
 .ctas.center{margin-top:24px}
-.tabs a[data-tab="book"]{color:#fff;font-weight:600}
-.tabs a[data-tab="book"]:after{content:"";position:absolute;z-index:-1;inset:5px 8px;border-radius:6px;background:var(--leaf)}
-.tabs a[data-tab="book"]{z-index:0}
-.tabs a[data-tab="book"].on:before{display:none}
 .quotes3{gap:12px}
 
 /* ===== booking form on phones (build/booking.py, book.js): the form is the site's bottom sheet, opened through phone.js,
@@ -434,8 +422,7 @@ ul.stats span{font-size:14px;line-height:1.3}
 /* ===== navigation (2026-10-18): the top bar is a floating card over the band, the tabs a floating dock with Book raised in
    the middle, and More opens the menu as a full screen that grows out of the More tab. The rounded corners and soft
    shadows are the design-sense tokens from site.css's :root (tests/design_rules.py). ===== */
-:root{--tab:62px;--dock:10px;--cardh:56px}
-body{padding-bottom:calc(var(--tab) + var(--dock) + 18px + env(safe-area-inset-bottom))}
+:root{--cardh:56px}
 html{scroll-padding-top:76px}
 .pbar{top:8px;margin:0 10px calc(-1 * var(--cardh));min-height:var(--cardh);padding:5px 6px 5px 16px;border:1px solid rgba(206,219,194,.8);border-radius:var(--r-md);
   background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
@@ -447,20 +434,7 @@ html{scroll-padding-top:76px}
 .band .hero.compact{padding-top:calc(var(--cardh) + 18px)}
 .result{scroll-margin-top:76px}
 .az{top:70px}
-.tabs{left:10px;right:10px;bottom:calc(var(--dock) + env(safe-area-inset-bottom));height:var(--tab);padding:0 4px;border:1px solid rgba(206,219,194,.8);border-radius:var(--r-lg);
-  background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
-  box-shadow:var(--shadow-dock)}
-.tabs a{gap:2px;font-size:12px;font-weight:500;justify-content:flex-end;padding-bottom:7px}
-.tabs svg{flex:none;box-sizing:content-box;padding:2px 12px;border-radius:var(--r-pill);transition:background-color .2s}
-.tabs a.on:before{display:none}
-.tabs a.on svg{background:var(--band)}
-.tabs a[data-tab="book"]{color:var(--leaf-dark);font-weight:600}
-.tabs a[data-tab="book"]:after{display:none}
-.tabs a[data-tab="book"] svg{width:24px;height:24px;padding:14px;margin-bottom:1px;border-radius:50%;color:#fff;background:var(--leaf);
-  box-shadow:var(--shadow-raised)}
-.tabs a[data-tab="book"]:active svg{background:var(--leaf-dark)}
-.tabs a[data-tab="book"].on svg{background:var(--leaf-dark)}
-/* the More tab's menu: a full screen that opens out of the More tab, the pages in large type */
+/* the menu: a full screen that opens out of the header's Menu button, the pages in large type */
 .js-sheets .menu-sheet{top:0;bottom:0;max-height:none;border-top:0;transform:none;display:flex;flex-direction:column;
   padding:calc(8px + env(safe-area-inset-top)) var(--m) calc(26px + env(safe-area-inset-bottom));
   clip-path:circle(0 at calc(100% - 46px) calc(100% - 42px));transition:clip-path .5s cubic-bezier(.6,0,.25,1),visibility 0s .5s}
@@ -469,11 +443,11 @@ html{scroll-padding-top:76px}
 .menu-sheet .sh h2{font-size:22px;color:var(--muted);font-weight:600}
 .menu-sheet .x{font-size:16px}
 .menu-sheet .mgrid:first-of-type{grid-template-columns:1fr;border-top:0}
-.menu-sheet .mgrid:first-of-type a{font:600 31px/1.15 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark);min-height:50px;padding:4px 0;border-bottom:0}
+.menu-sheet .mgrid:first-of-type a{font:600 31px/1.15 var(--sans);color:var(--leaf-dark);min-height:50px;padding:4px 0;border-bottom:0}
 .menu-sheet .mgrid+.mgrid{margin-top:22px;border-top:1px solid var(--rule);padding-top:6px}
 .menu-sheet .mgrid+.mgrid a{min-height:44px;border-bottom:0;font-size:17px}
 .menu-sheet .mgrid a[aria-current]:before{width:7px;height:7px}
-.menu-sheet .ms-line{margin-top:auto;padding-top:22px;font:600 20px/1.3 'Yrsa','Yrsa fallback',Georgia,serif;color:var(--leaf-dark)}
+.menu-sheet .ms-line{margin-top:auto;padding-top:22px;font:600 20px/1.3 var(--sans);color:var(--leaf-dark)}
 .menu-sheet .btn{display:block;text-align:center;margin-top:14px;padding:14px 18px}
 .js-sheets .menu-sheet .mgrid a,.js-sheets .menu-sheet .ms-line,.js-sheets .menu-sheet .btn{opacity:0;transform:translateY(12px);transition:opacity .2s,transform .2s}
 .js-sheets .menu-sheet.open .mgrid a,.js-sheets .menu-sheet.open .ms-line,.js-sheets .menu-sheet.open .btn{opacity:1;transform:none;
@@ -482,7 +456,7 @@ html{scroll-padding-top:76px}
 .menu-sheet .mgrid a:nth-child(5){--k:4}.menu-sheet .mgrid a:nth-child(6){--k:5}.menu-sheet .mgrid a:nth-child(7){--k:6}
 .menu-sheet .mgrid+.mgrid a{--k:7}.menu-sheet .ms-line,.menu-sheet .btn{--k:8}
 @media (prefers-reduced-motion: reduce){
-  .js-sheets .menu-sheet,.js-sheets .menu-sheet.open,.js-sheets .menu-sheet .mgrid a,.js-sheets .menu-sheet .ms-line,.js-sheets .menu-sheet .btn,.pbar,.tabs svg{transition:none!important}
+  .js-sheets .menu-sheet,.js-sheets .menu-sheet.open,.js-sheets .menu-sheet .mgrid a,.js-sheets .menu-sheet .ms-line,.js-sheets .menu-sheet .btn,.pbar{transition:none!important}
 }
 .menu-sheet .sh .x{border:1px solid var(--rule);border-radius:var(--r-pill);padding:6px 16px;text-align:center}
 
@@ -587,7 +561,7 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .hc-acts .btn{display:block;text-align:center;padding:13px 18px}
 .hc-acts .go{display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px}
 .hc-on .hc-acts{padding-bottom:6px}
-.helpcards .helpcard.open{box-shadow:var(--shadow-2,0 2px 6px rgba(31,45,20,.08),0 14px 34px rgba(31,45,20,.12))}
+.helpcards .helpcard.open{box-shadow:var(--shadow-2,0 2px 6px rgba(36,33,30,.04),0 14px 34px rgba(36,33,30,.07))}
 /* the booking steps */
 .bookform .bk-h{font-size:22px}
 .bk-pills{gap:8px}
@@ -609,13 +583,13 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .goals.seg button:focus-visible{outline:2px solid var(--leaf-dark);outline-offset:2px}
 .goals.seg i.spice{display:none}  /* the dot stays on every verdict below; the segment has room for the word only */
 .goals.seg .seg-pill{position:absolute;z-index:0;top:4px;bottom:4px;left:0;width:0;border-radius:var(--r-pill,999px);background:var(--leaf);
-  box-shadow:var(--shadow-1,0 1px 2px rgba(31,45,20,.06),0 4px 14px rgba(31,45,20,.06))}
+  box-shadow:var(--shadow-1,0 1px 2px rgba(36,33,30,.03),0 4px 14px rgba(36,33,30,.04))}
 .goals.seg.seg-ready .seg-pill{transition:transform .3s var(--ease,cubic-bezier(.2,.8,.2,1)),width .3s var(--ease,cubic-bezier(.2,.8,.2,1))}
 /* 11: sliders under height, weight and waist */
 .tool input.slide{display:block}
 .tool .ftin input.slide,.tool .cm input.slide{margin-top:8px}
 /* 12: the guides' pill sits above the dock; the reading line runs along the top card's bottom edge */
-.otp{left:12px;bottom:calc(var(--tab,62px) + var(--dock,10px) + 12px + env(safe-area-inset-bottom))}
+.otp{left:12px;bottom:calc(12px + env(safe-area-inset-bottom))}
 .otp-card{width:calc(100vw - 24px);max-height:58vh}
 .rprog{left:20px;right:20px}
 .reading .pbar .rprog{opacity:1}
@@ -644,3 +618,134 @@ ul.stats.words span{font-size:13px}
 .shotview{padding:12px}
 .shotview img{max-width:94vw;max-height:78vh}
 .shotview .sv-prev,.shotview .sv-next{top:auto;bottom:18px;transform:none}
+
+/* ===== IVORY FOUNDATION on phones (2026-10-19): no tab bar. A plain white header pinned at the top with the logo,
+   Book a call and Menu (it opens the full-screen menu, out of the button); buttons fill the width; the footer opens with
+   the logo and her line, then every section in two columns. ===== */
+h1,h2{font-weight:400;line-height:1.12}
+h2,.sec h2{font-size:30px}
+.btn{display:flex;width:100%;margin-top:16px;padding:12px 20px;min-height:52px;font-size:19px;border-radius:var(--r-pill)}
+.btn.quiet,.more-btn{width:auto;min-height:44px;font-size:16px}
+.ctas .btn{margin-top:0}
+/* the header: white, full width, a hairline under it */
+.pbar{top:0;margin:0;min-height:64px;gap:8px;padding:10px 12px 10px 16px;background:var(--white);border:0;border-bottom:1px solid var(--hair);border-radius:0;
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.pbar .mark{margin-right:auto;font-size:0}
+.pbar .logo{height:40px}
+.pbar .cta{display:flex;align-items:center;min-height:44px;padding:8px 18px;border-radius:var(--r-pill);background:var(--green-fill);color:#fff;
+  font:700 19px/1.2 var(--sans);white-space:nowrap}
+.pbar .mbtn{flex:none;display:flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;padding:0 12px;
+  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--white);color:var(--ink);font:500 16px/1 var(--sans);text-decoration:none}
+.pbar .mbtn .mi{position:relative;width:16px;height:10px}
+.pbar .mbtn .mi:before,.pbar .mbtn .mi:after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:1px}
+.pbar .mbtn .mi:before{top:1px}
+.pbar .mbtn .mi:after{top:7.5px}
+@media (max-width:399px){.pbar .mbtn{padding:0}.pbar .mbtn .ml{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+.bar-off .pbar{transform:translateY(-101%)}
+html{scroll-padding-top:76px}
+.band .hero{padding-top:26px}
+.band .hero.compact{padding-top:16px}
+.az{top:72px}
+.bar-off .az{top:0}
+/* the first step of the trail shows again: the header has the logo now, not a way back */
+.crumbs .c0{display:inline}
+.crumbs.c1{display:inline-flex}
+/* the menu: full screen, white, opening out of the Menu button at the top right */
+.js-sheets .menu-sheet{clip-path:circle(0 at calc(100% - 38px) 32px)}
+.js-sheets .menu-sheet.open{clip-path:circle(160% at calc(100% - 38px) 32px)}
+.menu-sheet{background:var(--white)}
+.menu-sheet .sh h2{font-size:12.5px;font-weight:500;letter-spacing:0;color:var(--label)}
+.menu-sheet .mgrid:first-of-type a{font:400 30px/1.15 var(--sans);letter-spacing:-.02em;color:var(--ink)}
+.menu-sheet .mgrid+.mgrid{border-top-color:var(--hair)}
+.menu-sheet .mgrid+.mgrid a{color:var(--ink);font-weight:500}
+.menu-sheet .ms-line{font:400 19px/1.4 var(--sans);color:var(--soft)}
+.menu-sheet .btn{display:flex}
+.sheet .x,.book-sheet .x,.menu-sheet .sh .x{border-color:var(--hair);color:var(--ink);font:500 16px var(--sans)}
+.js-sheets .sheet{border-color:var(--hair)}
+.js-sheets .scrim{background:rgba(36,33,30,.24)}
+.js-sheets .menu-sheet,.js-sheets .menu-sheet.open{border:0}
+.sheet{border-top-color:var(--hair)}
+/* the footer: the logo and her line first, then every section, then the fine print */
+footer{padding:32px 0 36px;border-radius:0}
+.foot{display:flex;flex-direction:column}
+.foot .who{order:-1;margin-bottom:18px}
+.foot .who .by{margin-top:10px}
+.foot .who .reach a{display:inline-flex;align-items:center;min-height:44px;padding:0;margin-right:16px}
+.foot .flogo{min-height:0;padding:0}
+.fnav{grid-template-columns:1fr 1fr;column-gap:16px;margin:0 0 6px;border-top:1px solid var(--hair)}
+.fnav a{color:var(--ink);border-bottom:1px solid var(--hair);font-weight:500}
+.foot .fine{margin-top:12px;padding-top:12px}
+/* the booking form */
+.bookform .btn{width:100%}
+/* ===== end IVORY FOUNDATION ===== */
+/* ===== IVORY PAGES on phones (2026-10-19): the same ivory heroes and white and ivory sections. The breadcrumb is the
+   hero's label, so phones show all of it (the top bar no longer carries a back link). ===== */
+/* side and bottom room only: the top is the header's (FOUNDATION), so a hero never slides under it */
+.hero,.hero.has-img{background:var(--ivory,#FCFAF6);padding-left:var(--m);padding-right:var(--m);padding-bottom:36px}
+.hero.has-img{padding-bottom:30px}
+.hero.compact{padding-bottom:22px}
+.hero{border-bottom:1px solid var(--hair,#EEE9E1)}
+.hero h1,.hero.has-img h1{font-size:34px;line-height:1.12;font-weight:400}
+.hero.compact h1{font-size:29px;font-weight:400}
+.hero .txt>p,.hero .txt .intro p{font-size:17px;color:var(--soft,#6B635B)}
+.hero .txt>p.label{font-size:12px;margin:0 0 12px}
+.crumbs .c0{display:inline}
+.crumbs.c1{display:block}
+.crumbs,.hero .txt>p.crumbs{font-size:12px;padding:0;margin:0 0 12px;background:none;border:0;border-radius:0}
+h1 .eyebrow{font-size:12px;margin-bottom:12px}
+.crumbs+h1 .eyebrow{font-size:16px;margin:-4px 0 8px}
+h1 .h1sub{font-size:18px}
+.sec{border-top:0}
+.sec.tint{background:var(--ivory,#FCFAF6)}
+.sec h2{font-weight:400;font-size:28px}
+.rows,table.stack tr,.meal,.sheet .meal-card,details.fold,details.fold+details.fold,.read details.fold+details.fold,.read>details.fold:only-child{border-color:var(--hair,#EEE9E1)}
+.rows>*,.rows>*:last-child{border-color:var(--hair,#EEE9E1)}
+.rows .chev{color:var(--green,#7BA05B)}
+.rows .num,.accs .num{flex:0 0 30px;width:auto;height:auto;border:0;border-radius:0;background:none;color:var(--green-ink,#4C7535);font-family:inherit;font-weight:500;font-size:24px;line-height:1.1}
+.hl-on .accs .num,.hl-on .accs .num.hl-hit{background:none;border:0;color:var(--green-ink,#4C7535)}
+ol.steps li,ol.steps li:last-child{border-color:var(--hair,#EEE9E1)}
+ol.steps .sn{font-size:24px;margin:0}
+details.fold>summary>h2,details.fold>summary>h3,.sec details.fold>summary>h2,.sheet h3,.sheet .sh h2,.more-links h2,.sec .more-links h2,.sec.more-links h2{font-family:inherit}
+details.fold>summary>h2,details.fold>summary>h3,.sec details.fold>summary>h2{font-weight:600;font-size:18px}
+details.fold>summary::after{border-color:var(--green,#7BA05B)}
+.sheet{border-top:1px solid var(--hair,#EEE9E1)}
+.sheet .x{color:var(--ink);font-family:inherit}
+.sheet .sh h3 span{font-family:inherit;color:var(--soft,#6B635B)}
+.verdict .w{font-family:inherit;font-weight:600;font-size:24px}
+.total b{font-family:inherit;font-weight:700}
+.goals button,.storychips button{background:#fff;border:1px solid var(--hair,#EEE9E1);color:var(--ink);font-family:inherit}
+.goals button.on{background:#fff;border:1.5px solid var(--green,#7BA05B);color:var(--ink);font-weight:600}
+.goals.seg{background:var(--ivory,#FCFAF6);border-color:var(--hair,#EEE9E1)}
+.goals.seg button,.goals.seg button.on{background:transparent;border:0;color:var(--ink)}
+.goals.seg button.on{font-weight:600}
+.goals.seg .seg-pill{background:#fff;border:1.5px solid var(--green,#7BA05B)}
+.switch a,.switch span{border-color:var(--hair,#EEE9E1)}
+.switch span,.switch span.on{background:#fff;border:1.5px solid var(--green,#7BA05B);color:var(--ink)}
+.inline-links a{border-color:var(--hair,#EEE9E1);color:var(--ink)}
+.more-btn{background:#fff;border:1px solid var(--hair,#EEE9E1);color:var(--ink);font-family:inherit}
+.foodguides p,.foodguides p+p,.foodguides li,.foodguides li+li{background:#fff;border-color:var(--hair,#EEE9E1)}
+.hscroll .track:before{width:1px;left:28px;background:var(--hair,#EEE9E1)}
+.hscroll .panel:before{border-color:var(--green,#7BA05B)}
+.katoris figure{color:var(--soft,#6B635B)}
+table.stack td::before,table.contact td:first-child{color:var(--soft,#6B635B)}
+.quals li{border-color:var(--hair,#EEE9E1)}
+.otp{bottom:calc(16px + env(safe-area-inset-bottom))}
+/* ===== IVORY HOME on phones (2026-10-19): the mock's phone page. Undoes the older phone rules the home's hero and
+   buttons would otherwise pick up (the pale green band, square buttons, the stacked photo height). ===== */
+/* the top padding stays the shared hero's (it makes room for the phone's top bar) */
+.hero.home,.hero.has-img.home{display:block;background:var(--ih-ivory,#FCFAF6);border-image:none;padding-left:var(--m,20px);padding-right:var(--m,20px);padding-bottom:56px}
+.hero.home .txt,.hero.has-img.home .txt{padding:0}
+.hero.home h1,.hero.has-img.home h1{font-size:clamp(36px,11.3vw,44px);line-height:1.12}
+.hero.home .txt>p.ih-line{font-size:18px;margin-top:22px}
+.hero.home .ctas{display:grid;gap:12px;margin-top:28px}
+.hero.home .ctas .btn,.ih .btn{display:flex;width:100%;margin:0;padding:0 20px;font-size:19px}
+.hero.home .hero-img{height:auto;aspect-ratio:1/.86;margin-top:30px;object-position:50% 30%}
+.ih .wide h2{font-size:32px}
+.ih .ba-frame.on{aspect-ratio:1.2/1}
+.ih .ba figcaption{padding:16px 18px 18px}
+.ih-kg b{font-size:28px}
+.ih-minis li{padding:14px 12px 12px}
+.ih-mkg b{font-size:24px}
+.ih-q p{font-size:20px}
+.ih-price{font-size:clamp(28px,8.4vw,34px)}
+.ih-close .wide h2{font-size:38px}

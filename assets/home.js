@@ -1,10 +1,7 @@
-/* The home page's three interactions (build/core.py home()), in the nav's design sense: nothing here is needed to read
-   the page. Without this script the photos sit side by side, the steps have no line, and every goal card shows all.
-   - Before and after: each client's two photos in one frame, with a divider to drag (mouse, touch) or move with the
-     arrow keys (the divider is a role=slider). Left of it is before, right of it after.
-   - The steps' line: a green line through the three steps that fills as the reader scrolls through them and ends at
-     the Book button; across on a laptop, down on a phone. Under reduced motion it is drawn full.
-   - Goal cards on a phone: folded to photo and name; a tap opens her words, a Book button and Read more. */
+/* The home page's one interaction (build/core.py home()): nothing here is needed to read the page. Without this script
+   the client's before and after photos sit side by side, as in the photo she sent.
+   - Before and after: a divider between the two photos to drag (mouse, touch) or move with the arrow keys (the divider
+     is a role=slider). It widens one photo and narrows the other: left of it is before, right of it after. */
 (function (root) {
   "use strict";
   /* ---------- the arithmetic (tests/home.test.mjs) ---------- */
@@ -23,19 +20,13 @@
     var b = Math.round(pos);
     return b + "% before, " + (100 - b) + "% after";
   }
-  /* how much of the line is drawn: 0 until the reading point reaches its start, 1 once it reaches its end */
-  function progress(at, start, end) { return end > start ? clamp((at - start) / (end - start), 0, 1) : 1; }
-
-  var api = { clamp: clamp, posFromX: posFromX, keyPos: keyPos, valueText: valueText, progress: progress };
+  var api = { clamp: clamp, posFromX: posFromX, keyPos: keyPos, valueText: valueText };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
   root.PoshanHome = api;
 
   var doc = root.document;
   if (!doc || !doc.querySelector || !root.addEventListener) return;
-  var still = root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var phone = root.matchMedia ? root.matchMedia("(max-width:760px)") : { matches: false };
   function each(sel, fn) { [].forEach.call(doc.querySelectorAll(sel), fn); }
-  function onMedia(fn) { if (phone.addEventListener) phone.addEventListener("change", fn); else if (phone.addListener) phone.addListener(fn); }
 
   /* ---------- before and after ---------- */
   function slider(frame) {
@@ -99,105 +90,4 @@
   }
   each(".ba-frame", slider);
 
-  /* ---------- the steps' line ---------- */
-  var how = doc.querySelector(".howline");
-  if (how) {
-    var track = doc.createElement("span"), fill = doc.createElement("i");
-    track.className = "hl-track";
-    track.setAttribute("aria-hidden", "true");
-    track.appendChild(fill);
-    how.insertBefore(track, how.firstChild);
-    how.classList.add("hl-on");
-    var geo = null, ticking = false;
-    function nodes() {  /* the number circles in view on this screen: the laptop's steps or the phone's rows */
-      var dots = [].slice.call(how.querySelectorAll(phone.matches ? ".accs .num" : "ol.how3 > li"));
-      return dots.filter(function (d) { return d.offsetParent !== null; });
-    }
-    function measure() {
-      var dots = nodes(), btn = how.querySelector(".ctas .btn");
-      if (!dots.length || !btn) { track.hidden = true; geo = null; return; }
-      track.hidden = false;
-      var box = how.getBoundingClientRect(), b = btn.getBoundingClientRect(), down = phone.matches;
-      var centre = function (d) {
-        var r = d.getBoundingClientRect();
-        /* the laptop's number is the li's ::before: a 38 px circle at its top left */
-        return down ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : { x: r.left + 19, y: r.top + 19 };
-      };
-      var a = centre(dots[0]), cs = dots.map(centre);
-      if (down) {
-        geo = { down: true, x: a.x - box.left, y0: a.y - box.top, y1: b.top - box.top, stops: cs.map(function (c) { return c.y - box.top; }) };
-        track.style.cssText = "left:" + (geo.x - 1.5) + "px;top:" + geo.y0 + "px;width:3px;height:" + (geo.y1 - geo.y0) + "px";
-      } else {
-        geo = { down: false, y: a.y - box.top, x0: a.x - box.left, x1: b.left - box.left, stops: cs.map(function (c) { return c.x - box.left; }) };
-        track.style.cssText = "top:" + (geo.y - 1.5) + "px;left:" + geo.x0 + "px;height:3px;width:" + (geo.x1 - geo.x0) + "px";
-      }
-      draw();
-    }
-    function draw() {
-      ticking = false;
-      if (!geo) return;
-      var p;
-      if (still) p = 1;
-      else {
-        var box = how.getBoundingClientRect(), vh = root.innerHeight;
-        /* down: the tip follows a reading point 60% down the screen; across: the line fills while the steps cross the
-           lower part of the screen, done by the time they are a third of the way up */
-        p = geo.down ? progress(vh * 0.6, box.top + geo.y0, box.top + geo.y1)
-          : progress(vh * 0.92 - box.top, 0, box.height + vh * 0.25);
-      }
-      fill.style.transform = (geo.down ? "scaleY(" : "scaleX(") + p + ")";
-      var len = geo.down ? geo.y1 - geo.y0 : geo.x1 - geo.x0, from = geo.down ? geo.y0 : geo.x0;
-      nodes().forEach(function (d, i) { d.classList.toggle("hl-hit", (geo.stops[i] - from) <= p * len + 2); });
-      how.classList.toggle("hl-done", p >= 1);
-    }
-    function soon() { if (!ticking) { ticking = true; root.requestAnimationFrame(draw); } }
-    root.addEventListener("scroll", soon, { passive: true });
-    root.addEventListener("resize", measure);
-    onMedia(measure);
-    how.addEventListener("toggle", function () { measure(); }, true);  /* a phone row opening moves the rows under it */
-    if (root.ResizeObserver) new root.ResizeObserver(measure).observe(how);
-    measure();
-    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(measure);
-  }
-
-  /* ---------- goal cards on a phone ---------- */
-  var cards = [].slice.call(doc.querySelectorAll(".helpcard"));
-  if (cards.length) {
-    var wrap = cards[0].parentNode;
-    cards.forEach(function (card) {
-      var link = card.querySelector(".hc-link"), more = card.querySelector(".hc-more");
-      if (!link || !more) return;
-      var btn = doc.createElement("button");
-      btn.type = "button";
-      btn.className = "hc-tog";
-      btn.setAttribute("aria-expanded", "false");
-      btn.setAttribute("aria-controls", more.id);
-      card._parts = { link: link, btn: btn, more: more };
-      card.addEventListener("click", function (e) {  /* the photo opens it too; the links inside do their own thing */
-        if (!phone.matches || more.contains(e.target) || btn.contains(e.target)) return;
-        btn.click();
-      });
-      btn.addEventListener("click", function () {
-        var open = !card.classList.contains("open");
-        card.classList.toggle("open", open);
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
-      });
-    });
-    /* phone: the name is a button that opens the card; laptop: the name is the card's link again */
-    var mode = function () {
-      cards.forEach(function (card) {
-        var p = card._parts;
-        if (!p) return;
-        var from = phone.matches ? p.link : p.btn, to = phone.matches ? p.btn : p.link;
-        if (from.parentNode) {
-          while (from.firstChild) to.appendChild(from.firstChild);
-          from.parentNode.replaceChild(to, from);
-        }
-        if (!phone.matches) { card.classList.remove("open"); p.btn.setAttribute("aria-expanded", "false"); }
-      });
-      wrap.classList.toggle("hc-on", phone.matches);
-    };
-    onMedia(mode);
-    mode();
-  }
 })(typeof window !== "undefined" ? window : this);

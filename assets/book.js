@@ -303,7 +303,7 @@
     var api2 = root.poshanSheet, s = api2 && sheet();
     if (!s) return;  /* no sheet script: /book/ opens as a page, which works the same */
     e.preventDefault();
-    /* a Book button inside the More sheet: that sheet steps aside and the form takes over its history step, so one Back
+    /* a Book button inside the Menu sheet: that sheet steps aside and the form takes over its history step, so one Back
        still closes everything */
     [].forEach.call(doc.querySelectorAll(".sheet.open"), function (o) { o.classList.remove("open"); });
     reset(s);
