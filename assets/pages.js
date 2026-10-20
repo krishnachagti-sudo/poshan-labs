@@ -425,25 +425,78 @@
     });
   }
 
-  /* ---------- 16: reels (build/reels.py) play on a tap, with sound, one at a time, and never by themselves. The page
-     ships them with the browser's controls and preload="none"; here the controls step aside for a large play button over
-     the poster, and come back once the reel plays. Nothing downloads before the tap. ---------- */
+  /* ---------- 16: reels (build/reels.py) in their phone frames. The reel most in view plays by itself, muted and looping,
+     and only that one: the rest pause, and nothing downloads until a reel is about to be on screen. A tap on the reel, or
+     its sound switch, turns the sound on (browsers only let a page start video without sound). Under reduced motion, with
+     Save-Data, or where the browser refuses to autoplay (iPhone Low Power Mode), a reel waits for a tap on its large play
+     button and then plays with sound and the browser's own controls. Without the script the controls are there from the
+     start. ---------- */
   var reels = Array.prototype.slice.call(doc.querySelectorAll("video[data-reel]"));
-  reels.forEach(function (v) {
-    var b = v.parentNode.querySelector(".reel-play");
+  var conn = root.navigator && root.navigator.connection || {};
+  var tapOnly = still || !!conn.saveData || !("IntersectionObserver" in root);
+  function others(v) { reels.forEach(function (o) { if (o !== v && !o.paused) o.pause(); }); }
+  function manual(v) {  /* the tap-to-play reel: a large play button, then sound and controls */
+    var b = v.parentNode.querySelector(".reel-play"), snd = v.parentNode.querySelector(".reel-sound");
     if (!b) return;
-    v.removeAttribute("controls"); b.hidden = false;
+    if (snd) snd.hidden = true;
+    v.removeAttribute("controls"); b.hidden = false; v.loop = false;
+    if (v._manual) return;
+    v._manual = true;
     function start() {
-      b.hidden = true; v.setAttribute("controls", "");
+      b.hidden = true; v.setAttribute("controls", ""); v.muted = false;
       var p = v.play();
       if (p && p.catch) p.catch(function () {});
       v.focus();
     }
     b.addEventListener("click", start);
-    v.addEventListener("click", function () { if (!v.hasAttribute("controls")) start(); });
-    v.addEventListener("play", function () {
-      b.hidden = true; v.setAttribute("controls", "");
-      reels.forEach(function (o) { if (o !== v && !o.paused) o.pause(); });
+  }
+  reels.forEach(function (v) {
+    /* a patch over a surname burned into the first seconds of a video comes off once the video is past it */
+    var timed = Array.prototype.slice.call(v.parentNode.querySelectorAll(".reel-cover[data-until]"));
+    if (timed.length) v.addEventListener("timeupdate", function () {
+      timed.forEach(function (c) { c.hidden = v.currentTime > parseFloat(c.getAttribute("data-until")); });
     });
+    v.addEventListener("play", function () { others(v); });
+    if (tapOnly) { manual(v); return; }
+    var snd = v.parentNode.querySelector(".reel-sound"), len = v.parentNode.querySelector(".reel-play");
+    v.removeAttribute("controls"); v.muted = true; v.loop = true; v.setAttribute("playsinline", "");
+    if (len) len.hidden = true;
+    function sound(on) {
+      v.muted = !on;
+      if (on) { reels.forEach(function (o) { if (o !== v) o.muted = true; }); }
+      if (snd) {
+        snd.classList.toggle("is-on", on);
+        snd.setAttribute("aria-pressed", on ? "true" : "false");
+      }
+    }
+    if (snd) {
+      snd.hidden = false;
+      snd.addEventListener("click", function (e) { e.stopPropagation(); sound(v.muted); if (v.paused) v.play(); });
+    }
+    v.addEventListener("click", function () { if (!v._manual) { sound(v.muted); if (v.paused) v.play(); } });
+    v.addEventListener("volumechange", function () { if (snd) { snd.classList.toggle("is-on", !v.muted); snd.setAttribute("aria-pressed", v.muted ? "false" : "true"); } });
   });
+  if (!tapOnly && reels.length) {
+    var seen = new Map(), current = null;
+    var near = new IntersectionObserver(function (es) {  /* fetch a reel's first seconds just before it arrives */
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.preload = "auto"; near.unobserve(e.target); } });
+    }, { rootMargin: "300px 0px" });
+    function pick() {
+      var best = null, bestR = 0;
+      seen.forEach(function (r, v) { if (r > bestR) { best = v; bestR = r; } });
+      if (bestR < 0.55) best = null;
+      if (best === current) return;
+      if (current && !current._manual) current.pause();
+      current = best;
+      if (!best || best._manual) return;
+      var p = best.play();
+      if (p && p.catch) p.catch(function () { manual(best); });  /* autoplay refused: the play button instead */
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { seen.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+      pick();
+    }, { threshold: [0, 0.25, 0.55, 0.75, 1] });
+    reels.forEach(function (v) { near.observe(v); io.observe(v); });
+    doc.addEventListener("visibilitychange", function () { if (doc.hidden && current) current.pause(); else if (current && !current._manual) current.play().catch(function () {}); });
+  }
 })(typeof window !== "undefined" ? window : this);

@@ -763,3 +763,9 @@ table.stack td::before,table.contact td:first-child{color:var(--soft,#6B635B)}
 .reel-feature .reel-side .label{margin-bottom:8px}
 .reel-feature .reel-side .btn{width:auto;min-width:0;padding-left:16px;padding-right:16px}
 /* ===== end REELS ===== */
+
+/* ===== REELS IN A PHONE FRAME on phones: a slimmer outline ===== */
+.reel-phone{padding:6px;border-radius:var(--r-lg)}
+.reel-phone .reel-frame{border-radius:calc(var(--r-lg) - 6px)}
+.reel-phone .reel-frame::before{height:11px;top:6px}
+.reel-sound{right:8px;top:8px;width:40px;height:40px}

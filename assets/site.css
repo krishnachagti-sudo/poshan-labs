@@ -1,4 +1,4 @@
-@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=38ab9954) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=5b37b178) format('woff2')}
 /* Inter is the only face (ivory, 2026-10-19): the drawings use it too, and the site has no Devanagari text. */
 *{box-sizing:border-box;margin:0;padding:0}
 /* ivory and white (2026-10-19, the client's spec): --white main background, header, cards; --ivory every other section and
@@ -1925,3 +1925,26 @@ dl.factrow dd{color:var(--soft,#6B635B)}
 .reel-feature .reel-side .btn{margin-top:6px}
 @media (prefers-reduced-motion: reduce){.reel-play svg{transition:none}}
 /* ===== end REELS ===== */
+
+/* ===== REELS IN A PHONE FRAME (2026-10-20, the client's pick, option A): each reel inside a dark phone outline with a
+   notch, playing muted while it is the one most in view (pages.js 16). The sound switch sits top right. ===== */
+:root{--r-device:34px;--r-screen:26px}
+.reel-phone{position:relative;border-radius:var(--r-device);background:#24211E;padding:9px;box-shadow:var(--shadow-2)}
+.reel-phone .reel-frame{border:0;border-radius:var(--r-screen);box-shadow:none}
+.reel-phone .reel-frame::before{content:"";position:absolute;z-index:2;left:50%;top:8px;transform:translateX(-50%);width:34%;height:16px;border-radius:var(--r-pill);background:#24211E;pointer-events:none}
+.reel-frame video{cursor:pointer}
+.reel-sound{position:absolute;z-index:3;right:12px;top:12px;width:44px;height:44px;display:grid;place-items:center;border:0;padding:0;border-radius:50%;background:rgba(36,33,30,.55);color:#fff;cursor:pointer}
+.reel-sound[hidden]{display:none}
+.reel-sound svg{width:20px;height:20px}
+.reel-sound svg .spk{fill:#fff}
+.reel-sound svg .off,.reel-sound svg .on{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.reel-sound svg .on{display:none}
+.reel-sound.is-on svg .on{display:inline}
+.reel-sound.is-on svg .off{display:none}
+.reel-sound:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.reels-all{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:44px 28px;margin-top:0}
+.reel figcaption .label{margin:0 0 6px}
+.reels-all .reel{scroll-margin-top:110px}
+.reel-cover{position:absolute;z-index:2;pointer-events:none;border-radius:var(--r-sm);background:rgba(36,33,30,.25);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+.reel-cover[hidden]{display:none}
