@@ -424,4 +424,26 @@
       }
     });
   }
+
+  /* ---------- 16: reels (build/reels.py) play on a tap, with sound, one at a time, and never by themselves. The page
+     ships them with the browser's controls and preload="none"; here the controls step aside for a large play button over
+     the poster, and come back once the reel plays. Nothing downloads before the tap. ---------- */
+  var reels = Array.prototype.slice.call(doc.querySelectorAll("video[data-reel]"));
+  reels.forEach(function (v) {
+    var b = v.parentNode.querySelector(".reel-play");
+    if (!b) return;
+    v.removeAttribute("controls"); b.hidden = false;
+    function start() {
+      b.hidden = true; v.setAttribute("controls", "");
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+      v.focus();
+    }
+    b.addEventListener("click", start);
+    v.addEventListener("click", function () { if (!v.hasAttribute("controls")) start(); });
+    v.addEventListener("play", function () {
+      b.hidden = true; v.setAttribute("controls", "");
+      reels.forEach(function (o) { if (o !== v && !o.paused) o.pause(); });
+    });
+  });
 })(typeof window !== "undefined" ? window : this);

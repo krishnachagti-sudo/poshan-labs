@@ -1,4 +1,4 @@
-@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=3c2ed133) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=38ab9954) format('woff2')}
 /* Inter is the only face (ivory, 2026-10-19): the drawings use it too, and the site has no Devanagari text. */
 *{box-sizing:border-box;margin:0;padding:0}
 /* ivory and white (2026-10-19, the client's spec): --white main background, header, cards; --ivory every other section and
@@ -1902,3 +1902,26 @@ dl.factrow dd{color:var(--soft,#6B635B)}
 @media (prefers-reduced-motion: reduce){
   .ih .btn,.hero.home .btn,.ih-list a::after,.ih-acc summary::after,.ih .ba-knob{transition:none!important}
 }
+/* ===== REELS (2026-10-20, build/reels.py, pages.js 16): Puja's and her clients' reels, 9:16, white cards with a hairline.
+   Nothing plays by itself: the poster shows, the green play button (a button, so it may be green) starts it with sound,
+   and the browser's own controls come back once it plays. Without the script the controls are there from the start. ===== */
+.reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:34px 24px;margin-top:26px}
+.reel{margin:0;min-width:0}
+.reel-frame{position:relative;aspect-ratio:9/16;border-radius:var(--r-lg);overflow:hidden;background:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow-1)}
+.reel-frame video{display:block;width:100%;height:100%;object-fit:cover;background:var(--ink)}
+.reel-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;width:100%;border:0;padding:0;margin:0;
+  background:transparent;cursor:pointer;color:#fff;font:inherit}
+.reel-play[hidden]{display:none}
+.reel-play svg{width:64px;height:64px;padding:16px 14px 16px 18px;border-radius:50%;background:var(--green-fill);fill:#fff;box-shadow:var(--shadow-2);
+  transition:transform .2s var(--ease)}
+.reel-play:hover svg{transform:scale(1.06)}
+.reel-play:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+.reel-len{position:absolute;left:12px;bottom:12px;background:#fff;color:var(--ink);font-size:14px;font-weight:600;line-height:1;padding:6px 10px;border-radius:var(--r-pill)}
+.reel figcaption{margin:14px 2px 0}
+.reel .reel-t{font-size:17px;line-height:1.35;font-weight:600;color:var(--ink);margin:0 0 6px;letter-spacing:0}
+.reel figcaption p{font-size:15px;line-height:1.5;color:var(--soft);margin:0}
+.reel-feature{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:48px;align-items:center}
+.reel-feature .reel-side h2{margin-top:0}
+.reel-feature .reel-side .btn{margin-top:6px}
+@media (prefers-reduced-motion: reduce){.reel-play svg{transition:none}}
+/* ===== end REELS ===== */
