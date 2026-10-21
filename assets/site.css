@@ -1,4 +1,4 @@
-@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=5b37b178) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=66d97bcc) format('woff2')}
 /* Inter is the only face (ivory, 2026-10-19): the drawings use it too, and the site has no Devanagari text. */
 *{box-sizing:border-box;margin:0;padding:0}
 /* ivory and white (2026-10-19, the client's spec): --white main background, header, cards; --ivory every other section and
@@ -1948,3 +1948,7 @@ dl.factrow dd{color:var(--soft,#6B635B)}
 .reel-cover{position:absolute;z-index:2;pointer-events:none;border-radius:var(--r-sm);background:rgba(36,33,30,.25);
   -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
 .reel-cover[hidden]{display:none}
+/* ===== ONE-STEP BOOKING (2026-10-21): the goal question is a plain group above the name and number ===== */
+.bookform .bk-one{border:0;margin:0 0 6px;padding:0;min-width:0}
+.bookform .bk-one legend{padding:0;margin-bottom:10px;font-weight:600;color:var(--ink)}
+.bookform .bk-one .bk-pills{display:flex;flex-wrap:wrap;gap:8px}

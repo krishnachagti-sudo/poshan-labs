@@ -191,8 +191,7 @@
     if (form.getAttribute("data-bound")) return;
     form.setAttribute("data-bound", "1");
     form.noValidate = true;  /* our messages, tied to each field, instead of the browser's bubbles */
-    live(form);
-    steps(form);
+    live(form);  /* one step since 2026-10-21: steps() is no longer bound, so every field shows */
     [].forEach.call(form.querySelectorAll('input[name="help"]'), function (r) {
       r.addEventListener("change", function () { form.removeAttribute("data-help-auto"); });  /* the reader's own pick stays */
     });

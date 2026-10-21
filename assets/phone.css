@@ -769,3 +769,5 @@ table.stack td::before,table.contact td:first-child{color:var(--soft,#6B635B)}
 .reel-phone .reel-frame{border-radius:calc(var(--r-lg) - 6px)}
 .reel-phone .reel-frame::before{height:11px;top:6px}
 .reel-sound{right:8px;top:8px;width:40px;height:40px}
+/* ===== ONE-STEP BOOKING on phones: compact goal pills so name and number come up quickly ===== */
+.bookform .bk-one .bk-pills label{min-height:40px;padding:8px 14px;font-size:15px}
