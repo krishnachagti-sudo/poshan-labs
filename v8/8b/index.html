@@ -13,7 +13,7 @@
   if(window.matchMedia&&matchMedia('(hover: hover) and (pointer: fine)').matches){d.classList.add('fine')}
 })();
 </script>
-<link rel="preload" as="image" href="assets/puja-portrait-1200.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/puja-card.webp" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
@@ -161,7 +161,7 @@ main img{background:var(--ph)}
 .l1,.l2{position:relative;z-index:5}
 .slotwrap{position:relative;z-index:4}
 .slot{position:relative;height:clamp(260px,calc(var(--vh)*100 - 330px),620px);aspect-ratio:4/5;border-radius:30px;overflow:hidden;background:var(--ph);box-shadow:0 30px 60px -36px rgba(20,33,46,.45)}
-.slot img{width:100%;height:100%;object-fit:cover;object-position:50% 16%}
+.slot img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .slot .curtain{position:absolute;inset:0;z-index:2;background:var(--ph);transform-origin:top;display:none}
 html.motion .slot .curtain{display:block}
 html.motion .slot{background:transparent;box-shadow:none}
@@ -631,7 +631,7 @@ footer ul a:hover{text-decoration:underline}
         <div class="hl l1" aria-hidden="true">You don't have to give up</div>
         <div class="slotwrap">
           <span class="blob b1" aria-hidden="true"></span><span class="blob b2" aria-hidden="true"></span>
-          <figure class="slot"><span class="curtain" aria-hidden="true"></span><img src="assets/puja-portrait-1200.webp" alt="Nutritionist Puja Nayyar, seated in a carved armchair at home" fetchpriority="high"></figure>
+          <figure class="slot"><span class="curtain" aria-hidden="true"></span><img src="assets/puja-card.webp" alt="Nutritionist Puja Nayyar, seated in a carved armchair at home" fetchpriority="high"></figure>
           <span class="vcap sc">Puja Nayyar, nutritionist</span>
           <div class="chip c1"><b>Home food</b><span>plans from your own kitchen</span></div>
           <div class="chip c2"><b>Worldwide</b><span>calls and WhatsApp</span></div>
@@ -1164,19 +1164,19 @@ footer ul a:hover{text-decoration:underline}
   var RAD=function(){return innerWidth>900?30:24};
   function clipSlot(){var c=R();return 'inset('+c.t+'px '+c.r+'px '+c.b+'px '+c.l+'px round '+RAD()+'px)'}
   function clipLow(){var c=R();return 'inset('+(c.t+c.h)+'px '+c.r+'px '+c.b+'px '+c.l+'px round '+RAD()+'px)'}
-  function K(){var c=R();return Math.max(c.w/c.sw,c.h/c.sh)}
+  function K(){var c=R();return Math.max(c.w/c.sw,c.h/c.sh)*1.04}
   function O(){var c=R(),k=K(),ox=c.l+c.w/2,oy=c.t+c.h/2;
     if(innerWidth>900||1-k<.08)return ox+'px '+oy+'px';
     /* phone: aim the small card at her face, which sits high in the full-height photo */
     var half=c.h/(2*k),qy=Math.min(Math.max(c.sh*.3,half),c.sh-half);
     return ox+'px '+((oy-k*qy)/(1-k))+'px'}
-  gsap.set(slotImg,{opacity:0});
+  /* the card shows its own centred crop; the wide photo fades in over it as the scroll starts, then grows */
   /* blobs move to a layer under the photo so the growing photo is never covered */
   var sw=$1('.slotwrap'),blobs=document.createElement('div');blobs.className='blobs';blobs.setAttribute('aria-hidden','true');
   $('.blob',sw).forEach(function(b){blobs.appendChild(b)});stage.insertBefore(blobs,full);
   function placeBlobs(){var s=stage.getBoundingClientRect(),r=sw.getBoundingClientRect();gsap.set(blobs,{left:r.left-s.left,top:r.top-s.top,width:r.width,height:r.height})}
   placeBlobs();ScrollTrigger.addEventListener('refreshInit',function(){gsap.set(blobs,{clearProps:'left,top,width,height'})});ScrollTrigger.addEventListener('refresh',placeBlobs);
-  gsap.set(full,{visibility:'visible',clipPath:clipSlot()});
+  gsap.set(full,{visibility:'visible',autoAlpha:0,clipPath:clipSlot()});
   gsap.set(fimg,{transformOrigin:O(),scale:K()});
   gsap.set('.cover .panel',{visibility:'visible',clipPath:'inset(100% 0% 0% 0%)'});
   gsap.set('.ph-cap',{visibility:'visible',opacity:0});
@@ -1189,6 +1189,8 @@ footer ul a:hover{text-decoration:underline}
      .fromTo('.chip',{autoAlpha:1,y:0},{autoAlpha:0,y:-16,duration:.12,stagger:.02},0)
      .fromTo('.cue,.vcap',{autoAlpha:1},{autoAlpha:0,duration:.08},0)
      .fromTo(blobs,{autoAlpha:1,scale:1},{autoAlpha:0,scale:1.25,duration:.25},.04)
+     .fromTo(full,{autoAlpha:0},{autoAlpha:1,duration:.1,ease:'none'},.04)
+     .fromTo('.slot',{autoAlpha:1},{autoAlpha:0,duration:.06,ease:'none'},.12)
      .fromTo(full,{clipPath:clipSlot},{clipPath:'inset(0px 0px 0px 0px round 0px)',duration:.58,ease:'power2.inOut'},.12)
      .fromTo(fimg,{scale:K,transformOrigin:O},{scale:1,duration:.58,ease:'power2.inOut'},.12)
      .fromTo('.cover .panel',{clipPath:'inset(100% 0% 0% 0%)',y:30},{clipPath:'inset(0% 0% 0% 0%)',y:0,duration:.2,ease:'power3.out'},.68)
