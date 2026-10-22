@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poshan Labs | Mock C-b, A's opening in C's clothes</title>
+<meta name="robots" content="noindex">
+<script>
+(function(){
+  var d=document.documentElement;
+  var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(rm||/[?&]static=1/.test(location.search)){d.classList.add('static');d.style.setProperty('--sh',window.innerHeight+'px')}else{d.classList.add('motion')}
+  if(window.matchMedia&&matchMedia('(pointer: fine)').matches){d.classList.add('fine')}
+})();
+</script>
+<link rel="preload" as="image" href="assets/puja-hello-1200.webp" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F6EEDF; --paper:#FFFBF3; --ink:#14212E; --ink2:#3A4652;
+  --green:#7BA05B; --gbtn:#739853; --gdeep:#4C7535; --forest:#21341A;
+  --gold:#B8871B; --saffron:#E9A23B; --sand:#EAD9BA; --mint:#E3ECD9; --mint2:#CFE0BE;
+  --sh:100vh;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gut:clamp(16px,3.4vw,56px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:clip;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+img,video{display:block;max-width:100%}
+/* soft placeholder while images load: never a white flash */
+img,video{background-color:var(--sand);background-image:linear-gradient(135deg,#EFE2C6 0%,#F1D7A6 100%)}
+.hdr .logo img,footer img{background:none}
+a{color:inherit}
+.serif{font-family:var(--serif)}
+em,.it{font-style:italic;font-family:var(--serif)}
+.gold{color:var(--gold)} .green{color:var(--gdeep)}
+.kicker{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.wrap{padding-inline:var(--gut);max-width:1600px;margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Buttons */
+.btn{--bg:var(--gbtn);display:inline-flex;align-items:center;gap:.6em;background:var(--bg);color:#fff;text-decoration:none;font-weight:600;font-size:16px;
+  padding:16px 28px;border-radius:999px;border:0;cursor:pointer;line-height:1.2;box-shadow:0 10px 24px -12px rgba(33,52,26,.55);white-space:nowrap}
+.btn .arr{display:inline-block;transition:transform .3s}
+.btn:hover .arr{transform:translateX(4px) rotate(-12deg)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn.ink{background:var(--ink)}
+.btn.cream{background:var(--paper);color:var(--ink)}
+.btn.big{font-size:18px;padding:20px 34px}
+.magnetic{will-change:transform}
+
+/* Header */
+.hdr{position:fixed;z-index:50;top:12px;left:50%;transform:translateX(-50%);width:min(1240px,calc(100% - 20px));
+  display:flex;align-items:center;gap:20px;background:rgba(255,251,243,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-radius:999px;padding:8px 8px 8px 22px;box-shadow:0 10px 30px -18px rgba(20,33,46,.45),0 0 0 1px rgba(20,33,46,.06)}
+.hdr .logo img{height:34px;width:auto}
+.hdr nav{display:flex;gap:26px;margin-left:auto;font-size:14px;font-weight:500}
+.hdr nav a{text-decoration:none;position:relative}
+.hdr nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--saffron);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.hdr nav a:hover::after{transform:scaleX(1)}
+.hdr .btn{padding:12px 22px;font-size:14px}
+.menu-btn{display:none;background:none;border:0;font:600 14px var(--sans);color:var(--ink);padding:10px 12px;cursor:pointer}
+@media (max-width:900px){
+  .hdr nav{display:none}
+  .menu-btn{display:block;margin-left:auto}
+  .hdr{padding-left:16px;gap:6px}
+  .hdr .logo img{height:28px}
+}
+
+/* Contents overlay */
+.contents{position:fixed;inset:0;z-index:60;background:var(--forest);color:var(--cream);padding:90px var(--gut) 40px;display:none;overflow:auto}
+.contents.open{display:block}
+.contents .close{position:absolute;top:22px;right:var(--gut);background:var(--cream);color:var(--ink);border:0;border-radius:999px;font:600 14px var(--sans);padding:12px 20px;cursor:pointer}
+.contents ol{list-style:none;margin:0;padding:0}
+.contents li a{display:flex;gap:16px;align-items:baseline;text-decoration:none;font-family:var(--serif);font-size:clamp(34px,7vw,84px);line-height:1.08;padding:6px 0;border-bottom:1px solid rgba(246,238,223,.18)}
+.contents li a span{font:600 13px var(--sans);letter-spacing:.14em;color:var(--saffron)}
+.contents li a:hover{font-style:italic;color:var(--saffron)}
+
+/* Cursor */
+.cursor{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--saffron);pointer-events:none;z-index:90;mix-blend-mode:multiply;display:none}
+html.fine.motion .cursor{display:block}
+
+/* ---------- OPENING (A's structure: line / photo card / line; the card grows on scroll) ---------- */
+@supports (height:100svh){html.motion{--sh:100svh}}
+.opening{position:relative;background:transparent}
+.op-stage{position:relative;height:var(--sh);min-height:620px;overflow:hidden;
+  --ch:min(420px,61vw,calc(var(--sh) - 470px));--cw:calc(var(--ch) * .75);--dy:24px}
+@media (max-height:700px){.op-stage{--ch:min(400px,61vw,230px);--dy:20px}}
+.op-mast{position:absolute;z-index:4;top:96px;left:var(--gut);right:var(--gut);max-width:1600px;margin:0 auto;border-top-color:currentColor;border-bottom-color:currentColor}
+.op-card{position:absolute;z-index:2;left:50%;top:50%;width:var(--cw);height:var(--ch);margin:var(--dy) 0 0;overflow:hidden;
+  border-radius:999px 999px 28px 28px;transform:translate(-50%,-50%) rotate(3deg);box-shadow:0 40px 60px -30px rgba(20,33,46,.55);background:var(--sand)}
+.op-card img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.op-shade{position:absolute;inset:0;opacity:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(20,33,46,.62) 0%,rgba(20,33,46,0) 26%,rgba(20,33,46,0) 42%,rgba(20,33,46,.55) 66%,rgba(20,33,46,.9) 100%)}
+.op-h{position:absolute;inset:0;z-index:3;margin:0;pointer-events:none;text-align:center;font-family:var(--serif);font-weight:800;
+  font-size:clamp(36px,5.6vw,92px);line-height:1;letter-spacing:-.035em;font-variation-settings:"opsz" 144,"SOFT" 60;color:var(--ink)}
+.op-h .row{position:absolute;left:var(--gut);right:var(--gut);margin:0 auto;max-width:16ch}
+@media (min-width:901px){.op-h .row{max-width:none}}
+.op-h .l1{bottom:calc(50% - var(--dy) + var(--ch) / 2 + 18px)}
+.op-h .l2{top:calc(50% + var(--dy) + var(--ch) / 2 + 16px)}
+.op-h .nw{white-space:nowrap}
+.op-h em{font-weight:400;color:var(--gdeep);position:relative;display:inline-block}
+.op-h .scribble{bottom:-.14em}
+.op-badge{position:absolute;z-index:5;width:150px;height:150px;left:calc(50% + var(--cw) / 2 - 72px);top:calc(50% + var(--dy) - var(--ch) / 2 + 26px)}
+.op-badge svg{width:100%;height:100%;overflow:visible}
+.op-badge .spin{transform-origin:75px 75px}
+html.motion .op-badge .spin{animation:spin 16s linear infinite}
+.op-badge text{font:700 13.5px var(--sans);letter-spacing:.22em;fill:var(--ink)}
+.op-ctas{position:absolute;z-index:4;left:var(--gut);right:var(--gut);bottom:clamp(26px,5vh,48px);justify-content:center;margin:0}
+html.motion .op-ctas{opacity:0;visibility:hidden}
+.op-ctas .btn.ghost{background:rgba(255,251,243,.9)}
+.op-ghost{position:absolute;left:0;top:0;width:var(--cw);height:var(--ch);visibility:hidden;pointer-events:none}
+.op-cue{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%);display:none;flex-direction:column;align-items:center;gap:8px;font:600 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--ink);opacity:.7}
+.op-cue i{display:block;width:1.5px;height:30px;background:currentColor;transform-origin:top;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+html.motion .op-cue{display:flex}
+@media (max-width:900px){
+  .op-mast{top:84px}
+  .op-stage{--ch:min(420px,70vw,calc(var(--sh) - 500px))}
+  .op-h{font-size:clamp(34px,10.5vw,60px)}
+  .op-badge{width:100px;height:100px;left:calc(50% + var(--cw) / 2 - 50px)}
+  .op-ctas .btn{padding:14px 22px;font-size:15px}
+}
+
+/* ---------- HERO / COVER ---------- */
+.cover{position:relative;isolation:isolate;padding-top:96px;padding-bottom:40px}
+.mast{display:flex;justify-content:space-between;gap:16px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);padding:8px 0;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.mast span:nth-child(2){color:var(--gdeep)}
+.cover .lead{position:relative;z-index:4;margin:28px 0 0;font:700 clamp(30px,4.3vw,72px)/1 var(--serif);letter-spacing:-.03em;max-width:46vw}
+.cover .lead b{white-space:nowrap}
+.cover .lead b{color:var(--gold);font-style:italic;font-weight:400}
+.word{position:relative;z-index:3;font-family:var(--serif);font-weight:900;font-size:28vw;line-height:.78;letter-spacing:-.045em;margin:1.2vw 0 0 -1.2vw;font-variation-settings:"opsz" 144,"SOFT" 100;white-space:nowrap}
+.word .solid{position:relative;z-index:3;display:inline-block;color:var(--ink)}
+.word .outline{position:absolute;left:0;top:0;z-index:3;color:transparent;-webkit-text-stroke:2px var(--paper);pointer-events:none;display:inline-block}
+.word .dot{color:var(--saffron)}
+.word .outline .dot{color:transparent}
+/* B's portrait treatment: chair portrait, soft green blob, three floating chips */
+.pstage{position:absolute;z-index:2;right:19vw;top:190px;width:30vw;aspect-ratio:690/900}
+.blob{position:absolute;border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;will-change:border-radius,transform}
+html.motion .blob{animation:morph 14s ease-in-out infinite alternate}
+.blob.b1{inset:6% -10% 4% 2%;background:var(--green);opacity:.85}
+.blob.b2{inset:-4% 8% 22% -14%;background:var(--mint2);animation-duration:18s;animation-delay:-6s}
+@keyframes morph{
+  0%{border-radius:42% 58% 63% 37% / 41% 44% 56% 59%;transform:rotate(0) translate(0,0)}
+  33%{border-radius:63% 37% 38% 62% / 55% 61% 39% 45%;transform:rotate(14deg) translate(2%,-2%)}
+  66%{border-radius:36% 64% 52% 48% / 62% 38% 62% 38%;transform:rotate(-8deg) translate(-2%,2%)}
+  100%{border-radius:55% 45% 40% 60% / 38% 57% 43% 62%;transform:rotate(6deg) translate(1%,1%)}}
+.portrait{position:absolute;inset:0;border-radius:36px;overflow:hidden;box-shadow:0 30px 70px rgba(20,33,46,.22);background:var(--sand)}
+html.motion .portrait{animation:floaty 7s ease-in-out infinite}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-14px) rotate(.6deg)}}
+.chip{position:absolute;z-index:3;display:flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:10px 18px 10px 10px;box-shadow:0 2px 6px rgba(20,33,46,.06),0 24px 60px rgba(20,33,46,.14);font:600 14px/1.25 var(--sans);white-space:nowrap}
+html.motion .chip{animation:floaty 6s ease-in-out infinite}
+.chip i{width:36px;height:36px;border-radius:50%;background:var(--mint);display:grid;place-items:center;flex:none}
+.chip i svg{width:20px;height:20px}
+.chip small{display:block;font-weight:400;color:var(--ink2);font-size:12px;line-height:1.2}
+.chip.c1{right:-30%;top:12%;animation-delay:-2s}
+.chip.c2{right:-38%;top:44%;animation-delay:-4s;animation-duration:7.5s}
+.chip.c3{right:-22%;top:76%;animation-delay:-1s;animation-duration:8s}
+.line3{position:relative;z-index:4;font-family:var(--serif);font-weight:500;font-size:8.4vw;line-height:.95;letter-spacing:-.03em;margin:.6vw 0 0;max-width:62vw}
+.line3 em{color:var(--gdeep);font-weight:400;position:relative;display:inline-block}
+.scribble{position:absolute;left:-2%;width:104%;bottom:-.18em;height:.32em;overflow:visible;pointer-events:none}
+.scribble path{fill:none;stroke:var(--saffron);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+html.motion .draw path{stroke-dashoffset:1}
+.cover-copy{position:relative;z-index:4;display:grid;grid-template-columns:minmax(0,36vw) 1fr;gap:4vw;margin-top:3.4vw;align-items:start}
+.cover-copy p{margin:0;font-size:clamp(16px,1.35vw,20px);line-height:1.55;max-width:34em}
+.cover-copy p b{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.15em}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;align-items:center}
+.arrow-note{position:absolute;z-index:5;font-family:var(--serif);font-style:italic;font-size:clamp(18px,1.7vw,26px);color:var(--gdeep);line-height:1.1}
+.arrow-note svg{display:block;overflow:visible}
+.arrow-note path{fill:none;stroke:var(--gdeep);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.note-puja{right:3vw;top:300px;text-align:right}
+.note-puja svg{width:120px;height:90px;margin:4px 0 0 auto}
+.badge{position:absolute;z-index:5;width:150px;height:150px;left:calc(49vw - 75px);top:calc(150px + 31vw*1.37 - 110px)}
+.badge svg{width:100%;height:100%;overflow:visible}
+.badge .spin{transform-origin:75px 75px}
+html.motion .badge .spin{animation:spin 16s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge text{font:700 13.5px var(--sans);letter-spacing:.22em;fill:var(--ink)}
+.sticker{position:absolute;z-index:5;background:#fff;padding:8px 8px 30px;box-shadow:0 18px 30px -16px rgba(20,33,46,.5);border-radius:4px}
+.sticker img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+.sticker figcaption{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:italic 500 14px var(--serif)}
+.st-khichdi{width:150px;height:190px;right:13vw;top:calc(150px + 31vw*1.37 - 150px);transform:rotate(9deg)}
+.coverlines{position:relative;z-index:4;display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4.5vw;border-top:2px solid var(--ink)}
+.coverlines a{display:block;text-decoration:none;padding:16px 18px 18px 0;border-right:1px solid rgba(20,33,46,.2);margin-right:18px}
+.coverlines a:last-child{border-right:0}
+.coverlines b{display:block;font:italic 600 clamp(20px,2vw,30px)/1.05 var(--serif)}
+.coverlines span{display:block;font-size:13px;color:var(--ink2);margin-top:6px}
+.coverlines i{font:600 12px var(--sans);font-style:normal;color:var(--gold);letter-spacing:.14em}
+
+@media (max-width:900px){
+  .cover{padding-top:84px}
+  .mast span:nth-child(3){display:none}
+  .word{font-size:42vw;margin-top:4vw}
+  .cover .lead{font-size:clamp(30px,10vw,52px);max-width:none;margin-top:22px}
+  .pstage{position:relative;right:auto;top:auto;width:min(320px,70vw);margin:10vw auto 0}
+  .chip{font-size:12.5px;padding:8px 14px 8px 8px}
+  .chip i{width:30px;height:30px}
+  .chip i svg{width:17px;height:17px}
+  .chip.c1{right:auto;left:-14%;top:8%}
+  .chip.c2{right:-16%;top:52%}
+  .chip.c3{right:auto;left:-8%;top:auto;bottom:-3%}
+  .line3{font-size:13vw;max-width:none;margin-top:2vw}
+  .cover-copy{grid-template-columns:1fr;margin-top:12vw}
+  .note-puja{right:auto;left:var(--gut);top:auto;bottom:auto;margin-top:0}
+  .coverlines{grid-template-columns:1fr 1fr;margin-top:10vw}
+  .coverlines a{padding:14px 10px 14px 0;margin-right:10px;border-bottom:1px solid rgba(20,33,46,.2)}
+  .coverlines a:nth-child(2){border-right:0}
+}
+@media (max-width:900px){ .note-puja{display:none} }
+
+/* ---------- MARQUEE ---------- */
+.ribbons{position:relative;height:clamp(150px,16vw,240px);margin:30px 0 10px;overflow:hidden}
+.ribbon{position:absolute;left:-5%;width:110%;padding:14px 0;overflow:hidden;white-space:nowrap}
+.ribbon .track{display:inline-flex;will-change:transform}
+.ribbon span{font-family:var(--serif);font-weight:800;font-size:clamp(30px,4.6vw,72px);line-height:1;letter-spacing:-.01em;padding-right:.4em;text-transform:uppercase}
+.ribbon span i{font-weight:400;color:var(--saffron);font-style:normal}
+/* B's running line: navy band, slightly rotated, conditions in white */
+.r1{top:10%;background:var(--ink);color:#fff;transform:rotate(-2deg);z-index:2;padding:18px 0}
+.r1 span{display:inline-flex;align-items:center;gap:.7em;padding-right:.7em;font:500 clamp(20px,2.5vw,36px)/1.1 var(--sans);letter-spacing:0;text-transform:none}
+.r1 span svg{flex:none;width:.85em;height:.85em}
+.r2{top:54%;background:var(--saffron);color:var(--ink);transform:rotate(2.2deg)}
+.r2 span{font-style:italic;font-weight:500;text-transform:none}
+.r2 span i{color:var(--paper)}
+
+/* ---------- SECTION HEADS ---------- */
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;border-bottom:2px solid currentColor;padding-bottom:10px;margin-bottom:clamp(30px,5vw,70px)}
+.shead .kicker{opacity:.9}
+.shead .pg{font:italic 500 18px var(--serif)}
+.big-title{font-family:var(--serif);font-weight:800;font-size:clamp(52px,11vw,190px);line-height:.86;letter-spacing:-.04em;margin:0}
+.big-title em{font-weight:400;color:var(--gold)}
+#prog-h em{color:var(--gdeep)}
+
+/* ---------- EDITOR'S LETTER ---------- */
+.letter{padding-block:clamp(60px,8vw,130px)}
+.letter-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:6vw;align-items:start}
+.letter h2{font-family:var(--serif);font-weight:700;font-size:clamp(40px,6.4vw,104px);line-height:.92;letter-spacing:-.035em;margin:0 0 30px}
+.letter h2 em{display:block;color:var(--gold);font-weight:400}
+.dropcap::first-letter{float:left;font:900 5.4em/.8 var(--serif);color:var(--gdeep);margin:.04em .08em 0 0}
+.letter p{font-size:clamp(16px,1.3vw,19px);max-width:36em}
+.letter .pull{font:italic 400 clamp(24px,2.4vw,36px)/1.2 var(--serif);color:var(--ink);border-left:4px solid var(--saffron);padding-left:20px;margin:34px 0}
+.collage{position:relative;min-height:clamp(520px,52vw,760px)}
+.collage .p1{position:absolute;left:4%;top:0;width:62%;transform:rotate(-4deg)}
+.collage .p2{position:absolute;right:0;top:34%;width:46%;transform:rotate(5deg)}
+.collage .p3{position:absolute;left:18%;bottom:0;width:30%;transform:rotate(-9deg);z-index:2}
+.photo-card{background:#fff;padding:10px 10px 46px;box-shadow:0 30px 50px -28px rgba(20,33,46,.55);border-radius:4px;position:relative}
+.photo-card img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.photo-card figcaption{position:absolute;left:12px;bottom:10px;font:italic 500 16px var(--serif)}
+.tape{position:absolute;top:-14px;left:50%;width:90px;height:26px;margin-left:-45px;background:rgba(233,162,59,.55);transform:rotate(-4deg)}
+.sign{font:italic 300 clamp(44px,5vw,72px)/1 var(--serif);color:var(--gdeep);margin-top:10px}
+@media (max-width:900px){
+  .letter-grid{grid-template-columns:1fr}
+  .collage{min-height:118vw;margin-top:20px}
+}
+
+/* ---------- CONDITIONS SPREADS ---------- */
+.spreads{padding:clamp(50px,7vw,110px) 0 20px;background:var(--paper);border-top:2px solid var(--ink)}
+.spread{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:0 2vw;align-items:center;padding:clamp(40px,6vw,90px) 0;border-bottom:1px solid rgba(20,33,46,.18)}
+.spread:last-child{border-bottom:0}
+.spread .num{grid-column:1/8;grid-row:1;align-self:start;font-family:var(--serif);font-weight:900;font-size:21vw;line-height:.74;letter-spacing:-.06em;
+  color:transparent;-webkit-text-stroke:2px var(--gdeep);
+  background:linear-gradient(to top,var(--green) 0 50%,transparent 50% 100%);background-size:100% 200%;background-position:0 0;-webkit-background-clip:text;background-clip:text;margin-left:-.8vw}
+html.static .spread .num{background-position:0 100%}
+.spread .txt{grid-column:1/7;grid-row:1;position:relative;z-index:2;padding-top:12vw}
+.spread .tag{display:inline-block;background:var(--ink);color:var(--cream);font:600 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;border-radius:999px;transform:rotate(-3deg)}
+.spread .kick{display:block;font:italic 500 clamp(20px,1.8vw,28px)/1.2 var(--serif);color:var(--gold);margin:18px 0 8px}
+.spread h3{font-family:var(--serif);font-weight:700;font-size:clamp(36px,4.6vw,78px);line-height:.98;letter-spacing:-.03em;margin:0 0 26px}
+.spread h3 em{font-weight:400;color:var(--gdeep)}
+.spread .media{grid-column:8/13;grid-row:1;position:relative}
+.spread.flip .num{grid-column:6/13;text-align:right;margin-right:-.8vw}
+.spread.flip .txt{grid-column:7/13}
+.spread.flip .media{grid-column:1/6}
+.mask{position:relative;overflow:hidden;aspect-ratio:4/5;background:var(--sand)}
+.mask img{width:100%;height:100%;object-fit:cover}
+.mask .curtain{position:absolute;inset:0;background:var(--saffron);transform-origin:top}
+html.static .mask .curtain{display:none}
+.m-arch{border-radius:999px 999px 24px 24px}
+.m-blob{border-radius:62% 38% 55% 45% / 48% 58% 42% 52%}
+.m-flower{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 250' preserveAspectRatio='none'%3E%3Cpath d='M100 6c22 0 30 18 46 22s38-4 46 14-6 34-2 52 14 30 6 46-28 14-36 30-6 40-24 50-36-6-36-6-18 16-36 6-16-34-24-50-28-14-36-30 2-28 6-46S0 60 8 42s30-10 46-14S78 6 100 6z'/%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 250' preserveAspectRatio='none'%3E%3Cpath d='M100 6c22 0 30 18 46 22s38-4 46 14-6 34-2 52 14 30 6 46-28 14-36 30-6 40-24 50-36-6-36-6-18 16-36 6-16-34-24-50-28-14-36-30 2-28 6-46S0 60 8 42s30-10 46-14S78 6 100 6z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.m-circle{border-radius:50%;aspect-ratio:1/1}
+.m-burst{clip-path:polygon(50% 0%,59% 10%,71% 4%,75% 17%,88% 15%,86% 28%,98% 33%,90% 44%,100% 52%,90% 61%,97% 72%,85% 76%,86% 89%,73% 87%,68% 99%,57% 91%,48% 100%,40% 90%,28% 97%,24% 85%,11% 86%,13% 73%,1% 68%,9% 57%,0% 48%,10% 40%,3% 28%,15% 24%,14% 11%,27% 13%,32% 2%,43% 9%);aspect-ratio:1/1}
+.m-pill{border-radius:999px;aspect-ratio:3/5}
+.m-ticket{border-radius:40px 4px 40px 4px}
+.media .label{position:absolute;z-index:3;font:italic 600 clamp(18px,1.6vw,24px)/1 var(--serif);background:var(--paper);padding:10px 16px;border-radius:999px;box-shadow:0 12px 24px -14px rgba(20,33,46,.6);white-space:nowrap}
+.media .l-a{left:-6%;bottom:14%;transform:rotate(-6deg)}
+.media .l-b{right:-4%;top:12%;transform:rotate(5deg)}
+.media .quote-sticker{position:absolute;z-index:3;right:-6%;bottom:-6%;width:62%;background:var(--forest);color:var(--cream);padding:18px 20px;border-radius:18px;transform:rotate(-3deg);font:italic 400 clamp(16px,1.3vw,20px)/1.35 var(--serif)}
+.quote-sticker small{display:block;font:600 12px var(--sans);letter-spacing:.1em;color:var(--saffron);margin-top:8px;font-style:normal}
+.arrow-doodle{position:absolute;z-index:4;width:130px;height:90px;overflow:visible;pointer-events:none}
+.arrow-doodle path{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+@media (max-width:900px){
+  .spread{grid-template-columns:1fr;padding:46px 0}
+  .spread .num,.spread.flip .num{grid-column:1;grid-row:1;font-size:36vw;text-align:left;margin:0 0 0 -1vw}
+  .spread .num{position:relative;z-index:2;pointer-events:none}
+  .spread .media,.spread.flip .media{grid-column:1;grid-row:2;width:84%;margin:-12vw 0 0 auto;z-index:1}
+  .spread.flip .media{margin:-12vw auto 0 0}
+  .spread .txt,.spread.flip .txt{grid-column:1;grid-row:3;padding-top:30px}
+  .media .l-a{left:-4%}
+  .media .quote-sticker{right:-2%;width:80%}
+  .arrow-doodle{display:none}
+}
+
+/* ---------- RESULTS ---------- */
+.results{background:var(--forest);color:var(--cream);padding:clamp(60px,8vw,130px) 0;position:relative;overflow:hidden}
+.results .big-title em{color:var(--saffron)}
+.results .intro{max-width:38em;font-size:clamp(16px,1.3vw,19px);opacity:.9;margin:22px 0 0}
+.kg-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(30px,4vw,60px) 3vw;margin-top:clamp(40px,6vw,90px)}
+.kg{position:relative;grid-column:span 2;border-top:1px solid rgba(246,238,223,.3);padding-top:14px}
+.kg.wide{grid-column:span 3}
+.kg .n{display:flex;align-items:baseline;font-family:var(--serif);font-weight:900;font-size:clamp(84px,11vw,190px);line-height:.85;letter-spacing:-.05em;color:var(--cream);white-space:nowrap}
+.kg .n small{font-size:.32em;font-weight:400;font-style:italic;color:var(--saffron);letter-spacing:0;margin-left:.12em}
+.kg .n .sign{font-weight:300;color:var(--saffron);font-style:normal;font-size:1em;margin:0 .02em 0 0}
+.kg .who{font:italic 600 clamp(22px,2vw,30px)/1.1 var(--serif);margin-top:12px}
+.kg .what{font-size:14px;opacity:.85;margin-top:4px}
+.kg .pic{position:absolute;right:0;top:-18px;width:44%;background:#fff;padding:6px 6px 6px;border-radius:4px;box-shadow:0 20px 34px -18px rgba(0,0,0,.7);transform:rotate(6deg)}
+.kg .pic img{width:100%;border-radius:2px;aspect-ratio:800/565;object-fit:cover}
+.kg .pic.tall{width:30%;top:-30px;transform:rotate(-6deg)}
+.kg .pic.tall img{aspect-ratio:9/16;object-position:top}
+.kg:nth-child(2n) .pic{transform:rotate(-5deg)}
+.disclaim{margin-top:50px;font:italic 400 clamp(18px,1.6vw,24px) var(--serif);color:var(--sand)}
+/* before / after */
+.ba{margin-top:clamp(70px,9vw,140px)}
+.ba-stage{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:3vw}
+.ba-word{font-family:var(--serif);font-size:clamp(46px,9vw,150px);font-weight:300;font-style:italic;line-height:.9;letter-spacing:-.03em}
+.ba-word.r{text-align:right;color:var(--saffron);font-weight:800;font-style:normal}
+.ba-frame{position:relative;width:clamp(240px,30vw,440px);aspect-ratio:4/5;border-radius:999px 999px 30px 30px;overflow:hidden;background:#000;box-shadow:0 40px 70px -30px rgba(0,0,0,.8)}
+.ba-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.ba-frame .after{clip-path:inset(0 0 0 50%)}
+.ba-frame .bar{position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:var(--saffron)}
+.ba-frame .tagb,.ba-frame .taga{position:absolute;bottom:16px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;background:rgba(20,33,46,.7);color:#fff;padding:6px 10px;border-radius:999px}
+.ba-frame .tagb{left:14px}.ba-frame .taga{right:14px;background:var(--gbtn)}
+.ba-cap{text-align:center;margin-top:22px;font:italic 400 clamp(18px,1.6vw,24px) var(--serif)}
+@media (max-width:900px){
+  .kg-grid{grid-template-columns:1fr 1fr}
+  .kg,.kg.wide{grid-column:span 2}
+  .kg .pic{width:40%}
+  .kg .pic.tall{width:24%;top:-10px}
+  .kg .what{max-width:66%}
+  .ba-stage{grid-template-columns:1fr;justify-items:center;gap:16px}
+  .ba-word,.ba-word.r{text-align:center}
+  .ba-frame{width:76vw}
+}
+
+/* ---------- ON CAMERA ---------- */
+.camera{padding-block:clamp(60px,8vw,130px) clamp(40px,5vw,80px)}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;margin-top:clamp(30px,4vw,60px);align-items:start}
+.reel{position:relative}
+.reel:nth-child(1){transform:rotate(-4deg)}
+.reel:nth-child(2){transform:rotate(2.5deg);margin-top:8vw}
+.reel:nth-child(3){transform:rotate(-2deg);margin-top:2vw}
+.phone{position:relative;border-radius:36px;padding:10px;background:var(--ink);box-shadow:0 40px 60px -30px rgba(20,33,46,.7)}
+.phone video{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:27px}
+.vbox{position:relative;border-radius:27px;overflow:hidden}
+.reel-cover{position:absolute;z-index:2;pointer-events:none;border-radius:6px;background:rgba(36,33,30,.25);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px)}
+.reel-cover[hidden]{display:none}
+.phone .snd{position:absolute;right:20px;bottom:20px;background:rgba(255,251,243,.92);color:var(--ink);border:0;border-radius:999px;font:600 12px var(--sans);padding:8px 12px;cursor:pointer}
+.reel h4{font:italic 600 clamp(24px,2.2vw,34px)/1.05 var(--serif);margin:20px 0 4px}
+.reel p{margin:0;font-size:14px;color:var(--ink2)}
+@media (max-width:900px){
+  .reels{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);gap:22px;padding:10px var(--gut) 30px;margin-inline:calc(var(--gut) * -1);scrollbar-width:none}
+  .reels::-webkit-scrollbar{display:none}
+  .reel{flex:0 0 66vw;scroll-snap-align:center;margin-top:0!important}
+}
+
+/* WhatsApp files (horizontal) */
+.files{background:var(--saffron);color:var(--ink);overflow:hidden;position:relative}
+.files-inner{padding:clamp(50px,6vw,90px) 0}
+.files-row{display:flex;gap:3vw;padding:0 var(--gut);align-items:center;will-change:transform}
+.files-row .intro{flex:0 0 min(520px,80vw)}
+.files-row .intro h2{font-family:var(--serif);font-weight:800;font-size:clamp(48px,7vw,120px);line-height:.88;letter-spacing:-.04em;margin:0}
+.files-row .intro h2 em{font-weight:400;color:var(--paper)}
+.files-row .intro p{font-size:16px;max-width:26em}
+.shot{flex:0 0 clamp(200px,18vw,280px);background:#fff;padding:8px;border-radius:22px;box-shadow:0 28px 44px -24px rgba(20,33,46,.6)}
+.shot img{width:100%;aspect-ratio:9/16;object-fit:cover;object-position:top;border-radius:15px}
+.shot figcaption{font:italic 600 18px var(--serif);padding:8px 6px 2px}
+.shot:nth-child(odd){transform:rotate(-3deg)} .shot:nth-child(even){transform:rotate(3deg) translateY(30px)}
+@media (max-width:900px){
+  .files-row{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);padding-bottom:40px;scrollbar-width:none}
+  .files-row::-webkit-scrollbar{display:none}
+  .shot{flex:0 0 58vw;scroll-snap-align:center}
+  .files-row .intro{scroll-snap-align:start}
+}
+
+/* ---------- PULL QUOTES ---------- */
+.quotes{padding:clamp(70px,9vw,150px) 0;background:var(--paper)}
+.pq{position:relative;margin:0 0 clamp(70px,9vw,140px);max-width:1250px}
+.pq:last-child{margin-bottom:0}
+.pq:nth-child(even){margin-left:auto;text-align:right}
+.pq svg.qm{width:clamp(80px,10vw,150px);height:auto;overflow:visible;display:block;margin-bottom:-10px}
+.pq:nth-child(even) svg.qm{margin-left:auto}
+.qm path{fill:none;stroke:var(--saffron);stroke-width:6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.qm .dotq{fill:var(--saffron)}
+html.motion .qm .dotq{fill-opacity:0}
+.pq blockquote{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(34px,5.6vw,92px);line-height:1;letter-spacing:-.03em}
+.pq blockquote em{color:var(--gdeep);font-weight:400}
+.pq figcaption{display:flex;align-items:center;gap:14px;margin-top:24px;font-weight:600}
+.pq:nth-child(even) figcaption{justify-content:flex-end}
+.pq figcaption img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:3px solid var(--saffron)}
+.pq figcaption span{font-weight:400;color:var(--ink2);display:block;font-size:14px}
+
+/* ---------- HOW IT WORKS (stacking cards) ---------- */
+.how{padding-block:clamp(60px,8vw,130px)}
+.stack{position:relative;margin-top:clamp(30px,4vw,60px)}
+.step{position:sticky;top:100px;display:grid;grid-template-columns:auto 1fr auto;gap:3vw;align-items:center;min-height:clamp(220px,24vw,340px);
+  border-radius:36px;padding:clamp(26px,3.4vw,54px);margin-bottom:28px;box-shadow:0 -20px 40px -30px rgba(20,33,46,.5)}
+.step:nth-child(1){background:var(--sand)}
+.step:nth-child(2){background:var(--green);color:var(--ink);top:120px}
+.step:nth-child(3){background:var(--ink);color:var(--cream);top:140px}
+.step .sn{font:900 clamp(90px,12vw,200px)/.8 var(--serif);letter-spacing:-.06em}
+.step:nth-child(3) .sn{color:var(--saffron)}
+.step h3{font:600 clamp(28px,3.6vw,58px)/1.02 var(--serif);letter-spacing:-.02em;margin:0}
+.step h3 em{font-weight:400}
+.step img{width:clamp(110px,14vw,210px);aspect-ratio:1;object-fit:cover;border-radius:50%;transform:rotate(8deg)}
+@media (max-width:900px){
+  .step{grid-template-columns:1fr;gap:10px;top:84px;border-radius:26px}
+  .step:nth-child(2){top:96px} .step:nth-child(3){top:108px}
+  .step img{position:absolute;right:20px;top:20px;width:86px}
+}
+
+/* ---------- PRICE ---------- */
+.price{position:relative;padding:clamp(60px,8vw,130px) 0;background:var(--green);color:var(--ink);overflow:hidden}
+.price .from{font:italic 400 clamp(30px,3.6vw,56px)/1 var(--serif)}
+.price .amt{font-family:var(--serif);font-weight:900;font-size:21vw;line-height:.8;letter-spacing:-.06em;margin:10px 0 0 -1vw;white-space:nowrap;color:var(--paper)}
+.price .amt .rs{font:300 .5em/1 var(--sans);color:var(--ink);vertical-align:.62em;margin-right:.06em}
+.price .pm{font:italic 500 clamp(30px,4vw,64px)/1 var(--serif);text-align:right;margin-top:-1vw}
+.price-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:5vw;margin-top:clamp(40px,5vw,70px);align-items:end}
+.price ul{list-style:none;margin:0;padding:0;font:500 clamp(20px,2vw,30px)/1.25 var(--serif)}
+.price li{padding:14px 0;border-top:2px solid var(--ink);display:flex;gap:16px;align-items:baseline}
+.price li b{font:600 12px var(--sans);letter-spacing:.14em;color:var(--paper);min-width:2em}
+.price .aside{font-size:15px}
+.price .stamp{position:absolute;right:6vw;top:clamp(150px,15vw,240px);width:clamp(120px,13vw,190px);aspect-ratio:1;border-radius:50%;background:var(--saffron);display:grid;place-items:center;text-align:center;transform:rotate(12deg);font:italic 600 clamp(18px,1.8vw,26px)/1.05 var(--serif);padding:16px;box-shadow:0 20px 40px -20px rgba(20,33,46,.6)}
+@media (max-width:900px){
+  .price .amt{font-size:30vw}
+  .price .pm{text-align:left;margin-top:8px}
+  .price-grid{grid-template-columns:1fr}
+  .price .stamp{position:relative;top:auto;right:auto;margin:26px 0 0 auto;width:110px;font-size:16px;padding:10px}
+}
+
+/* ---------- FAQ ---------- */
+.faq{padding-block:clamp(60px,8vw,130px)}
+.faq-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:6vw}
+.faq details{border-top:2px solid var(--ink);padding:20px 0}
+.faq details:last-child{border-bottom:2px solid var(--ink)}
+.faq summary{list-style:none;cursor:pointer;display:flex;gap:18px;align-items:baseline;font:600 clamp(22px,2.4vw,36px)/1.15 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q.";font:italic 400 1em var(--serif);color:var(--gold)}
+.faq summary::after{content:"+";margin-left:auto;font:300 1.3em/1 var(--sans);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:14px 0 0 52px;font-size:clamp(16px,1.3vw,19px);max-width:36em}
+@media (max-width:900px){ .faq-grid{grid-template-columns:1fr} .faq details p{margin-left:0} }
+
+/* ---------- CLOSING ---------- */
+.closing{position:relative;background:var(--ink);color:var(--cream);padding:clamp(80px,10vw,170px) 0;overflow:hidden;isolation:isolate}
+.closing h2{font-family:var(--serif);font-weight:800;font-size:13vw;line-height:.84;letter-spacing:-.05em;margin:0;position:relative;z-index:2}
+.closing h2 em{font-weight:300;color:var(--saffron);display:block;margin-left:16vw}
+.closing .row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:clamp(36px,4vw,60px);position:relative;z-index:2}
+.closing .row p{margin:0 0 0 10px;font-size:15px;opacity:.85}
+.closing .ph{position:absolute;z-index:1;right:6vw;top:calc(clamp(80px,10vw,170px) + 10vw);width:clamp(150px,18vw,280px);transform:rotate(-7deg)}
+.closing .ph .photo-card img{aspect-ratio:3/4}
+@media (max-width:900px){
+  .closing h2{font-size:19vw}
+  .closing .wrap{display:flex;flex-direction:column}
+  .closing .ph{position:relative;order:3;right:auto;top:auto;bottom:auto;width:48vw;margin:56px 4vw 0 auto}
+}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--cream);padding:60px 0 40px;border-top:2px solid var(--ink)}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:4vw}
+footer img{height:44px;width:auto}
+footer h5{font:600 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;margin:0 0 12px;color:var(--gdeep)}
+footer ul{list-style:none;margin:0;padding:0;font-size:15px;line-height:2}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .fine{margin-top:44px;font-size:13px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.f-big{font:italic 400 clamp(24px,2.4vw,34px)/1.2 var(--serif);margin:16px 0 0}
+@media (max-width:900px){ .f-grid{grid-template-columns:1fr 1fr} .f-grid>div:first-child{grid-column:1/-1} }
+
+/* split chars */
+.w{display:inline-block;white-space:nowrap}
+.c{display:inline-block;will-change:transform}
+</style>
+</head>
+<body>
+<div class="cursor" aria-hidden="true"></div>
+
+<header class="hdr">
+  <a class="logo" href="#top" aria-label="Poshan Labs home"><img src="assets/poshan-logo.png" alt="Poshan Labs"></a>
+  <nav aria-label="Main">
+    <a href="#how">How I work</a><a href="#programs">Programs</a><a href="#results">Results</a><a href="#pricing">Pricing</a><a href="#about">About me</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="contents">Menu</button>
+  <a class="btn magnetic" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+</header>
+
+<div class="contents" id="contents" aria-label="Contents">
+  <button class="close" type="button">Close</button>
+  <p class="kicker" style="color:var(--saffron)">In this issue</p>
+  <ol>
+    <li><a href="#programs"><span>01</span>What I help with</a></li>
+    <li><a href="#results"><span>02</span>Results, in kg</a></li>
+    <li><a href="#camera"><span>03</span>On camera</a></li>
+    <li><a href="#words"><span>04</span>In their words</a></li>
+    <li><a href="#how"><span>05</span>How it works</a></li>
+    <li><a href="#pricing"><span>06</span>Pricing</a></li>
+    <li><a href="#about"><span>07</span>About me</a></li>
+    <li><a href="#faq"><span>08</span>Questions</a></li>
+  </ol>
+</div>
+
+<main id="top">
+<!-- ================= OPENING: line / photo card / line, the card grows to fill the screen ================= -->
+<section class="opening" aria-label="Introduction">
+  <div class="op-stage">
+    <div class="mast op-mast"><span>Poshan Labs</span><span>The home food issue</span><span>Online nutritionist &middot; Naraina, New Delhi</span></div>
+    <figure class="op-card"><img src="assets/puja-hello-1200.webp" alt="Nutritionist Puja Nayyar, smiling, hands open" width="1200" height="1800" fetchpriority="high" decoding="async"><span class="op-shade"></span></figure>
+    <h1 class="op-h"><span class="row l1">You don't have to <span class="nw">give up</span></span> <span class="row l2"><em>roti<svg class="scribble draw" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 26 C 60 8, 120 34, 190 18 S 320 6, 396 22"/></svg></em> to lose weight.</span></h1>
+    <div class="op-badge" aria-hidden="true">
+    <svg viewBox="0 0 150 150">
+      <circle cx="75" cy="75" r="72" fill="#E9A23B"/>
+      <g class="spin"><path id="circ" d="M75 75 m-54 0 a54 54 0 1 1 108 0 a54 54 0 1 1 -108 0" fill="none"/><text><textPath href="#circ">THE FIRST CALL IS FREE &#10022; THE FIRST CALL IS FREE &#10022;</textPath></text></g>
+      <text x="75" y="88" text-anchor="middle" style="font:italic 700 40px Fraunces,serif;letter-spacing:0;fill:#14212E">&#8377;0</text>
+    </svg>
+    </div>
+    <div class="ctas op-ctas">
+      <a class="btn magnetic" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+      <a class="btn ghost" href="https://wa.me/918882696344">Ask a quick question</a>
+    </div>
+    <div class="op-cue" aria-hidden="true">Scroll<i></i></div>
+    <span class="op-ghost" aria-hidden="true"></span>
+  </div>
+</section>
+
+<!-- ================= COVER ================= -->
+<section class="cover wrap" aria-label="The cover">
+  <div class="mast"><span>Poshan Labs</span><span>The home food issue</span><span>Online nutritionist &middot; Naraina, New Delhi</span></div>
+  <p class="lead split" aria-hidden="true">You don't have to <b>give up</b></p>
+  <h2 class="sr">You don't have to give up roti to lose weight.</h2>
+  <div class="word" aria-hidden="true">
+    <span class="solid split-hero">Roti<span class="dot">.</span></span>
+  </div>
+  <p class="line3 split" aria-hidden="true">to lose <em>weight.<svg class="scribble draw" viewBox="0 0 400 40" preserveAspectRatio="none"><path pathLength="1" d="M4 26 C 60 8, 120 34, 190 18 S 320 6, 396 22"/></svg></em></p>
+  <div class="pstage">
+    <div class="blob b2"></div>
+    <div class="blob b1"></div>
+    <div class="portrait"><img src="assets/puja-hero.webp" alt="Nutritionist Puja Nayyar in a white shirt, seated in a patterned armchair" width="690" height="1034" loading="lazy"></div>
+    <div class="chip c1"><i><svg viewBox="0 0 24 24" fill="none" stroke="#4C7535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M8 7c0-1.5 1-2 1-3.5M12 7c0-1.5 1-2 1-3.5M16 7c0-1.5 1-2 1-3.5"/></svg></i><span>Home food<small>plans from your own kitchen</small></span></div>
+    <div class="chip c2"><i><svg viewBox="0 0 24 24" fill="none" stroke="#4C7535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></i><span>Worldwide<small>calls and WhatsApp</small></span></div>
+    <div class="chip c3"><i><svg viewBox="0 0 24 24" fill="none" stroke="#4C7535" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></i><span>The first call is free</span></div>
+  </div>
+  <div class="cover-copy">
+    <div>
+      <p><b>I'm Puja Nayyar.</b> I build diet plans from the food people already cook at home, and adjust them to your reports and results.</p>
+      <div class="ctas">
+        <a class="btn big magnetic" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+        <a class="btn ghost" href="https://wa.me/918882696344">Ask a quick question</a>
+      </div>
+    </div>
+  </div>
+  <nav class="coverlines" aria-label="Inside">
+    <a href="#programs"><i>P. 01</i><b>Tried everything?</b><span>Still can't reduce your weight</span></a>
+    <a href="#programs"><i>P. 02</i><b>PCOS and PCOD</b><span>Irregular periods, the right nutrition</span></a>
+    <a href="#programs"><i>P. 03</i><b>Menopause hit!</b><span>Your body is asking for more</span></a>
+    <a href="#pricing"><i>P. 06</i><b>From &#8377;3,500</b><span>a month, first call free</span></a>
+  </nav>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="ribbons" aria-label="Weight loss, PCOS and PCOD, perimenopause and menopause, diabetes type 1 and type 2, thyroid, gut health, postpartum">
+  <div class="ribbon r1" aria-hidden="true"><div class="track" data-dir="-1">
+    <span>Weight loss <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> PCOS and PCOD <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Perimenopause and menopause <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Diabetes, type 1 and type 2 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Thyroid <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Gut health <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Postpartum <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg></span>
+    <span>Weight loss <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> PCOS and PCOD <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Perimenopause and menopause <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Diabetes, type 1 and type 2 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Thyroid <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Gut health <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg> Postpartum <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 6 6c4 0 9 2 10 7 .6 3-1 6-4 8Z" fill="#7BA05B"/></svg></span>
+  </div></div>
+  <div class="ribbon r2" aria-hidden="true"><div class="track" data-dir="1">
+    <span>home food, not a generic chart <i>&#10022;</i> weekly check-ins <i>&#10022;</i> clients across India and abroad <i>&#10022;</i></span>
+    <span>home food, not a generic chart <i>&#10022;</i> weekly check-ins <i>&#10022;</i> clients across India and abroad <i>&#10022;</i></span>
+  </div></div>
+</div>
+
+<!-- ================= EDITOR'S LETTER / APPROACH ================= -->
+<section class="letter wrap" id="about" aria-labelledby="about-h">
+  <div class="shead"><span class="kicker">Her approach</span><span class="pg">The letter</span></div>
+  <div class="letter-grid">
+    <div>
+      <h2 id="about-h" class="split">Blending Indian wisdom with modern science. <em>Our Dadi-Nani knew it.</em></h2>
+      <p class="dropcap">I'm Puja Nayyar. I build diet plans from the food people already cook at home, and adjust them to your reports and results. Your plan starts from what you already eat. We change portions, timing and a few swaps, not your whole kitchen.</p>
+      <p class="pull">Your body changes with your lifestyle, age, hormones and daily choices. Your nutrition should too.</p>
+      <p>I work with clients across India and abroad, including New Zealand, over phone calls and WhatsApp.</p>
+      <div class="sign">Puja</div>
+    </div>
+    <div class="collage" aria-hidden="false">
+      <figure class="photo-card p1 par" data-speed="-0.06" style="margin:0"><span class="tape"></span><img loading="lazy" src="assets/puja-about-800.webp" alt="Puja at a table with bowls of food"><figcaption>at the table</figcaption></figure>
+      <figure class="photo-card p2 par" data-speed="0.08" style="margin:0"><img loading="lazy" src="assets/puja-working-800.webp" alt="Puja working on her laptop"><figcaption>your plan, in the making</figcaption></figure>
+      <figure class="photo-card p3 par" data-speed="0.16" style="margin:0"><img loading="lazy" src="assets/sabzi.jpg" alt="A home-cooked sabzi"><figcaption>sabzi</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONDITIONS: NUMBERED SPREADS ================= -->
+<section class="spreads" id="programs" aria-labelledby="prog-h">
+  <div class="wrap">
+    <div class="shead"><span class="kicker">What I help with</span><span class="pg">Six spreads</span></div>
+    <h2 id="prog-h" class="big-title split">Plans for your health, <em>not just your weight.</em></h2>
+
+    <article class="spread">
+      <div class="num" aria-hidden="true">01</div>
+      <div class="txt">
+        <span class="tag">Weight loss</span>
+        <span class="kick">Tried everything?</span>
+        <h3 class="split">Still can't reduce your <em>weight?</em></h3>
+        <a class="btn" href="/poshan-labs/book/">Book our weight loss plan <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="media">
+        <div class="mask m-arch"><img loading="lazy" src="assets/scale-woman-tall.webp" alt="A woman standing on a weighing scale, seen from above"><span class="curtain"></span></div>
+        <span class="label l-a">You don't have to give up roti</span>
+      </div>
+    </article>
+
+    <article class="spread flip">
+      <div class="num" aria-hidden="true">02</div>
+      <div class="txt">
+        <span class="tag">PCOS and PCOD</span>
+        <span class="kick">Suffering from irregular periods?</span>
+        <h3 class="split">Manage PCOS, PCOD and <em>menstrual health</em> with the right nutrition.</h3>
+        <a class="btn" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="media">
+        <div class="mask m-blob"><img loading="lazy" src="assets/pcos-calendar.webp" alt="A woman sitting on her bed beside a period calendar" style="object-position:60% 50%"><span class="curtain"></span></div>
+        <span class="label l-b">menstrual health</span>
+      </div>
+    </article>
+
+    <article class="spread">
+      <div class="num" aria-hidden="true">03</div>
+      <div class="txt">
+        <span class="tag">Perimenopause and menopause</span>
+        <span class="kick">Let's fix your...</span>
+        <h3 class="split">Menopause hit! Your body is <em>asking for more.</em></h3>
+        <a class="btn" href="/poshan-labs/book/">Book now <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="media">
+        <div class="mask m-flower"><img loading="lazy" src="assets/menopause-tall.webp" alt="A woman on a sofa with her hand on her forehead"><span class="curtain"></span></div>
+        <div class="quote-sticker">"I lost 6 kg during perimenopause with Poshan Labs, simply by making the right food choices."<small>PRIYANKA, HOMEMAKER</small></div>
+      </div>
+    </article>
+
+    <article class="spread flip">
+      <div class="num" aria-hidden="true">04</div>
+      <div class="txt">
+        <span class="tag">Diabetes, type 1 and type 2</span>
+        <span class="kick">Living with diabetes?</span>
+        <h3 class="split">Tired of constantly worrying about what you <em>can and can't eat?</em></h3>
+        <a class="btn" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="media">
+        <div class="mask m-burst"><img loading="lazy" src="assets/diabetes-meter.webp" alt="Hands using a glucose meter"><span class="curtain"></span></div>
+        <span class="label l-a">type 1 and type 2</span>
+      </div>
+    </article>
+
+    <article class="spread">
+      <div class="num" aria-hidden="true">05</div>
+      <div class="txt">
+        <span class="tag">Thyroid and gut health</span>
+        <span class="kick">Nutrition that fits your life.</span>
+        <h3 class="split">You need a personalised diet, <em>not a generic chart</em> from the internet.</h3>
+        <a class="btn" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="media">
+        <div class="mask m-pill" style="width:78%;margin-left:auto"><img loading="lazy" src="assets/food-splash.jpg" alt="Vegetables and avocado flying on a yellow background"><span class="curtain"></span></div>
+        <span class="label l-a" style="left:2%">thyroid &middot; gut</span>
+      </div>
+    </article>
+
+    <article class="spread flip">
+      <div class="num" aria-hidden="true">06</div>
+      <div class="txt">
+        <span class="tag">Postpartum</span>
+        <span class="kick">After a baby.</span>
+        <h3 class="split" style="font-size:clamp(30px,3.4vw,56px)">"I've made great progress with <em>postpartum weight loss</em> and noticed an improvement in my period cramps."</h3>
+        <p style="margin:-10px 0 24px;font-weight:600">Swadha, podcast host</p>
+        <a class="btn" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="media">
+        <div class="mask m-ticket"><img loading="lazy" src="assets/curd.jpg" alt="A bowl of curd with a spoon, beside a plate of food" style="object-position:50% 40%"><span class="curtain"></span></div>
+        <span class="label l-b">postpartum</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= RESULTS ================= -->
+<section class="results" id="results" aria-labelledby="res-h">
+  <div class="wrap">
+    <div class="shead"><span class="kicker">Real results</span><span class="pg">The kg pages</span></div>
+    <h2 id="res-h" class="big-title split">Clients, <em>in their own photos.</em></h2>
+    <p class="intro">Every number here comes from a client's own photos or messages.</p>
+
+    <div class="kg-grid">
+      <div class="kg wide">
+        <div class="n"><span class="sign">&minus;</span><span class="count" data-to="7.9" data-dec="1">7.9</span><small>kg</small></div>
+        <div class="who">Dr. Rahul, doctor</div>
+        <div class="what">81.7 kg to 73.8 kg. "My insulin resistance, energy levels, and glycemic control have improved along the way."</div>
+        <figure class="pic" style="margin:0"><img loading="lazy" src="assets/ba-rahul-800.webp" alt="Dr. Rahul before and after"></figure>
+      </div>
+      <div class="kg wide">
+        <div class="n"><span class="sign">&minus;</span><span class="count" data-to="7" data-dec="0">7</span><small>kg</small></div>
+        <div class="who">Kesar, entrepreneur</div>
+        <div class="what">"I never felt like I was on a restrictive diet…"</div>
+        <figure class="pic" style="margin:0"><img loading="lazy" src="assets/ba-kesar-800.webp" alt="Kesar before and after"></figure>
+      </div>
+      <div class="kg">
+        <div class="n"><span class="sign">&minus;</span><span class="count" data-to="6" data-dec="0">6</span><small>kg</small></div>
+        <div class="who">Priyanka</div>
+        <div class="what">Lost 6 kg during perimenopause.</div>
+        <figure class="pic" style="margin:0"><img loading="lazy" src="assets/ba-priyanka-800.webp" alt="Priyanka before and after"></figure>
+      </div>
+      <div class="kg">
+        <div class="n"><span class="sign" style="font-style:italic">~</span><span class="count" data-to="8" data-dec="0">8</span><small>kg</small></div>
+        <div class="who">Navneet</div>
+        <div class="what">Lost nearly 8 kg.</div>
+        <figure class="pic" style="margin:0"><img loading="lazy" src="assets/ba-navneet-800.webp" alt="Navneet before and after"></figure>
+      </div>
+      <div class="kg">
+        <div class="n"><span class="sign">&minus;</span><span class="count" data-to="14" data-dec="0">14</span><small>kg</small></div>
+        <div class="who">Payal</div>
+        <div class="what">14 kg in 45 days. "Your diet plan and my efforts seem to be making a great team!"</div>
+        <figure class="pic tall" style="margin:0"><img loading="lazy" src="assets/payal-14kg.jpg" alt="Payal's WhatsApp message"></figure>
+      </div>
+    </div>
+
+    <div class="ba" aria-label="Dr. Rahul, before and after">
+      <div class="ba-stage">
+        <div class="ba-word">Before,<br>81.7 kg</div>
+        <div class="ba-frame">
+          <img loading="lazy" class="before" src="assets/ba-rahul-before-800.webp" alt="Dr. Rahul before">
+          <img loading="lazy" class="after" src="assets/ba-rahul-after-800.webp" alt="Dr. Rahul after">
+          <span class="bar"></span>
+          <span class="tagb">Before</span><span class="taga">After</span>
+        </div>
+        <div class="ba-word r">After,<br>73.8 kg</div>
+      </div>
+      <p class="ba-cap">Dr. Rahul, in his own photos. Scroll to see the change.</p>
+    </div>
+    <p class="disclaim">Everyone's body responds differently. Real results, not a promise.</p>
+  </div>
+</section>
+
+<!-- ================= ON CAMERA ================= -->
+<section class="camera wrap" id="camera" aria-labelledby="cam-h">
+  <div class="shead"><span class="kicker">Client videos</span><span class="pg">On camera</span></div>
+  <h2 id="cam-h" class="big-title split">Hear it <em>from them.</em></h2>
+  <div class="reels">
+    <article class="reel">
+      <div class="phone"><div class="vbox"><video src="assets/kesar.mp4" poster="assets/kesar.jpg" muted loop playsinline preload="none" aria-label="Kesar's video"></video></div><button class="snd" type="button">Tap for sound</button></div>
+      <h4>Kesar</h4><p>7 kgs, perimenopause, 3 months.</p>
+    </article>
+    <article class="reel">
+      <div class="phone"><div class="vbox"><video src="assets/rahul-reel.mp4" poster="assets/rahul-reel.jpg" muted loop playsinline preload="none" aria-label="Dr. Rahul's video"></video><span class="reel-cover" data-until="4.9" style="top:65.2%;left:65.7%;width:18.1%;height:4.8%"></span></div><button class="snd" type="button">Tap for sound</button></div>
+      <h4>Meet Dr. Rahul</h4><p>81.7 before joining, 73.8 four months after.</p>
+    </article>
+    <article class="reel">
+      <div class="phone"><div class="vbox"><video src="assets/vikrant-reel.mp4" poster="assets/vikrant-reel.jpg" muted loop playsinline preload="none" aria-label="Vikrant's video"></video><span class="reel-cover" style="top:15.2%;left:4%;width:92%;height:4.6%"></span></div><button class="snd" type="button">Tap for sound</button></div>
+      <h4>Vikrant, New Zealand</h4><p>About working with Puja, in Hindi and English.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ================= WHATSAPP FILES (horizontal) ================= -->
+<section class="files" aria-labelledby="files-h">
+  <div class="files-inner">
+    <div class="files-row">
+      <div class="intro">
+        <p class="kicker">Screenshots, names blurred</p>
+        <h2 id="files-h">The WhatsApp <em>files.</em></h2>
+        <p>Messages clients sent us. Names and numbers are blurred.</p>
+      </div>
+      <figure class="shot" style="margin:0"><img src="assets/kapeel-10kg.jpg" alt="Kapeel's WhatsApp message" loading="lazy"><figcaption>Kapeel</figcaption></figure>
+      <figure class="shot" style="margin:0"><img src="assets/shalu-4kg.jpg" alt="Shalu's WhatsApp message" loading="lazy"><figcaption>Shalu</figcaption></figure>
+      <figure class="shot" style="margin:0"><img src="assets/naaz-6kg.jpg" alt="Naaz's WhatsApp message" loading="lazy"><figcaption>Naaz</figcaption></figure>
+      <figure class="shot" style="margin:0"><img src="assets/neeta.jpg" alt="Neeta's WhatsApp message" loading="lazy"><figcaption>Neeta</figcaption></figure>
+      <figure class="shot" style="margin:0"><img src="assets/surbhi-4kg.jpg" alt="Surbhi's WhatsApp message" loading="lazy"><figcaption>Surbhi</figcaption></figure>
+      <figure class="shot" style="margin:0"><img src="assets/siddiqa-5kg.jpg" alt="Siddiqa's WhatsApp message" loading="lazy"><figcaption>Siddiqa</figcaption></figure>
+      <figure class="shot" style="margin:0"><img src="assets/review-himanshu.jpg" alt="Himanshu's Google review" loading="lazy"><figcaption>Himanshu</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PULL QUOTES ================= -->
+<section class="quotes" id="words" aria-labelledby="words-h">
+  <div class="wrap">
+    <div class="shead"><span class="kicker" id="words-h">In their words</span><span class="pg">Quoted exactly</span></div>
+
+    <figure class="pq" style="margin-left:0">
+      <svg class="qm draw" viewBox="0 0 150 90" aria-hidden="true"><circle class="dotq" cx="30" cy="66" r="16"/><path pathLength="1" d="M18 58 C 14 34, 28 14, 54 8"/><circle class="dotq" cx="96" cy="66" r="16"/><path pathLength="1" d="M84 58 C 80 34, 94 14, 120 8"/></svg>
+      <blockquote class="split">Never realised that calorie deficit <em>can be this enjoyable.</em></blockquote>
+      <figcaption><img loading="lazy" src="assets/t-vikrant-face.jpg" alt=""><div>Vikrant<span>Stand-up comedian</span></div></figcaption>
+    </figure>
+
+    <figure class="pq">
+      <svg class="qm draw" viewBox="0 0 150 90" aria-hidden="true"><circle class="dotq" cx="30" cy="66" r="16"/><path pathLength="1" d="M18 58 C 14 34, 28 14, 54 8"/><circle class="dotq" cx="96" cy="66" r="16"/><path pathLength="1" d="M84 58 C 80 34, 94 14, 120 8"/></svg>
+      <blockquote class="split">Ab lagta hai meri gallery mein meri photos se zyada <em>meri plates hain!</em></blockquote>
+      <figcaption><div>Kapeel<span>5.9 kg in one month, on WhatsApp</span></div></figcaption>
+    </figure>
+
+    <figure class="pq" style="margin-left:0">
+      <svg class="qm draw" viewBox="0 0 150 90" aria-hidden="true"><circle class="dotq" cx="30" cy="66" r="16"/><path pathLength="1" d="M18 58 C 14 34, 28 14, 54 8"/><circle class="dotq" cx="96" cy="66" r="16"/><path pathLength="1" d="M84 58 C 80 34, 94 14, 120 8"/></svg>
+      <blockquote class="split">With home-cooked meals as diet plans… <em>it didn't feel like I was dieting.</em></blockquote>
+      <figcaption><div>Nitika<span>Lost 3.5 kg in a month</span></div></figcaption>
+    </figure>
+
+    <figure class="pq">
+      <svg class="qm draw" viewBox="0 0 150 90" aria-hidden="true"><circle class="dotq" cx="30" cy="66" r="16"/><path pathLength="1" d="M18 58 C 14 34, 28 14, 54 8"/><circle class="dotq" cx="96" cy="66" r="16"/><path pathLength="1" d="M84 58 C 80 34, 94 14, 120 8"/></svg>
+      <blockquote class="split">…she makes our normal home food nutritious <em>instead of adding unnecessary supplements.</em></blockquote>
+      <figcaption><div>Mehak<span>Google review</span></div></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="how wrap" id="how" aria-labelledby="how-h">
+  <div class="shead"><span class="kicker">How it works</span><span class="pg">Three moves</span></div>
+  <h2 id="how-h" class="big-title split">What happens <em>after you book.</em></h2>
+  <div class="stack">
+    <div class="step"><div class="sn">1</div><h3>A free call about your <em>routine and goals.</em></h3><img loading="lazy" src="assets/puja-hero.webp" alt="" style="object-position:50% 20%"></div>
+    <div class="step"><div class="sn">2</div><h3>I review your <em>recent health reports.</em></h3><img loading="lazy" src="assets/lentils.jpg" alt=""></div>
+    <div class="step"><div class="sn">3</div><h3>You get your plan, <em>with weekly check-ins.</em></h3><img loading="lazy" src="assets/paratha.jpg" alt=""></div>
+  </div>
+  <div class="ctas"><a class="btn big magnetic" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a></div>
+</section>
+
+<!-- ================= PRICE ================= -->
+<section class="price" id="pricing" aria-labelledby="price-h">
+  <div class="wrap">
+    <div class="shead"><span class="kicker">Plans</span><span class="pg">The price page</span></div>
+    <h2 id="price-h" class="sr">Plans from ₹3,500 a month</h2>
+    <div class="from" aria-hidden="true">from</div>
+    <div class="amt" aria-hidden="true"><span class="rs">&#8377;</span><span class="count" data-to="3500" data-dec="0" data-comma="1">3,500</span></div>
+    <div class="pm" aria-hidden="true">a month.</div>
+    <div class="stamp" aria-hidden="true">first call is free</div>
+    <div class="price-grid">
+      <ul>
+        <li><b>01</b>Your personal diet plan</li>
+        <li><b>02</b>One-on-one time with me</li>
+        <li><b>03</b>Weekly check-ins and daily monitoring</li>
+        <li><b>04</b>Changes whenever you need them</li>
+      </ul>
+      <div>
+        <a class="btn big ink magnetic" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+        <p class="aside">Longer plans and plans outside India, on your free call.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq wrap" id="faq" aria-labelledby="faq-h">
+  <div class="faq-grid">
+    <div>
+      <div class="shead"><span class="kicker">Questions</span><span class="pg">Q and A</span></div>
+      <h2 id="faq-h" class="big-title split" style="font-size:clamp(52px,8vw,140px)">You <em>asked.</em></h2>
+    </div>
+    <div>
+      <details open><summary>Do I have to give up my favourite foods?</summary><p>No. Your plan starts from what you already eat. We change portions, timing and a few swaps, not your whole kitchen.</p></details>
+      <details><summary>How soon will I see a difference?</summary><p>Every body responds differently, and weight usually moves slowly. We check in every week, so from the first week you'll see what's changing and we adjust the plan together.</p></details>
+      <details><summary>Do I need to live near you?</summary><p>No. I work with clients across India and abroad, including New Zealand, over phone calls and WhatsApp.</p></details>
+      <details><summary>Will I get support after my plan?</summary><p>Yes. Weekly check-ins and day-to-day guidance are part of every plan, and the plan changes as you do.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLOSING ================= -->
+<section class="closing" aria-labelledby="close-h">
+  <div class="wrap">
+    <figure class="ph par" data-speed="0.1" style="margin:0"><div class="photo-card"><img loading="lazy" src="assets/puja-portrait-1200.webp" alt="Puja Nayyar in her chair"></div></figure>
+    <h2 id="close-h" class="split">Talk to me first. <em>It's free.</em></h2>
+    <div class="row">
+      <a class="btn big cream magnetic" href="/poshan-labs/book/">Book a free call <span class="arr">&rarr;</span></a>
+      <a class="btn big" href="https://wa.me/918882696344">Ask a quick question</a>
+      <p>Or message me on WhatsApp, +91 88826 96344</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div><img loading="lazy" src="assets/poshan-logo.png" alt="Poshan Labs"><p class="f-big">by nutritionist Puja Nayyar.<br>Naraina, New Delhi.</p></div>
+      <div><h5>Programs</h5><ul><li><a href="#programs">Weight loss</a></li><li><a href="#programs">PCOS and PCOD</a></li><li><a href="#programs">Menopause</a></li><li><a href="#programs">Diabetes</a></li><li><a href="#programs">Thyroid</a></li></ul></div>
+      <div><h5>Read and use</h5><ul><li><a href="#">Foods</a></li><li><a href="#">Diet plans</a></li><li><a href="#">Tools</a></li><li><a href="#">Glossary</a></li><li><a href="#">Videos</a></li></ul></div>
+      <div><h5>Contact</h5><ul><li><a href="tel:+918882696344">+91 88826 96344</a></li><li><a href="mailto:poshanlabs.official@gmail.com">poshanlabs.official@gmail.com</a></li><li><a href="https://www.instagram.com/poshanlabs">Instagram</a></li><li><a href="/poshan-labs/book/">Book a free call</a></li></ul></div>
+    </div>
+    <div class="fine"><span>General guidance, not medical advice. Please keep your doctor in the loop about any medication.</span><span>Disclaimer &middot; Privacy &middot; Credits</span></div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var html=document.documentElement;
+  var STATIC=html.classList.contains('static');
+  var $=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  /* Contents menu (works in every mode) */
+  var mb=document.querySelector('.menu-btn'),ct=document.getElementById('contents');
+  function setMenu(o){ct.classList.toggle('open',o);mb.setAttribute('aria-expanded',o);
+    if(o&&!STATIC&&window.gsap){gsap.from('#contents li',{y:40,opacity:0,stagger:.05,duration:.6,ease:'power3.out'})}}
+  mb.addEventListener('click',function(){setMenu(true)});
+  ct.querySelector('.close').addEventListener('click',function(){setMenu(false)});
+  $('#contents a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+
+  /* Reels: play when in view; sound toggle */
+  var vids=$('.phone video');
+  vids.forEach(function(v){
+    var timed=$('.reel-cover[data-until]',v.parentNode);
+    if(timed.length)v.addEventListener('timeupdate',function(){timed.forEach(function(c){c.hidden=v.currentTime>parseFloat(c.dataset.until)})});
+    v.addEventListener('play',function(){vids.forEach(function(o){if(o!==v&&!o.paused)o.pause()})});
+  });
+  $('.phone .snd').forEach(function(b){b.addEventListener('click',function(){
+    var v=b.parentNode.querySelector('video');v.muted=!v.muted;b.textContent=v.muted?'Tap for sound':'Sound on';if(v.paused)v.play();})});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&!STATIC){var p=e.target.play();if(p&&p.catch)p.catch(function(){})}else{e.target.pause()}})},{threshold:.35});
+    vids.forEach(function(v){io.observe(v)});
+  }
+
+  if(STATIC||!window.gsap||!window.ScrollTrigger){html.classList.remove('motion');html.classList.add('static');return;}
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Lenis smooth scroll */
+  var lenis=null;
+  if(window.Lenis){
+    lenis=new Lenis({lerp:.1,smoothWheel:true});
+    lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000)});
+    gsap.ticker.lagSmoothing(0);
+    $('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id.length>1){var t=document.querySelector(id);if(t){e.preventDefault();lenis.scrollTo(t,{offset:-80})}}})});
+  }
+
+  /* Split text into chars (keeps inner elements like <em>, <svg>) */
+  function split(el){
+    (function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType===3){
+          var frag=document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function(part){
+            if(!part)return;
+            if(/^\s+$/.test(part)){frag.appendChild(document.createTextNode(' '));return;}
+            var w=document.createElement('span');w.className='w';
+            Array.from(part).forEach(function(ch){var c=document.createElement('span');c.className='c';c.textContent=ch;w.appendChild(c)});
+            frag.appendChild(w);
+          });
+          node.replaceChild(frag,n);
+        }else if(n.nodeType===1&&n.tagName.toLowerCase()!=='svg'){walk(n)}
+      });
+    })(el);
+    return el.querySelectorAll('.c');
+  }
+
+  /* ---------- PAGE LOAD: OPENING (line / card / line) ---------- */
+  var op=document.querySelector('.op-stage'),card=document.querySelector('.op-card'),r1=document.querySelector('.op-h .l1'),r2=document.querySelector('.op-h .l2'),
+      badge=document.querySelector('.op-badge'),octas=document.querySelector('.op-ctas');
+  var ghost=document.querySelector('.op-ghost');
+  gsap.set(card,{x:0,y:0,xPercent:-50,yPercent:-50,rotation:3});
+  var r1c=split(r1),r2c=split(r2);
+  var intro=gsap.timeline({defaults:{ease:'power4.out'}});
+  intro.from('.hdr',{y:-90,opacity:0,duration:.9})
+    .from('.op-mast',{scaleX:0,transformOrigin:'left',duration:.9},'<.1')
+    .from(r1c,{yPercent:110,opacity:0,stagger:.025,duration:.8},'<.2')
+    .from(card,{scale:.6,rotation:-14,opacity:0,duration:1.3,ease:'expo.out'},'<.25')
+    .from(r2c,{yPercent:110,opacity:0,stagger:.03,duration:.8},'<.2')
+    .fromTo('.op-h .scribble path',{strokeDashoffset:1},{strokeDashoffset:0,duration:.9,ease:'power2.inOut'},'-=.3')
+    .from(badge,{scale:0,rotate:-40,duration:1,ease:'elastic.out(1,.55)'},'<');
+
+  /* ---------- SCROLL: the card grows to fill the screen, the two lines come together below her ---------- */
+  function cardR(){return ghost.offsetWidth/2}
+  function lineGap(){return parseFloat(getComputedStyle(r1).fontSize)*.08}
+  function endTop2(){return octas.offsetTop-r2.offsetHeight-Math.max(18,op.offsetHeight*.03)}
+  function endTop1(){return endTop2()-r1.offsetHeight-lineGap()}
+  var grow=gsap.timeline({scrollTrigger:{trigger:op,start:'top top',end:'+=140%',pin:true,scrub:1,invalidateOnRefresh:true}});
+  grow.fromTo(card,{width:function(){return ghost.offsetWidth},height:function(){return ghost.offsetHeight},
+        borderRadius:function(){var r=cardR();return r+'px '+r+'px 28px 28px'},rotation:3,marginTop:function(){return getComputedStyle(op).getPropertyValue('--dy').trim()}},
+      {width:function(){return op.offsetWidth},height:function(){return op.offsetHeight},borderRadius:'0px 0px 0px 0px',rotation:0,marginTop:0,ease:'power2.inOut',duration:1},0)
+    .to('.op-cue',{opacity:0,duration:.1},0)
+    .to(r1,{y:function(){return endTop1()-r1.offsetTop},ease:'power2.inOut',duration:.85},.1)
+    .to(r2,{y:function(){return endTop2()-r2.offsetTop},ease:'power2.inOut',duration:.85},.1)
+    .to('.op-h',{color:'#FFFBF3',textShadow:'0 2px 24px rgba(20,33,46,.35)',duration:.3,ease:'none'},.3)
+    .to('.op-h em',{color:'#E9A23B',duration:.3,ease:'none'},.3)
+    .to('.op-mast',{color:'#FFFBF3',duration:.2,ease:'none'},.6)
+    .to('.op-mast span:nth-child(2)',{color:'#FFFBF3',duration:.2,ease:'none'},.6)
+    .to('.op-shade',{opacity:1,duration:.45,ease:'none'},.4)
+    .to(badge,{x:function(){return op.offsetWidth-badge.offsetWidth-Math.max(16,op.offsetWidth*.034)-badge.offsetLeft},
+               y:function(){return document.querySelector('.op-mast').offsetTop+56-badge.offsetTop},rotation:12,ease:'power2.inOut',duration:.9},.05)
+    .fromTo(octas,{autoAlpha:0,y:40},{autoAlpha:1,y:0,duration:.25,ease:'power2.out'},.8)
+    .to({},{duration:.2});
+
+  /* ---------- COVER (second screen): same reveal as C, now on scroll ---------- */
+  var heroChars=[];$('.split-hero').forEach(function(el){heroChars.push(split(el))});
+  var leadC=split(document.querySelector('.cover .lead'));
+  var l3=split(document.querySelector('.cover .line3'));
+  var tl=gsap.timeline({defaults:{ease:'power4.out'},scrollTrigger:{trigger:'.cover',start:'top 70%',once:true}});
+  tl.from('.cover .mast',{scaleX:0,transformOrigin:'left',duration:.9})
+    .from(leadC,{yPercent:120,opacity:0,stagger:.018,duration:.6},'<.2')
+    .from(heroChars[0],{yPercent:110,rotate:8,opacity:0,stagger:.07,duration:1.1},'<.15')
+    .from('.pstage',{scale:.7,rotate:-10,opacity:0,duration:1.3,ease:'expo.out'},'<.35')
+    .from(l3,{yPercent:100,opacity:0,stagger:.03,duration:.7},'<.3')
+    .fromTo('.line3 .scribble path',{strokeDashoffset:1},{strokeDashoffset:0,duration:.9,ease:'power2.inOut'},'-=.2')
+    .from('.chip',{scale:0,opacity:0,duration:.8,ease:'back.out(1.7)',stagger:.12},'<')
+    .from('.cover-copy > div > *',{y:30,opacity:0,stagger:.1,duration:.8},'<')
+    .from('.coverlines a',{y:30,opacity:0,stagger:.08,duration:.7},'<.2');
+  // parallax on cover portrait
+  gsap.to('.pstage',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'.cover',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.word',{xPercent:-6,ease:'none',scrollTrigger:{trigger:'.cover',start:'top top',end:'bottom top',scrub:true}});
+
+  /* ---------- Letter-by-letter reveals on scroll ---------- */
+  $('.split').forEach(function(el){
+    if(el.closest('.cover')||el.closest('.opening'))return;
+    var cs=split(el);
+    gsap.from(cs,{yPercent:90,opacity:0,rotate:6,stagger:Math.min(.025,1.2/cs.length),duration:.8,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 86%',once:true}});
+  });
+
+  /* ---------- Scribble/doodle draws ---------- */
+  $('.qm').forEach(function(svg){
+    var t=gsap.timeline({scrollTrigger:{trigger:svg,start:'top 85%',once:true}});
+    t.fromTo(svg.querySelectorAll('path'),{strokeDashoffset:1},{strokeDashoffset:0,duration:.8,stagger:.2,ease:'power2.inOut'})
+     .to(svg.querySelectorAll('.dotq'),{fillOpacity:1,duration:.4,stagger:.15},'-=.5')
+     .from(svg.querySelectorAll('.dotq'),{scale:0,transformOrigin:'center',duration:.6,ease:'back.out(3)',stagger:.15},'<');
+  });
+
+  /* ---------- Marquee ribbons with scroll velocity ---------- */
+  var tracks=$('.ribbon .track').map(function(tr){
+    var dir=+tr.dataset.dir;
+    var tw=gsap.fromTo(tr,{xPercent:dir<0?0:-50},{xPercent:dir<0?-50:0,duration:dir<0?34:42,ease:'none',repeat:-1});
+    return tw;
+  });
+  ScrollTrigger.create({trigger:'.ribbons',start:'top bottom',end:'bottom top',onUpdate:function(s){
+    var v=s.getVelocity()/300;var ts=gsap.utils.clamp(-6,6,(s.direction>0?1:-1)*(1+Math.abs(v)));
+    tracks.forEach(function(t){gsap.to(t,{timeScale:ts,duration:.2,overwrite:true});gsap.to(t,{timeScale:s.direction>0?1:-1,duration:1.2,delay:.25,overwrite:false})});
+  }});
+  gsap.from('.r1',{rotate:-9,xPercent:-8,scrollTrigger:{trigger:'.ribbons',start:'top bottom',end:'bottom 40%',scrub:true}});
+  gsap.from('.r2',{rotate:8,xPercent:8,scrollTrigger:{trigger:'.ribbons',start:'top bottom',end:'bottom 40%',scrub:true}});
+
+  /* ---------- Collage parallax ---------- */
+  $('.par').forEach(function(el){
+    var sp=parseFloat(el.dataset.speed||.1);
+    gsap.to(el,{yPercent:sp*-200,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+  gsap.from('.collage .photo-card',{scale:.7,opacity:0,rotate:function(i){return [-20,18,-26][i]},stagger:.15,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'.collage',start:'top 75%',once:true}});
+  gsap.from('.dropcap',{opacity:0,y:30,duration:.9,scrollTrigger:{trigger:'.dropcap',start:'top 85%',once:true}});
+
+  /* ---------- Spreads: number fill + masked reveal ---------- */
+  $('.spread').forEach(function(sp){
+    var num=sp.querySelector('.num'),mask=sp.querySelector('.mask'),img=mask.querySelector('img'),cur=mask.querySelector('.curtain');
+    gsap.fromTo(num,{backgroundPosition:'0% 0%'},{backgroundPosition:'0% 100%',ease:'none',scrollTrigger:{trigger:sp,start:'top 80%',end:'center 45%',scrub:true}});
+    gsap.fromTo(num,{yPercent:18},{yPercent:-18,ease:'none',scrollTrigger:{trigger:sp,start:'top bottom',end:'bottom top',scrub:true}});
+    var t=gsap.timeline({scrollTrigger:{trigger:mask,start:'top 82%',once:true}});
+    t.from(mask,{scale:.55,rotate:sp.classList.contains('flip')?10:-10,duration:1.3,ease:'expo.out'})
+     .to(cur,{yPercent:-101,duration:1.1,ease:'power4.inOut'},'<.1')
+     .from(img,{scale:1.5,duration:1.6,ease:'expo.out'},'<.1')
+     .from(sp.querySelectorAll('.label,.quote-sticker'),{scale:0,rotate:-25,duration:.9,ease:'elastic.out(1,.6)',stagger:.1},'-=.9');
+    gsap.from(sp.querySelectorAll('.tag,.kick,.txt .btn,.txt p'),{y:24,opacity:0,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:sp.querySelector('.txt'),start:'top 80%',once:true}});
+    gsap.to(img,{yPercent:-6,ease:'none',scrollTrigger:{trigger:mask,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+
+  /* ---------- Counters ---------- */
+  $('.count').forEach(function(el){
+    var to=parseFloat(el.dataset.to),dec=+el.dataset.dec||0,comma=el.dataset.comma;
+    var o={v:0};
+    function fmt(v){var s=v.toFixed(dec);if(comma){s=Math.round(v).toLocaleString('en-IN')}return s}
+    el.textContent=fmt(0);
+    gsap.to(o,{v:to,duration:to>100?2.2:1.8,ease:'power2.out',onUpdate:function(){el.textContent=fmt(o.v)},
+      scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+  });
+  gsap.from('.kg .pic',{scale:0,rotate:30,duration:1,ease:'back.out(1.6)',stagger:.1,scrollTrigger:{trigger:'.kg-grid',start:'top 75%',once:true}});
+
+  /* ---------- Before / after, scrubbed ---------- */
+  var mm=gsap.matchMedia();
+  mm.add('(min-width: 901px)',function(){
+    var t=gsap.timeline({scrollTrigger:{trigger:'.ba',start:'center center',end:'+=900',scrub:.6,pin:true}});
+    t.fromTo('.ba-frame .after',{clipPath:'inset(0 0 0 100%)'},{clipPath:'inset(0 0 0 0%)',ease:'none'})
+     .fromTo('.ba-frame .bar',{left:'100%'},{left:'0%',ease:'none'},'<')
+     .fromTo('.ba-word:not(.r)',{opacity:1},{opacity:.25,ease:'none'},'<')
+     .fromTo('.ba-word.r',{opacity:.25,scale:.9},{opacity:1,scale:1,ease:'none'},'<');
+
+    /* WhatsApp files: pinned horizontal scroll */
+    var row=document.querySelector('.files-row');
+    var dist=function(){return Math.max(0,row.scrollWidth-window.innerWidth+60)};
+    gsap.to(row,{x:function(){return -dist()},ease:'none',scrollTrigger:{trigger:'.files',start:'top top',end:function(){return '+='+dist()},scrub:.8,pin:true,invalidateOnRefresh:true}});
+
+    /* reels drift */
+    $('.reel').forEach(function(r,i){gsap.to(r,{y:[-60,40,-30][i],ease:'none',scrollTrigger:{trigger:'.reels',start:'top bottom',end:'bottom top',scrub:true}})});
+  });
+  mm.add('(max-width: 900px)',function(){
+    gsap.fromTo('.ba-frame .after',{clipPath:'inset(0 0 0 100%)'},{clipPath:'inset(0 0 0 0%)',ease:'none',scrollTrigger:{trigger:'.ba-frame',start:'top 75%',end:'bottom 30%',scrub:.5}});
+    gsap.fromTo('.ba-frame .bar',{left:'100%'},{left:'0%',ease:'none',scrollTrigger:{trigger:'.ba-frame',start:'top 75%',end:'bottom 30%',scrub:.5}});
+  });
+  gsap.from('.reel',{y:120,opacity:0,rotate:0,stagger:.12,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:'.reels',start:'top 80%',once:true}});
+  gsap.from('.shot',{y:80,opacity:0,stagger:.06,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.files',start:'top 70%',once:true}});
+
+  /* ---------- How: stacking cards shrink as next arrives ---------- */
+  var steps=$('.step');
+  steps.forEach(function(s,i){
+    if(i===steps.length-1)return;
+    gsap.to(s,{scale:.93,opacity:.75,ease:'none',scrollTrigger:{trigger:steps[i+1],start:'top 85%',end:'top 30%',scrub:true}});
+  });
+  gsap.from('.step img',{rotate:-90,scale:.4,duration:1.2,ease:'back.out(1.4)',stagger:.1,scrollTrigger:{trigger:'.stack',start:'top 80%',once:true}});
+
+  /* ---------- Price ---------- */
+  gsap.from('.price .amt',{xPercent:-30,ease:'none',scrollTrigger:{trigger:'.price',start:'top bottom',end:'center center',scrub:true}});
+  gsap.from('.price .stamp',{scale:0,rotate:-200,duration:1.2,ease:'back.out(1.7)',scrollTrigger:{trigger:'.price',start:'top 60%',once:true}});
+  gsap.from('.price li',{x:-60,opacity:0,stagger:.08,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.price ul',start:'top 85%',once:true}});
+
+  /* ---------- FAQ ---------- */
+  gsap.from('.faq details',{y:30,opacity:0,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.faq-grid',start:'top 80%',once:true}});
+
+  /* ---------- Magnetic buttons + cursor (laptop only) ---------- */
+  if(html.classList.contains('fine')){
+    var mags=$('.magnetic').map(function(el){return {el:el,x:gsap.quickTo(el,'x',{duration:.5,ease:'power3.out'}),y:gsap.quickTo(el,'y',{duration:.5,ease:'power3.out'})}});
+    var cur=document.querySelector('.cursor');
+    var cx=gsap.quickTo(cur,'x',{duration:.25,ease:'power3.out'}),cy=gsap.quickTo(cur,'y',{duration:.25,ease:'power3.out'});
+    var big=false;
+    window.addEventListener('mousemove',function(e){
+      cx(e.clientX);cy(e.clientY);
+      var hot=false;
+      mags.forEach(function(m){
+        var r=m.el.getBoundingClientRect();var mx=r.left+r.width/2,my=r.top+r.height/2;
+        var dx=e.clientX-mx,dy=e.clientY-my,d=Math.hypot(dx,dy),R=Math.max(r.width,r.height)*.9+40;
+        if(d<R){m.x(dx*.35);m.y(dy*.45);hot=true}else{m.x(0);m.y(0)}
+      });
+      var overImg=e.target.closest&&e.target.closest('.mask,.photo-card,.phone,.shot');
+      var want=hot?4:(overImg?2.6:1);
+      if(want!==big){big=want;gsap.to(cur,{scale:want,duration:.35,ease:'power3.out'})}
+    },{passive:true});
+  }
+
+  window.addEventListener('load',function(){ScrollTrigger.refresh()});
+})();
+</script>
+</body>
+</html>
