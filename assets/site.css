@@ -1,8 +1,8 @@
-@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=90d7925e) format('woff2')}
-@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader.woff2?v=90d7925e) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader-italic.woff2?v=90d7925e) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader-rupee.woff2?v=90d7925e) format('woff2');unicode-range:U+20B9}
-@font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader-italic-rupee.woff2?v=90d7925e) format('woff2');unicode-range:U+20B9}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/poshan-labs/assets/fonts/inter.woff2?v=d2f77e75) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader.woff2?v=d2f77e75) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader-italic.woff2?v=d2f77e75) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader-rupee.woff2?v=d2f77e75) format('woff2');unicode-range:U+20B9}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(/poshan-labs/assets/fonts/newsreader-italic-rupee.woff2?v=d2f77e75) format('woff2');unicode-range:U+20B9}
 /* Inter for text, Newsreader for headings (final look, 2026-10-26: the "without squares" home page the client chose). Both
    are self-hosted variable fonts under the SIL OFL (build/fonts/OFL-*.txt); Newsreader is Google Fonts' latin subset, and
    the rupee sign comes from its own two-glyph file so prices set in the heading face keep it. The drawings use Inter. */
@@ -1878,6 +1878,8 @@ a.btn:not(.ghost):not(.quiet)::after{content:"";flex:none;width:18px;height:10px
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 10' preserveAspectRatio='xMaxYMid meet'%3E%3Cpath d='M0 5h27M23 1l4 4-4 4' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") right center/auto 100% no-repeat;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 10' preserveAspectRatio='xMaxYMid meet'%3E%3Cpath d='M0 5h27M23 1l4 4-4 4' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") right center/auto 100% no-repeat}
 a.btn:not(.ghost):not(.quiet):hover::after{width:26px}
+/* the home's buttons draw their own arrow (.fh-ar), so they skip this one */
+a.btn:not(.ghost):not(.quiet):has(> .fh-ar)::after{content:none}
 .btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--ink);font-weight:600;padding:13px 21px}
 .btn.ghost:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .btn.quiet,.pricebox a.quiet,.strip-nav button,.more-btn{background:var(--white);border:1px solid var(--line2);color:var(--ink);font:500 15px/1.2 var(--sans)}
