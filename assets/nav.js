@@ -77,3 +77,31 @@ if (location.search.indexOf("phonecheck") > -1) window.addEventListener("load", 
   document.documentElement.setAttribute("data-sw", document.documentElement.scrollWidth);
   document.documentElement.setAttribute("data-vw", window.innerWidth);
 });
+/* Final look (2026-10-26): the phone's slim booking bar (layout.sticky_bar). It slides up once the first screen has gone
+   by and steps away again at the page's closing section (.closing, the home page's .close-s, or anything marked
+   data-sbar-stop) and the footer, and while a sheet or the booking form is open. Hidden, it is out of the tab order and
+   hidden from screen readers; site.css keeps it off laptops. */
+(function () {
+  var bar = document.querySelector(".sbar");
+  if (!bar || !window.matchMedia) return;
+  var phone = matchMedia("(max-width:760px)"), on = false, busy = false, links = bar.querySelectorAll("a");
+  var stops = document.querySelectorAll("main .closing, main .close-s, [data-sbar-stop], footer");
+  function set(v) {
+    if (v === on) return;
+    on = v;
+    bar.classList.toggle("on", v);
+    bar.setAttribute("aria-hidden", v ? "false" : "true");
+    for (var i = 0; i < links.length; i++) links[i].tabIndex = v ? 0 : -1;
+  }
+  function check() {
+    busy = false;
+    var h = window.innerHeight, past = (window.pageYOffset || 0) > h * 0.8, near = false;
+    for (var i = 0; i < stops.length; i++) if (stops[i].getBoundingClientRect().top < h * 0.8) { near = true; break; }
+    set(phone.matches && past && !near && !document.body.classList.contains("open"));
+  }
+  function soon() { if (!busy) { busy = true; requestAnimationFrame(check); } }
+  window.addEventListener("scroll", soon, { passive: true });
+  window.addEventListener("resize", soon);
+  if (window.MutationObserver) new MutationObserver(soon).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  check();
+})();

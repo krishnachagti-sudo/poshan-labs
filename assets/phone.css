@@ -561,7 +561,7 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .hc-acts .btn{display:block;text-align:center;padding:13px 18px}
 .hc-acts .go{display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px}
 .hc-on .hc-acts{padding-bottom:6px}
-.helpcards .helpcard.open{box-shadow:var(--shadow-2,0 2px 6px rgba(36,33,30,.04),0 14px 34px rgba(36,33,30,.07))}
+.helpcards .helpcard.open{box-shadow:var(--shadow-2)}
 /* the booking steps */
 .bookform .bk-h{font-size:22px}
 .bk-pills{gap:8px}
@@ -583,7 +583,7 @@ footer{border-radius:var(--r-lg) var(--r-lg) 0 0}
 .goals.seg button:focus-visible{outline:2px solid var(--leaf-dark);outline-offset:2px}
 .goals.seg i.spice{display:none}  /* the dot stays on every verdict below; the segment has room for the word only */
 .goals.seg .seg-pill{position:absolute;z-index:0;top:4px;bottom:4px;left:0;width:0;border-radius:var(--r-pill,999px);background:var(--leaf);
-  box-shadow:var(--shadow-1,0 1px 2px rgba(36,33,30,.03),0 4px 14px rgba(36,33,30,.04))}
+  box-shadow:var(--shadow-1)}
 .goals.seg.seg-ready .seg-pill{transition:transform .3s var(--ease,cubic-bezier(.2,.8,.2,1)),width .3s var(--ease,cubic-bezier(.2,.8,.2,1))}
 /* 11: sliders under height, weight and waist */
 .tool input.slide{display:block}
@@ -730,25 +730,6 @@ details.fold>summary::after{border-color:var(--green,#7BA05B)}
 table.stack td::before,table.contact td:first-child{color:var(--soft,#6B635B)}
 .quals li{border-color:var(--hair,#EEE9E1)}
 .otp{bottom:calc(16px + env(safe-area-inset-bottom))}
-/* ===== IVORY HOME on phones (2026-10-19): the mock's phone page. Undoes the older phone rules the home's hero and
-   buttons would otherwise pick up (the pale green band, square buttons, the stacked photo height). ===== */
-/* the top padding stays the shared hero's (it makes room for the phone's top bar) */
-.hero.home,.hero.has-img.home{display:block;background:var(--ih-ivory,#FCFAF6);border-image:none;padding-left:var(--m,20px);padding-right:var(--m,20px);padding-bottom:56px}
-.hero.home .txt,.hero.has-img.home .txt{padding:0}
-.hero.home h1,.hero.has-img.home h1{font-size:clamp(36px,11.3vw,44px);line-height:1.12}
-.hero.home .txt>p.ih-line{font-size:18px;margin-top:22px}
-.hero.home .ctas{display:grid;gap:12px;margin-top:28px}
-.hero.home .ctas .btn,.ih .btn{display:flex;width:100%;margin:0;padding:0 20px;font-size:19px}
-.hero.home .hero-img{height:auto;aspect-ratio:1/.86;margin-top:30px;object-position:50% 30%}
-.ih .wide h2{font-size:32px}
-.ih .ba-frame.on{aspect-ratio:1.2/1}
-.ih .ba figcaption{padding:16px 18px 18px}
-.ih-kg b{font-size:28px}
-.ih-minis li{padding:14px 12px 12px}
-.ih-mkg b{font-size:24px}
-.ih-q p{font-size:20px}
-.ih-price{font-size:clamp(28px,8.4vw,34px)}
-.ih-close .wide h2{font-size:38px}
 /* ===== REELS on phones (2026-10-20): two reels a row, and on a program page the reel beside its line. ===== */
 .reels{grid-template-columns:1fr 1fr;gap:24px 12px;margin-top:18px}
 .reel-frame{border-radius:var(--r-md)}
@@ -771,3 +752,86 @@ table.stack td::before,table.contact td:first-child{color:var(--soft,#6B635B)}
 .reel-sound{right:8px;top:8px;width:40px;height:40px}
 /* ===== ONE-STEP BOOKING on phones: compact goal pills so name and number come up quickly ===== */
 .bookform .bk-one .bk-pills label{min-height:40px;padding:8px 14px;font-size:15px}
+/* ===== FINAL FOUNDATION on phones (2026-10-26, the "without squares" mock's phone page): the cream header with the logo,
+   a two-line Book pill and Menu; light Newsreader headings; buttons sized to their words, as the mock's are; the menu in
+   the heading face; the footer with room under it for the slim booking bar, which slides up after the first screen
+   (nav.js) and steps away at the closing section and the footer. ===== */
+body{background:var(--paper)}
+h1,h2,.hero h1,.hero.has-img h1,.hero.compact h1,main h2,.sec h2{font-family:var(--serif);font-weight:300;line-height:1.06}
+h2,.sec h2,main h2{font-size:31px}
+.hero h1,.hero.has-img h1{font-size:38px;line-height:1.04}
+.hero.compact h1{font-size:32px}
+main h3{font-size:21px}
+.btn{display:inline-flex;width:auto;max-width:100%;margin-top:16px;padding:15px 20px;min-height:48px;font-size:15px;line-height:1.2;white-space:normal;
+  border-radius:var(--r-pill)}
+.ctas .btn{margin-top:0}
+.btn.quiet,.more-btn{min-height:44px;font-size:15px}
+.bookform .btn{width:100%}
+/* the header: the page's cream, a hairline under it; the logo, the Book pill on two lines, Menu */
+.pbar{min-height:60px;gap:8px;padding:8px 12px 8px 16px;background:rgba(251,249,244,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line)}
+.pbar .logo{height:30px}
+.pbar .cta{min-height:44px;max-width:156px;padding:7px 14px;border-radius:var(--r-pill);background:var(--green);color:#fff;
+  font:600 12.5px/1.15 var(--sans);white-space:normal;text-align:center;justify-content:center}
+.pbar .mbtn{border-color:var(--line2);background:transparent;font:500 14px/1 var(--sans)}
+html{scroll-padding-top:72px}
+/* the menu: the cream page, her pages large in the heading face, the line about the free call in italics */
+.menu-sheet,.js-sheets .menu-sheet{background:var(--paper)}
+.menu-sheet .sh h2.label{margin:0;font-size:11px;color:var(--green)}
+.menu-sheet .mgrid:first-of-type a{font:300 32px/1.15 var(--serif);letter-spacing:-.02em;color:var(--ink)}
+.menu-sheet .mgrid:first-of-type a[aria-current]{color:var(--green);font-style:italic}
+.menu-sheet .mgrid+.mgrid{border-top-color:var(--line)}
+.menu-sheet .mgrid+.mgrid a{color:var(--ink);font-weight:500}
+.menu-sheet .ms-line{font:300 italic 21px/1.3 var(--serif);color:var(--ink)}
+.menu-sheet .btn{display:flex;width:100%}
+.sheet .x,.book-sheet .x,.menu-sheet .sh .x{border-color:var(--line2);color:var(--ink);font:500 15px var(--sans)}
+.js-sheets .sheet{background:var(--paper)}
+.js-sheets .scrim{background:rgba(27,30,26,.24)}
+/* the closing section and the booking band */
+.closing h2,.closing.big h2{font-size:40px}
+.sec.bookband{padding:10px 0}
+.bookband .wide{padding:0 12px}
+.bookband .bd-box{gap:20px;padding:26px 22px;border-radius:var(--r-lg)}
+.bookband .bd-l{font-size:26px}
+.bookband .bd-c .btn{margin-top:0}
+/* the footer: room under it for the booking bar; her line in italics */
+footer{padding:36px 0 104px}
+.foot .who .by{font-size:22px}
+.fnav{border-top-color:var(--line)}
+.fnav a{border-bottom-color:var(--line)}
+.foot .fine{border-top-color:var(--line2)}
+/* the slim booking bar: hidden until nav.js says the first screen has gone by */
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:48;display:flex;gap:10px;align-items:stretch;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(251,249,244,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);transform:translateY(110%);visibility:hidden;transition:transform .45s cubic-bezier(.2,.7,.1,1),visibility 0s .45s}
+.sbar.on{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.2,.7,.1,1)}
+.sbar .btn{flex:1;margin:0;padding:12px 14px;font-size:14.5px}
+.sbar .wa{flex:none;width:48px;min-height:48px;display:grid;place-items:center;border:1px solid var(--green);border-radius:50%;color:var(--green)}
+body.open .sbar{transform:translateY(110%);visibility:hidden}
+@media (prefers-reduced-motion: reduce){.sbar,.sbar.on{transition:none}}
+/* ===== end FINAL FOUNDATION ===== */
+/* ===== FINAL PAGES on phones (2026-10-26): the same paper heroes and light serif headings, a size down; cream and
+   paper sections with no hairlines; the booking band stacks. ===== */
+.hero,.hero.has-img{background:var(--paper,#FBF9F4);border-bottom:0;padding-bottom:34px}
+.hero.compact{padding-bottom:20px}
+.hero h1,.hero.has-img h1{font-size:clamp(34px,9.6vw,42px);line-height:1.06;font-weight:300}
+.hero.compact h1{font-size:31px;font-weight:300}
+h1 .h1sub{font-size:.6em}
+.hero .txt>p,.hero .txt .intro p{font-size:17px;color:var(--ink2,#5A5F57)}
+.hero .txt>p.label,.hero .txt>p.crumbs.label,h1 .eyebrow.label{font-size:10.5px;margin-bottom:12px}
+.crumbs+h1 .eyebrow.label{font-size:15px}
+.sec.tint{background:var(--cream,#F3EEE3)}
+.sec h2{font-weight:300;font-size:30px;line-height:1.1}
+ol.steps .sn{font-size:40px}
+.rows .num,.accs .num{font-family:var(--serif,'Newsreader',Georgia,serif);font-weight:300;font-size:28px}
+.testimonial .q-gist{font-size:19px}
+.goals button.on,.switch span,.switch span.on{background:var(--mint,#E3ECD8);border:1px solid rgba(76,117,53,.45)}
+.goals.seg{background:var(--cream,#F3EEE3);border-color:transparent}
+.goals.seg .seg-pill{background:var(--white,#fff);border:1px solid rgba(76,117,53,.45)}
+.sec.bookband{padding:12px 0}
+.bookband .wide{padding-left:var(--m,16px);padding-right:var(--m,16px)}
+.bookband .bd-box{display:block;padding:26px 22px}
+.bookband .bd-l{font-size:26px}
+.bookband .bd-c{margin-top:20px;gap:14px 20px}
+.bookband .bd-c .btn{white-space:normal}
+/* ===== end FINAL PAGES on phones ===== */
